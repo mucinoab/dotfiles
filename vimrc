@@ -25,6 +25,9 @@ set laststatus=0
 set scrolloff=5
 set relativenumber
 
+"color de los numeros relativos
+highlight LineNr ctermfg=grey
+
 function! My_Tab_Completion()
     if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
         return "\<C-P>"
@@ -80,7 +83,6 @@ function! s:swap_lines(n1, n2)
     call setline(a:n2, line1)
 endfunction
 
-
 function! s:swap_up()
     let n = line('.')
     if n == 1
@@ -108,6 +110,7 @@ noremap <silent> <c-j> :call <SID>swap_down()<CR>
 let mapleader = "\<Space>"
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
+nmap <C-Space>  :wq<CR>
 
 " Proper search
 set incsearch
