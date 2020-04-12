@@ -1,31 +1,44 @@
 "map<c-j> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -O2<CR><CR>:q <CR>
 map<c-h> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -O2<CR>:!sleep 1<CR>:q <CR>
 
+nmap j gj
+nmap k gk
+
+"nueva línea en blanco
+nmap n o<Esc>
+
 inoremap jk <esc>
 syntax on
+set mouse=a
 set clipboard=unnamedplus
+set shiftwidth=2
+set tabstop=2
+set virtualedit=all
+set encoding=utf-8
+set laststatus=0
+set scrolloff=5
 set undofile
 set cursorline
 set number
-set mouse=a
 set autoindent
-set shiftwidth=2
 set smarttab
 set smartindent
 set ruler   
 set title
-set tabstop=2
 set showcmd
 set autoread
 set shiftround
 set expandtab
 set lazyredraw
-set encoding=utf-8
-set laststatus=0
-set scrolloff=5
 set relativenumber
 
-highlight LineNr ctermfg=grey
+
+"cosas para editar texto simple, no código
+filetype plugin indent on
+au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 formatoptions=l lbr nocul
+let g:latex_indent_enabled = 1
+let g:latex_fold_envs = 0
+let g:latex_fold_sections = []
 
 set spell
 set spelllang=es,en
@@ -49,29 +62,37 @@ map H ^
 map L $
 
 "vim plug 
-
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 Plug 'lifepillar/vim-solarized8'
 Plug 'tpope/vim-surround'
-Plug 'rust-lang/rust.vim'
 Plug 'justinmk/vim-sneak'
-Plug 'dense-analysis/ale'
+Plug 'rust-lang/rust.vim'
+"Plug 'dense-analysis/ale'
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
 let g:ale_linters_explicit = 1
+let g:ale_completion_enabled = 1
 let g:ale_linters = {
-\   'latex': ['redpen'],
+\   'tex':['texlab']
+\}
+let g:ale_fixers = {
+\   'tex':['latexindent', 'texlint'], 
 \}
 
 "tema solarized"tema solarized
+colorscheme solarized8_flat
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 let g:solarized_termtrans = 1
+let g:solarized_visibility = "low"
 set background=dark
-set t_Co=256
-let base16colorspace=256
+
+hi clear SpellBad
+hi SpellBad cterm=underline  ctermfg=Red
+
 
 "desactiva las flecha
 nnoremap <up> <nop>
@@ -132,6 +153,4 @@ set gdefault
 if has("autocmd")
   au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-
-hi clear SpellBad
-hi SpellBad cterm=underline  ctermfg=Red
+ 
