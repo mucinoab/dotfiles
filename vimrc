@@ -25,8 +25,10 @@ set laststatus=0
 set scrolloff=5
 set relativenumber
 
-"color de los numeros relativos
 highlight LineNr ctermfg=grey
+
+set spell
+set spelllang=es,en
 
 function! My_Tab_Completion()
     if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
@@ -54,8 +56,14 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'tpope/vim-surround'
 Plug 'rust-lang/rust.vim'
 Plug 'justinmk/vim-sneak'
+Plug 'dense-analysis/ale'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+\   'latex': ['redpen'],
+\}
 
 "tema solarized"tema solarized
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -83,6 +91,7 @@ function! s:swap_lines(n1, n2)
     call setline(a:n2, line1)
 endfunction
 
+
 function! s:swap_up()
     let n = line('.')
     if n == 1
@@ -106,11 +115,12 @@ endfunction
 noremap <silent> <c-k> :call <SID>swap_up()<CR>
 noremap <silent> <c-j> :call <SID>swap_down()<CR>
 
-" Quick-save y sair  con spacio 
+" Quick-save y salir  con espacio 
 let mapleader = "\<Space>"
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
-nmap <C-Space>  :wq<CR>
+nmap <C-Space> :wq<CR>
+imap <C-Space> <Esc>:wq<CR>
 
 " Proper search
 set incsearch
@@ -122,3 +132,6 @@ set gdefault
 if has("autocmd")
   au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
+hi clear SpellBad
+hi SpellBad cterm=underline  ctermfg=Red

@@ -101,7 +101,8 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
+#Hace que los alias funcionen con sudo
+alias sudo='sudo '
 alias ls='exa'
 alias la='exa -a'
 alias l='exa'
