@@ -4,7 +4,6 @@ map<c-h> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -O2<CR>:!sleep 1<CR>:q 
 nmap j gj
 nmap k gk
 nmap n o<Esc>
-
 inoremap jk <esc>
 syntax on
 
@@ -64,12 +63,12 @@ map L $
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 Plug 'lifepillar/vim-solarized8'
-Plug 'tpope/vim-surround'
-Plug 'justinmk/vim-sneak'
-Plug 'rust-lang/rust.vim'
-Plug 'Yggdroot/indentLine'
-Plug 'psliwka/vim-smoothie'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'tpope/vim-surround'
+"Plug 'justinmk/vim-sneak'
+"Plug 'rust-lang/rust.vim'
+"Plug 'Yggdroot/indentLine'
+"Plug 'psliwka/vim-smoothie'
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'dense-analysis/ale'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -150,7 +149,7 @@ if has("-autocmd")
 endif
 
 set redrawtime=10000
-set updatetime=1000
+set updatetime=500
 set shortmess+=c
 set signcolumn=yes
 
