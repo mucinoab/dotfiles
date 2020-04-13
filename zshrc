@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+#export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH
 . /usr/share/autojump/autojump.sh
 # Path to your oh-my-zsh installation.
 export ZSH="/home/bruno/.oh-my-zsh"
@@ -108,6 +109,7 @@ alias la='exa -a'
 alias l='exa'
 alias tm='tmux -2'
 alias vim='nvim'
+alias du='du -h'
 alias grep='grep --color=auto'
 bindkey '^ ' autosuggest-accept
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'

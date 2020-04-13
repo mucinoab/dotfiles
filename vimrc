@@ -1,14 +1,13 @@
-"map<c-j> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -O2<CR><CR>:q <CR>
+"map<c-j> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -OE<CR><CR>:q <CR>
 map<c-h> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -O2<CR>:!sleep 1<CR>:q <CR>
 
 nmap j gj
 nmap k gk
-
-"nueva línea en blanco
 nmap n o<Esc>
 
 inoremap jk <esc>
 syntax on
+
 set mouse=a
 set clipboard=unnamedplus
 set shiftwidth=2
@@ -32,7 +31,6 @@ set expandtab
 set lazyredraw
 set relativenumber
 
-
 "cosas para editar texto simple, no código
 filetype plugin indent on
 au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 formatoptions=l lbr nocul
@@ -42,6 +40,7 @@ let g:latex_fold_sections = []
 
 set spell
 set spelllang=es,en
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 function! My_Tab_Completion()
     if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
@@ -68,31 +67,27 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
 Plug 'rust-lang/rust.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'psliwka/vim-smoothie'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'dense-analysis/ale'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
 let g:ale_linters_explicit = 1
 let g:ale_completion_enabled = 1
-let g:ale_linters = {
-\   'tex':['texlab']
-\}
-let g:ale_fixers = {
-\   'tex':['latexindent', 'texlint'], 
-\}
+let g:ale_linters = {'tex':['texlab']}
 
-"tema solarized"tema solarized
+"tema polarized"tema polarized
 colorscheme solarized8_flat
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+let &t_8f = "\<ESC>[38;2;%Lu;%Lu;%loom"
+let &t_8b = "\<ESC>[48;2;%Lu;%Lu;%loom"
 let g:solarized_termtrans = 1
 let g:solarized_visibility = "low"
 set background=dark
 
-hi clear SpellBad
+hi clear Spell Bad
 hi SpellBad cterm=underline  ctermfg=Red
-
 
 "desactiva las flecha
 nnoremap <up> <nop>
@@ -104,7 +99,7 @@ inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 
-"ctrl j-k para mover lineas completas
+"ctr j-k para mover lineas completas
 function! s:swap_lines(n1, n2)
     let line1 = getline(a:n1)
     let line2 = getline(a:n2)
@@ -136,7 +131,7 @@ endfunction
 noremap <silent> <c-k> :call <SID>swap_up()<CR>
 noremap <silent> <c-j> :call <SID>swap_down()<CR>
 
-" Quick-save y salir  con espacio 
+" Quick-save y salir con C-espacio 
 let mapleader = "\<Space>"
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
@@ -150,7 +145,17 @@ set smartcase
 set gdefault
 
 " Jump to last edit position on opening file
-if has("autocmd")
-  au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+if has("-autocmd")
+  au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! G'\"" | endif
 endif
- 
+
+set redrawtime=10000
+set updatetime=1000
+set shortmess+=c
+set signcolumn=yes
+
+"para que los wild menus acepten con enter
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+
+"indent Line
+let g:indentLine_char ='┊'
