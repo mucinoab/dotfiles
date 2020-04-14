@@ -102,8 +102,12 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+#Comppila y abre .tex
+alias ltx='~/Documents/Bash/latex.sh'
 #Hace que los alias funcionen con sudo
 alias sudo='sudo '
+alias rm='rm -i'
 alias ls='exa'
 alias la='exa -a'
 alias l='exa'

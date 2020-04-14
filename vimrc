@@ -39,7 +39,7 @@ let g:latex_fold_sections = []
 
 set spell
 set spelllang=es,en
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u   
 
 function! My_Tab_Completion()
     if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
@@ -63,19 +63,19 @@ map L $
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 Plug 'lifepillar/vim-solarized8'
-"Plug 'tpope/vim-surround'
-"Plug 'justinmk/vim-sneak'
-"Plug 'rust-lang/rust.vim'
-"Plug 'Yggdroot/indentLine'
-"Plug 'psliwka/vim-smoothie'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'dense-analysis/ale'
+Plug 'tpope/vim-surround'
+Plug 'justinmk/vim-sneak'
+Plug 'rust-lang/rust.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'psliwka/vim-smoothie'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dense-analysis/ale'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
 let g:ale_linters_explicit = 1
 let g:ale_completion_enabled = 1
-let g:ale_linters = {'tex':['texlab']}
+let g:ale_linters = {'tex':['texlab', 'writegood'], 'markdown':['writegood']}
 
 "tema polarized"tema polarized
 colorscheme solarized8_flat
@@ -143,11 +143,6 @@ set ignorecase
 set smartcase
 set gdefault
 
-" Jump to last edit position on opening file
-if has("-autocmd")
-  au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! G'\"" | endif
-endif
-
 set redrawtime=10000
 set updatetime=500
 set shortmess+=c
@@ -158,3 +153,9 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
 "indent Line
 let g:indentLine_char ='┊'
+
+ " Jump to last edit position on opening file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g`\"" | endif
+endif  
