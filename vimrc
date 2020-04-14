@@ -63,6 +63,7 @@ map L $
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 Plug 'lifepillar/vim-solarized8'
+Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
 Plug 'rust-lang/rust.vim'
@@ -72,6 +73,18 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+let g:tmuxline_theme = {
+    \   'a'    : [ 236, 236 ],
+    \   'b'    : [ 253, 239 ],
+    \   'c'    : [ 244, 236 ],
+    \   'x'    : [ 244, 236 ],
+    \   'y'    : [ 253, 239 ],
+    \   'z'    : [ 236, 102 ],
+    \   'win'  : [ 102, 236 ],
+    \   'cwin' : [ 236, 102 ],
+    \   'bg'   : [ 244, 236 ],}
+let g:tmuxline_preset = 'minimal'
+
 
 let g:ale_linters_explicit = 1
 let g:ale_completion_enabled = 1
