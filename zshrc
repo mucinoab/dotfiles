@@ -120,6 +120,7 @@ alias la='exa -a'
 alias l='exa'
 alias tm='tmux -2'
 alias vim='nvim'
+alias v='nvim'
 alias du='du -h'
 alias grep='grep --color=auto'
 bindkey '^ ' autosuggest-accept

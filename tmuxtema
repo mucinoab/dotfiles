@@ -1,5 +1,11 @@
 # This tmux statusbar config was created by tmuxline.vim
 # on Tue, 14 Apr 2020
+#
+#
+set -g @prefix_highlight_empty_has_affixes 'on' # default is 'off'
+set -g @prefix_highlight_empty_prompt ' '
+set -g @prefix_highlight_output_prefix '<'
+set -g @prefix_highlight_output_suffix '>'
 
 set -g status-justify "left"
 set -g status "on"
@@ -13,9 +19,9 @@ set -g pane-border-style "fg=colour239"
 set -g status-right-length "100"
 set -g status-left-length "100"
 setw -g window-status-activity-style "underscore,fg=colour102,bg=colour236"
-setw -g window-status-separator ""
+setw -g window-status-separator ""                                       
 setw -g window-status-style "none,fg=colour102,bg=colour236"
 set -g status-left "#[fg=colour236,bg=colour236] #S #[fg=colour236,bg=colour236,nobold,nounderscore,noitalics]"
-set -g status-right "#[fg=colour102,bg=colour236,nobold,nounderscore,noitalics]#[fg=colour236,bg=colour102] %R "
+set -g status-right "#{?client_prefix,#[fg=colour231]#[bg=colour04]< 	⇄  >,#[default]#[fg=default]#[bg=default]<    >}#[default] #[fg=colour102,bg=colour236,nobold,nounderscore,noitalics]#[fg=colour236,bg=colour102] %R"
 setw -g window-status-format "#[fg=colour236,bg=colour236,nobold,nounderscore,noitalics]#[default] #I #W #[fg=colour236,bg=colour236,nobold,nounderscore,noitalics]"
 setw -g window-status-current-format "#[fg=colour236,bg=colour102,nobold,nounderscore,noitalics]#[fg=colour236,bg=colour102] #I #W #[fg=colour102,bg=colour236,nobold,nounderscore,noitalics]"
