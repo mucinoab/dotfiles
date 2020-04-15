@@ -1,12 +1,13 @@
 "map<c-j> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -OE<CR><CR>:q <CR>
 map<c-h> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -O2<CR>:!sleep 1<CR>:q <CR>
-
 nmap j gj
 nmap k gk
-nmap n o<Esc>
+nmap <c-n> o<Esc>
 inoremap jk <esc>
 syntax on
 
+set hidden
+set synmaxcol=350
 set mouse=a
 set clipboard=unnamedplus
 set shiftwidth=2
@@ -32,8 +33,9 @@ set relativenumber
 
 "cosas para editar texto simple, no código
 filetype plugin indent on
-au BufRead,BufNewFile *.txt,*.tex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=a
+au BufRead,BufNewFile *.txt,*.tex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b
 let g:latex_indent_enabled = 1
+let g:tex_flavor = "latex"
 
 set spell
 set spelllang=es,en
@@ -60,20 +62,35 @@ map L $
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 Plug 'lifepillar/vim-solarized8'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
-Plug 'Yggdroot/indentLine'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'psliwka/vim-smoothie'
-autocmd FileType rust Plug 'rust-lang/rust.vim'
-autocmd FileType *tex,*.txt,*.md Plug 'dense-analysis/ale'
+Plug 'SirVer/ultisnips'
+Plug 'Yggdroot/indentLine'
+Plug 'rust-lang/rust.vim'
+Plug 'airblade/vim-rooter'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-let g:ale_linters_explicit = 1
-let g:ale_completion_enabled = 1
-let g:ale_linters = {'tex':['texlab', 'writegood'], 'markdown':['writegood']}
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ }
+let g:UltiSnipsSnippetDirectories=[$HOME.'/dotfiles/snips']
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+"let g:ale_linters_explicit = 1
+"let g:ale_completion_enabled = 1
+"let g:ale_linters = {'tex':['texlab', 'writegood'], 'markdown':['writegood']}
  
 let g:tmuxline_preset = 'minimal'
 let g:tmuxline_theme = {
@@ -97,8 +114,8 @@ hi clear Spell Bad
 hi SpellBad cterm=underline  ctermfg=Red
 
 "desactiva las flecha
-nnoremap <up> <nop>
 nnoremap <right> <nop>
+nnoremap <up> <nop>
 nnoremap <left> <nop>
 nnoremap <down> <nop>
 inoremap <up> <nop>
@@ -141,9 +158,14 @@ noremap <silent> <c-j> :call <SID>swap_down()<CR>
 " Quick-save y salir con C-espacio 
 let mapleader = "\<Space>"
 nmap <leader>w :w<CR>
-nmap <leader>q :q<CR>
-nmap <C-Space> :wq<CR>
+nmap <C-Space> :w<CR>:bd<CR>
 imap <C-Space> <Esc>:wq<CR>
+nmap <leader>t :e<Space>
+nmap <leader><leader> <c-^>
+map <leader><Tab> :bn<CR>
+nmap <leader>b :Buffers<CR>
+nmap <leader>f :Files<CR>
+tnoremap <leader><leader> <C-\><C-n><c-^>     
 
 " Proper search
 set incsearch
@@ -167,3 +189,22 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g`\"" | endif
 endif  
+
+" <leader>s for RC search, busca en directorio actual, en los contenidos de
+" los archivos
+noremap <leader>s :Rg<CR>
+let g:fzf_layout = { 'down': '~15%' }
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+function! s:list_cmd()
+  let base = fnamemodify(expand('%'), ':h:.:S')
+  return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
+endfunction
+"Busa en tus archivos
+command! -bang -nargs=? -complete=dir Files
+     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
