@@ -25,17 +25,15 @@ set ruler
 set title
 set showcmd
 set autoread
-set shiftround
 set expandtab
+set shiftround
 set lazyredraw
 set relativenumber
 
 "cosas para editar texto simple, no código
 filetype plugin indent on
-au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 formatoptions=l lbr nocul
+au BufRead,BufNewFile *.txt,*.tex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=a
 let g:latex_indent_enabled = 1
-let g:latex_fold_envs = 0
-let g:latex_fold_sections = []
 
 set spell
 set spelllang=es,en
@@ -49,8 +47,7 @@ function! My_Tab_Completion()
 endfunction
 inoremap <Tab> <C-R>=My_Tab_Completion()<CR>
 
-autocmd FileType cpp let b:comment_leader = '// '
-autocmd FileType rs let b:comment_leader = '// '
+autocmd FileType cpp,rust let b:comment_leader = '// '
 autocmd FileType python let b:comment_leader = '# '
 noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> ,u :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
@@ -63,16 +60,22 @@ map L $
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 Plug 'lifepillar/vim-solarized8'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
-Plug 'rust-lang/rust.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'psliwka/vim-smoothie'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'dense-analysis/ale'
+autocmd FileType rust Plug 'rust-lang/rust.vim'
+autocmd FileType *tex,*.txt,*.md Plug 'dense-analysis/ale'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+
+let g:ale_linters_explicit = 1
+let g:ale_completion_enabled = 1
+let g:ale_linters = {'tex':['texlab', 'writegood'], 'markdown':['writegood']}
+ 
+let g:tmuxline_preset = 'minimal'
 let g:tmuxline_theme = {
     \   'a'    : [ 236, 236 ],
     \   'b'    : [ 253, 239 ],
@@ -83,20 +86,12 @@ let g:tmuxline_theme = {
     \   'win'  : [ 102, 236 ],
     \   'cwin' : [ 236, 102 ],
     \   'bg'   : [ 244, 236 ],}
-let g:tmuxline_preset = 'minimal'
 
-
-let g:ale_linters_explicit = 1
-let g:ale_completion_enabled = 1
-let g:ale_linters = {'tex':['texlab', 'writegood'], 'markdown':['writegood']}
 
 "tema polarized"tema polarized
 colorscheme solarized8_flat
 let &t_8f = "\<ESC>[38;2;%Lu;%Lu;%loom"
 let &t_8b = "\<ESC>[48;2;%Lu;%Lu;%loom"
-let g:solarized_termtrans = 1
-let g:solarized_visibility = "low"
-set background=dark
 
 hi clear Spell Bad
 hi SpellBad cterm=underline  ctermfg=Red
