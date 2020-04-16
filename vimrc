@@ -12,7 +12,7 @@ set mouse=a
 set clipboard=unnamedplus
 set shiftwidth=2
 set tabstop=2
-set virtualedit=all
+"set virtualedit=all
 set encoding=utf-8
 set laststatus=0
 set scrolloff=5
@@ -65,7 +65,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
-Plug 'autozimu/LanguageClient-neovim', {
+"Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
@@ -74,6 +74,7 @@ Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/indentLine'
 Plug 'rust-lang/rust.vim'
 Plug 'airblade/vim-rooter'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " List ends here. Plugins become visible to Vim after this call.
@@ -82,6 +83,8 @@ call plug#end()
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'python': ['/usr/local/bin/pyls'],
+    \ 'tex': ['/home/bruno/.cargo/bin/texlab'],
+    \ 'latex': ['/home/bruno/.cargo/bin/texlab'],
     \ }
 let g:UltiSnipsSnippetDirectories=[$HOME.'/dotfiles/snips']
 let g:UltiSnipsExpandTrigger = '<tab>'
@@ -158,20 +161,32 @@ noremap <silent> <c-j> :call <SID>swap_down()<CR>
 " Quick-save y salir con C-espacio 
 let mapleader = "\<Space>"
 nmap <leader>w :w<CR>
-nmap <C-Space> :w<CR>:bd<CR>
-imap <C-Space> <Esc>:wq<CR>
-nmap <leader>t :e<Space>
+nmap <C-Space> :call CloseIfEmpty()<CR>
+imap <C-Space> <Esc>:call CloseIfEmpty()<CR> 
+nmap <leader>t :ene <CR> :file new<CR>
 nmap <leader><leader> <c-^>
 map <leader><Tab> :bn<CR>
 nmap <leader>b :Buffers<CR>
 nmap <leader>f :Files<CR>
 tnoremap <leader><leader> <C-\><C-n><c-^>     
 
+"cierra buffer actual y solo lo guarda si no esta vacio. 
+"tmabien cierra vim si solo queda un buffer y es vacio:wq
+fu! CloseIfEmpty()
+  exec 'w' 
+  exec 'bd'
+  if line('$') == 1 && getline(1) == ''
+      exec 'q'
+      exec '<CR>'
+  endif
+endfu
+
 " Proper search
 set incsearch
 set ignorecase
 set smartcase
 set gdefault
+
 
 set redrawtime=10000
 set updatetime=500
