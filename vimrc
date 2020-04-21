@@ -1,10 +1,17 @@
 "map<c-j> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -OE<CR><CR>:q <CR>
-map<c-h> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -O2<CR>:!sleep 1<CR>:q <CR>
+"map<c-h> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -O2<CR>:!sleep 1<CR>:q <CR>
 nmap j gj
 nmap k gk
 nmap <c-n> o<Esc>
 inoremap jk <esc>
 syntax on
+
+
+"Jkjvmap <C-c> "+yi
+"vmap <C-x> "+c
+"vmap <C-v> c<ESC>"+p
+"Jkimap <C-v> <C-r><C-o>+
+
 
 set hidden
 set synmaxcol=350
@@ -65,16 +72,17 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
+Plug 'lervag/vimtex'
 "Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
 Plug 'psliwka/vim-smoothie'
-Plug 'SirVer/ultisnips'
-Plug 'Yggdroot/indentLine'
+":Plug 'SirVer/ultisnips'
+"Plug 'Yggdroot/indentLine'
 Plug 'rust-lang/rust.vim'
 Plug 'airblade/vim-rooter'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " List ends here. Plugins become visible to Vim after this call.
@@ -147,10 +155,10 @@ endfunction
 
 function! s:swap_down()
     let n = line('.')
-    if n == line('$')
-        return
-    endif
-
+    if n == line('$') 
+        return 
+    endif 
+    
     call s:swap_lines(n, n + 1)
     exec n + 1
 endfunction
@@ -169,6 +177,7 @@ map <leader><Tab> :bn<CR>
 nmap <leader>b :Buffers<CR>
 nmap <leader>f :Files<CR>
 tnoremap <leader><leader> <C-\><C-n><c-^>     
+
 
 "cierra buffer actual y solo lo guarda si no esta vacio. 
 "tmabien cierra vim si solo queda un buffer y es vacio:wq
