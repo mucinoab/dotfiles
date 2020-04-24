@@ -1,5 +1,7 @@
 "map<c-j> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -OE<CR><CR>:q <CR>
-"map<c-h> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -O2<CR>:!sleep 1<CR>:q <CR>
+"map<c-h> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -Or<CR>:!sleep 1<CR>:Q <CR>
+vmap j gj
+vmap k gk
 nmap j gj
 nmap k gk
 nmap <c-n> o<Esc>
@@ -7,10 +9,10 @@ inoremap jk <esc>
 syntax on
 
 
-"Jkjvmap <C-c> "+yi
-"vmap <C-x> "+c
-"vmap <C-v> c<ESC>"+p
-"Jkimap <C-v> <C-r><C-o>+
+"Jojo map <C-C> "+ya
+"vamp <C-x> "+C
+"vamp <C-V> C<ESK>"+P
+"Skimp <C-V> <C-R><C-o>+
 
 
 set hidden
@@ -19,7 +21,7 @@ set mouse=a
 set clipboard=unnamedplus
 set shiftwidth=2
 set tabstop=2
-"set virtualedit=all
+"set virtual edit=all
 set encoding=utf-8
 set laststatus=0
 set scrolloff=5
@@ -40,22 +42,13 @@ set relativenumber
 
 "cosas para editar texto simple, no código
 filetype plugin indent on
+autocmd BufRead *.tex set filetype=tex
 au BufRead,BufNewFile *.txt,*.tex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b
 let g:latex_indent_enabled = 1
-let g:tex_flavor = "latex"
 
 set spell
 set spelllang=es,en
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u   
-
-function! My_Tab_Completion()
-    if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-        return "\<C-P>"
-    else
-        return "\<Tab>"
-endfunction
-inoremap <Tab> <C-R>=My_Tab_Completion()<CR>
-
+inoremap <C-l> <c-g>u<Esc>[s1z=']a<c-g>u   
 autocmd FileType cpp,rust let b:comment_leader = '// '
 autocmd FileType python let b:comment_leader = '# '
 noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
@@ -73,16 +66,17 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
 Plug 'lervag/vimtex'
+Plug 'KeitaNakamura/tex-conceal.vim'
 "Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
 Plug 'psliwka/vim-smoothie'
-":Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 "Plug 'Yggdroot/indentLine'
 Plug 'rust-lang/rust.vim'
 Plug 'airblade/vim-rooter'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " List ends here. Plugins become visible to Vim after this call.
@@ -94,7 +88,12 @@ let g:LanguageClient_serverCommands = {
     \ 'tex': ['/home/bruno/.cargo/bin/texlab'],
     \ 'latex': ['/home/bruno/.cargo/bin/texlab'],
     \ }
-let g:UltiSnipsSnippetDirectories=[$HOME.'/dotfiles/snips']
+
+let g:tex_flavor='latex'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+let g:UltiSnipsSnippetDirectories=['/home/bruno/Dotfiles/snips']
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'

@@ -1,5 +1,59 @@
-snippet beg "begin{} / end{}" bA
+snippet \beg "begin{} / end{}" bA
 \begin{$1}
 	$0
 \end{$1}
+endsnippet
+
+
+snippet \( "Math" wA
+\(
+$1
+\) $0
+endsnippet
+
+snippet \[ "Math" wA
+\[
+$1
+\] $0
+endsnippet
+
+snippet enum "Enumerate" bA
+\begin{enumerate}
+	\item $0
+\end{enumerate}
+endsnippet
+
+snippet item "Itemize" bA
+\begin{itemize}
+	\item $0
+\end{itemize}
+endsnippet
+
+
+
+snippet template "inicio" b
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage[utf8]{inputenc}
+\usepackage{unicode-math}
+\usepackage{hyperref}
+\usepackage[
+  top    = 3.15cm,
+  bottom = 3.15cm,
+  left   = 3.15cm,
+  right  = 3.15cm]{geometry}
+
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{35pt}
+
+\begin{document}
+\rhead{Muciño Guerrero Bruno Andres}
+\section*{Algo}
+
+
+	$0
+\end{document}
 endsnippet
