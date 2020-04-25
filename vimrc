@@ -85,10 +85,11 @@ call plug#end()
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'python': ['/usr/local/bin/pyls'],
-    \ 'tex': ['/home/bruno/.cargo/bin/texlab'],
-    \ 'latex': ['/home/bruno/.cargo/bin/texlab'],
+    \ 'tex': ['/home/bruno/.cargo/bin//texlab'],
+    \ 'latex': ['/home/bruno/.cargo/bin//texlab'],
     \ }
 
+let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor='latex'
 let g:vimtex_quickfix_mode=0
 set conceallevel=1

@@ -5,13 +5,15 @@ snippet \beg "begin{} / end{}" bA
 endsnippet
 
 snippet \( "Math" wA
-\( $1 \) $0
+\( $1\) $0
 endsnippet
 
 snippet \[ "Math" wA
-\[
-$1
-\] $0
+\[ $1\] $0
+endsnippet
+
+snippet \sq "Math" wA
+\sqrt{$1} $0
 endsnippet
 
 snippet enum "Enumerate" bA
@@ -35,6 +37,14 @@ endsnippet
 snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
 \vec{`!p snip.rv=match.group(1)`}
 endsnippet 
+
+snippet // "Fraction" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
 
 snippet template "Template" b
 \documentclass{article}
