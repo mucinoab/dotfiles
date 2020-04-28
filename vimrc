@@ -7,14 +7,6 @@ nmap k gk
 nmap <c-n> o<Esc>
 inoremap jk <esc>
 syntax on
-
-
-"Jojo map <C-C> "+ya
-"vamp <C-x> "+C
-"vamp <C-V> C<ESK>"+P
-"Skimp <C-V> <C-R><C-o>+
-
-
 set hidden
 set synmaxcol=350
 set mouse=a
@@ -40,6 +32,17 @@ set shiftround
 set lazyredraw
 set relativenumber
 
+" Proper search
+set incsearch
+set ignorecase
+set smartcase
+set gdefault
+
+set redrawtime=10000
+set updatetime=500
+set shortmess+=c
+set signcolumn=yes
+
 "cosas para editar texto simple, no código
 filetype plugin indent on
 autocmd BufRead *.tex set filetype=tex
@@ -48,7 +51,8 @@ let g:latex_indent_enabled = 1
 
 set spell
 set spelllang=es,en
-inoremap <C-l> <c-g>u<Esc>[s1z=']a<c-g>u   
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u   
+
 autocmd FileType cpp,rust let b:comment_leader = '// '
 autocmd FileType python let b:comment_leader = '# '
 noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
@@ -65,21 +69,20 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
-Plug 'lervag/vimtex'
-Plug 'KeitaNakamura/tex-conceal.vim'
-"Plug 'autozimu/LanguageClient-neovim', {
+Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
 Plug 'psliwka/vim-smoothie'
-Plug 'SirVer/ultisnips'
-"Plug 'Yggdroot/indentLine'
-Plug 'rust-lang/rust.vim'
+Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
+Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
+Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
+Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust'] }
+Plug 'rust-lang/rust.vim', { 'for': 'rust'}
 Plug 'airblade/vim-rooter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
 let g:LanguageClient_serverCommands = {
@@ -190,20 +193,8 @@ fu! CloseIfEmpty()
   endif
 endfu
 
-" Proper search
-set incsearch
-set ignorecase
-set smartcase
-set gdefault
-
-
-set redrawtime=10000
-set updatetime=500
-set shortmess+=c
-set signcolumn=yes
-
 "para que los wild menus acepten con enter
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
 "indent Line
 let g:indentLine_char ='┊'
@@ -214,9 +205,28 @@ if has("autocmd")
     \| exe "normal! g`\"" | endif
 endif  
 
+inoremap <silent><expr> <tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+        
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " <leader>s for RC search, busca en directorio actual, en los contenidos de
 " los archivos
 noremap <leader>s :Rg<CR>
+
 let g:fzf_layout = { 'down': '~15%' }
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -229,6 +239,7 @@ function! s:list_cmd()
   let base = fnamemodify(expand('%'), ':h:.:S')
   return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
 endfunction
+
 "Busa en tus archivos
 command! -bang -nargs=? -complete=dir Files
      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
