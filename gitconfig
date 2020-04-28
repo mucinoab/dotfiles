@@ -14,4 +14,4 @@
 [push]
 	default = current
 [credential]
-	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+	helper = store
