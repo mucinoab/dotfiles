@@ -1,0 +1,19 @@
+theme:
+  active: "98, 219, 191"
+  banner: "140, 149, 241"
+  error_border: Red
+  error_text: LightRed
+  hint: DarkGray
+  hovered: "71, 144, 127"
+  inactive: Gray
+  playbar_background: "27, 27, 27"
+  playbar_progress: "20, 20, 20"
+  playbar_text: White
+  selected: LightCyan
+  text: "255, 255, 255"
+
+behavior:
+  seek_milliseconds: 3000
+  volume_increment: 10
+  tick_rate_milliseconds: 250
+
