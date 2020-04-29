@@ -41,12 +41,12 @@ set gdefault
 set redrawtime=10000
 set updatetime=500
 set shortmess+=c
-set signcolumn=yes
+"set signcolumn=yes
 
 "cosas para editar texto simple, no código
 filetype plugin indent on
 autocmd BufRead *.tex set filetype=tex
-au BufRead,BufNewFile *.txt,*.tex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b
+au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b
 let g:latex_indent_enabled = 1
 
 set spell
@@ -92,9 +92,15 @@ let g:LanguageClient_serverCommands = {
     \ 'latex': ['/home/bruno/.cargo/bin//texlab'],
     \ }
 
+let g:vimtex_format_enabled=1
+let g:vimtex_fold_manual=1
+let g:vimtex_compiler_latexmk = {
+    \ 'build_dir' : 'build',
+    \}
 let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor='latex'
 let g:vimtex_quickfix_mode=0
+let g:vimtex_view_method='zathura'
 set conceallevel=1
 let g:tex_conceal='abdmg'
 let g:UltiSnipsSnippetDirectories=['/home/bruno/Dotfiles/snips']
