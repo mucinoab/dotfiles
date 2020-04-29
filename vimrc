@@ -51,7 +51,7 @@ let g:latex_indent_enabled = 1
 
 set spell
 set spelllang=es,en
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u   
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u<Esc>ha
 
 autocmd FileType cpp,rust let b:comment_leader = '// '
 autocmd FileType python let b:comment_leader = '# '
