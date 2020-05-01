@@ -45,7 +45,7 @@ set shortmess+=c
 
 "cosas para editar texto simple, no código
 filetype plugin indent on
-autocmd BufRead *.tex set filetype=tex
+autocmd BufRead *.tex,*.latex set filetype=tex
 au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b
 let g:latex_indent_enabled = 1
 
@@ -55,6 +55,7 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u<Esc>ha
 
 autocmd FileType cpp,rust let b:comment_leader = '// '
 autocmd FileType python let b:comment_leader = '# '
+autocmd FileType tex let b:comment_leader = '% '
 noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> ,u :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
@@ -91,6 +92,12 @@ let g:LanguageClient_serverCommands = {
     \ 'tex': ['/home/bruno/.cargo/bin//texlab'],
     \ 'latex': ['/home/bruno/.cargo/bin//texlab'],
     \ }
+
+"Rustfmt on save
+let g:rustfmt_autosave = 1
+let g:rustfmt_emit_files = 1
+let g:rustfmt_fail_silently = 1
+
 
 let g:vimtex_format_enabled=1
 let g:vimtex_fold_manual=1

@@ -36,6 +36,14 @@ snippet *ali "Align" bA
 \end{align*}
 endsnippet
 
+snippet == "ali equals" iA
+&= $0
+endsnippet
+
+snippet \la "<>" iA
+\langle $1, $2, $3 \rangle $0
+endsnippet
+
 snippet item "Itemize" bA
 \begin{itemize}
 	\item $0
@@ -55,6 +63,7 @@ snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
 endsnippet
 
 snippet template "Template" b
+%!TeX program = xelatex
 \documentclass{article}
 \usepackage{fancyhdr}
 \usepackage{physics}
