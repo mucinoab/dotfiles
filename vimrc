@@ -66,14 +66,18 @@ map L $
 "vim plug 
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
-Plug 'lifepillar/vim-solarized8'
-Plug 'edkolev/tmuxline.vim'
-Plug 'tpope/vim-surround'
-Plug 'justinmk/vim-sneak'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+Plug 'lifepillar/vim-solarized8'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'edkolev/tmuxline.vim'
+Plug 'tpope/vim-surround'
+Plug 'justinmk/vim-sneak'
 Plug 'psliwka/vim-smoothie'
 Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
 Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
@@ -81,10 +85,11 @@ Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
 Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust'] }
 Plug 'rust-lang/rust.vim', { 'for': 'rust'}
 Plug 'airblade/vim-rooter'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'machakann/vim-highlightedyank'
 call plug#end()
+
+"highlightedyank
+let g:highlightedyank_highlight_duration = 350
 
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
