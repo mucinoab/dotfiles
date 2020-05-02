@@ -188,10 +188,13 @@ nmap <leader>w :w<CR>
 nmap <C-Space> :call CloseIfEmpty()<CR>
 imap <C-Space> <Esc>:call CloseIfEmpty()<CR> 
 nmap <leader>t :ene <CR> :file new<CR>
-nmap <leader><leader> <c-^>
+
+"navegar entre buffers. 
 map <leader><Tab> :bn<CR>
-nmap <leader>b :Buffers<CR>
+map <leader><S-Tab> :bp<CR>
 nmap <leader>f :Files<CR>
+nmap <leader>b :Buffers<CR>
+nmap <leader><leader> <c-^>
 tnoremap <leader><leader> <C-\><C-n><c-^>     
 
 
