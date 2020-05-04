@@ -1,5 +1,5 @@
-"map<c-j> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -OE<CR><CR>:q <CR>
 "map<c-h> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -Or<CR>:!sleep 1<CR>:Q <CR>
+
 vmap j gj
 vmap k gk
 nmap j gj
@@ -23,7 +23,7 @@ set number
 set autoindent
 set smarttab
 set smartindent
-set ruler   
+set ruler
 set title
 set showcmd
 set autoread
@@ -63,15 +63,15 @@ noremap <silent> ,u :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<C
 map H ^
 map L $
 
-"vim plug 
+"vim plug
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ }
 Plug 'lifepillar/vim-solarized8'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -86,17 +86,20 @@ Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust'] }
 Plug 'rust-lang/rust.vim', { 'for': 'rust'}
 Plug 'airblade/vim-rooter'
 Plug 'machakann/vim-highlightedyank'
+Plug 'Chiel92/vim-autoformat'
 call plug#end()
+
+au BufWrite * :Autoformat
 
 "highlightedyank
 let g:highlightedyank_highlight_duration = 350
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'python': ['/usr/local/bin/pyls'],
-    \ 'tex': ['/home/bruno/.cargo/bin//texlab'],
-    \ 'latex': ['/home/bruno/.cargo/bin//texlab'],
-    \ }
+      \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+      \ 'python': ['/usr/local/bin/pyls'],
+      \ 'tex': ['/home/bruno/.cargo/bin//texlab'],
+      \ 'latex': ['/home/bruno/.cargo/bin//texlab'],
+      \ }
 
 "Rustfmt on save
 let g:rustfmt_autosave = 1
@@ -107,8 +110,8 @@ let g:rustfmt_fail_silently = 1
 let g:vimtex_format_enabled=1
 let g:vimtex_fold_manual=1
 let g:vimtex_compiler_latexmk = {
-    \ 'build_dir' : 'build',
-    \}
+      \ 'build_dir' : 'build',
+      \}
 let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor='latex'
 let g:vimtex_quickfix_mode=0
@@ -123,18 +126,18 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 "let g:ale_linters_explicit = 1
 "let g:ale_completion_enabled = 1
 "let g:ale_linters = {'tex':['texlab', 'writegood'], 'markdown':['writegood']}
- 
+
 let g:tmuxline_preset = 'minimal'
 let g:tmuxline_theme = {
-    \   'a'    : [ 236, 236 ],
-    \   'b'    : [ 253, 239 ],
-    \   'c'    : [ 244, 236 ],
-    \   'x'    : [ 244, 236 ],
-    \   'y'    : [ 253, 239 ],
-    \   'z'    : [ 236, 102 ],
-    \   'win'  : [ 102, 236 ],
-    \   'cwin' : [ 236, 102 ],
-    \   'bg'   : [ 244, 236 ],}
+      \   'a'    : [ 236, 236 ],
+      \   'b'    : [ 253, 239 ],
+      \   'c'    : [ 244, 236 ],
+      \   'x'    : [ 244, 236 ],
+      \   'y'    : [ 253, 239 ],
+      \   'z'    : [ 236, 102 ],
+      \   'win'  : [ 102, 236 ],
+      \   'cwin' : [ 236, 102 ],
+      \   'bg'   : [ 244, 236 ],}
 
 
 "tema polarized"tema polarized
@@ -157,60 +160,60 @@ inoremap <right> <nop>
 
 "ctr j-k para mover lineas completas
 function! s:swap_lines(n1, n2)
-    let line1 = getline(a:n1)
-    let line2 = getline(a:n2)
-    call setline(a:n1, line2)
-    call setline(a:n2, line1)
+  let line1 = getline(a:n1)
+  let line2 = getline(a:n2)
+  call setline(a:n1, line2)
+  call setline(a:n2, line1)
 endfunction
 
 
 function! s:swap_up()
-    let n = line('.')
-    if n == 1
-        return
-    endif
+  let n = line('.')
+  if n == 1
+    return
+  endif
 
-    call s:swap_lines(n, n - 1)
-    exec n - 1
+  call s:swap_lines(n, n - 1)
+  exec n - 1
 endfunction
 
 function! s:swap_down()
-    let n = line('.')
-    if n == line('$') 
-        return 
-    endif 
-    
-    call s:swap_lines(n, n + 1)
-    exec n + 1
+  let n = line('.')
+  if n == line('$')
+    return
+  endif
+
+  call s:swap_lines(n, n + 1)
+  exec n + 1
 endfunction
 
 noremap <silent> <c-k> :call <SID>swap_up()<CR>
 noremap <silent> <c-j> :call <SID>swap_down()<CR>
 
-" Quick-save y salir con C-espacio 
+" Quick-save y salir con C-espacio
 let mapleader = "\<Space>"
 nmap <leader>w :w<CR>
 nmap <C-Space> :call CloseIfEmpty()<CR>
-imap <C-Space> <Esc>:call CloseIfEmpty()<CR> 
+imap <C-Space> <Esc>:call CloseIfEmpty()<CR>
 nmap <leader>t :ene <CR> :file new<CR>
 
-"navegar entre buffers. 
+"navegar entre buffers.
 map <leader><Tab> :bn<CR>
 map <leader><S-Tab> :bp<CR>
 nmap <leader>f :Files<CR>
 nmap <leader>b :Buffers<CR>
 nmap <leader><leader> <c-^>
-tnoremap <leader><leader> <C-\><C-n><c-^>     
+tnoremap <leader><leader> <C-\><C-n><c-^>
 
 
-"cierra buffer actual y solo lo guarda si no esta vacio. 
+"cierra buffer actual y solo lo guarda si no esta vacio.
 "tmabien cierra vim si solo queda un buffer y es vacio:wq
 fu! CloseIfEmpty()
-  exec 'w' 
+  exec 'w'
   exec 'bd'
   if line('$') == 1 && getline(1) == ''
-      exec 'q'
-      exec '<CR>'
+    exec 'q'
+    exec '<CR>'
   endif
 endfu
 
@@ -220,11 +223,11 @@ endfu
 "indent Line
 let g:indentLine_char ='┊'
 
- " Jump to last edit position on opening file
+" Jump to last edit position on opening file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal! g`\"" | endif
-endif  
+        \| exe "normal! g`\"" | endif
+endif
 
 inoremap <silent><expr> <tab>
       \ pumvisible() ? "\<C-n>" :
@@ -242,7 +245,7 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-        
+
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " <leader>s for RC search, busca en directorio actual, en los contenidos de
 " los archivos
@@ -250,11 +253,11 @@ noremap <leader>s :Rg<CR>
 
 let g:fzf_layout = { 'down': '~15%' }
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+      \ call fzf#vim#grep(
+      \   'rg --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+      \   <bang>0 ? fzf#vim#with_preview('up:60%')
+      \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+      \   <bang>0)
 
 function! s:list_cmd()
   let base = fnamemodify(expand('%'), ':h:.:S')
@@ -263,4 +266,4 @@ endfunction
 
 "Busa en tus archivos
 command! -bang -nargs=? -complete=dir Files
-     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
+      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
