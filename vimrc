@@ -67,7 +67,7 @@ map L $
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust'], 'branch': 'release'}
 Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
       \ 'do': 'bash install.sh',
