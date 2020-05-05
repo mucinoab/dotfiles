@@ -31,6 +31,7 @@ set expandtab
 set shiftround
 set lazyredraw
 set relativenumber
+set termguicolors
 
 " Proper search
 set incsearch
@@ -141,9 +142,11 @@ let g:tmuxline_theme = {
 
 
 "tema polarized"tema polarized
-colorscheme solarized8_flat
 let &t_8f = "\<ESC>[38;2;%Lu;%Lu;%loom"
 let &t_8b = "\<ESC>[48;2;%Lu;%Lu;%loom"
+"colorscheme solarized8_flat
+colorscheme solarized8
+let g:solarized_extra_hi_groups=1
 
 hi clear Spell Bad
 hi SpellBad cterm=underline  ctermfg=Red
