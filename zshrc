@@ -39,6 +39,7 @@ alias vim='nvim'
 alias v='nvim'
 alias du='du -h'
 alias grep='grep --color=auto'
+alias sptr='systemctl restart  --user spotifyd.service && spt'
 bindkey '^ ' autosuggest-accept
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
