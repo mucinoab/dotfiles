@@ -90,7 +90,8 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'Chiel92/vim-autoformat'
 call plug#end()
 
-au BufWrite * :Autoformat
+
+"au BufWrite * :Autoformat
 
 "highlightedyank
 let g:highlightedyank_highlight_duration = 350
@@ -249,7 +250,9 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
 " <leader>s for RC search, busca en directorio actual, en los contenidos de
 " los archivos
 noremap <leader>s :Rg<CR>

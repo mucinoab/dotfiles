@@ -27,7 +27,6 @@ export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
 #Comppila y abre .tex
-alias ltx='~/Documents/Bash/latex.sh'
 #Hace que los alias funcionen con sudo, a veces
 alias sudo='sudo '
 alias rm='rm -i'
@@ -41,6 +40,10 @@ alias du='du -h'
 alias grep='grep --color=auto'
 alias sptr='systemctl restart  --user spotifyd.service && spt'
 bindkey '^ ' autosuggest-accept
+alias cr='cargo run'
+alias ct='cargo test'
+alias ccc='cargo check'
+
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
