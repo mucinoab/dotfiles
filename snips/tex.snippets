@@ -9,7 +9,7 @@ snippet \( "Math" wA
 endsnippet
 
 snippet today "Date"
-`date +%d/%m/%y`
+`date +%A,\ %d\ %B,\ %Y`
 endsnippet
 
 snippet \[ "Math" wA
@@ -79,23 +79,50 @@ snippet template "Template" b
 \documentclass{article}
 \usepackage{fancyhdr}
 \usepackage{physics}
-\usepackage{mathtools}
-\usepackage[utf8]{inputenc}
 \usepackage{unicode-math}
-\usepackage{hyperref}
 \usepackage[
-  top    = 3.15cm,
+  top    = 3cm,
   bottom = 3.15cm,
-  left   = 3.15cm,
-  right  = 3.15cm]{geometry}
+  left   = 3cm,
+  right  = 3cm]{geometry}
 
-  \pagestyle{fancy}
-  \fancyhf{}
-  \setlength{\headheight}{35pt}
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{35pt}
 
-  \begin{document}
-  \rhead{Muciño Guerrero Bruno Andres}
-  \section*{$0}
+\begin{document}
+\rhead{Muciño Guerrero Bruno Andres}
+\section*{$0}
 
-  \end{document}
+\end{document}
+endsnippet
+
+snippet templatec "Template clase" b
+%!TeX program = xelatex
+\documentclass{article}
+\usepackage{unicode-math}
+\usepackage{blindtext}
+\usepackage{fancyhdr}
+\usepackage{physics}
+\pagestyle{fancy}
+\fancyhf{}
+\usepackage[
+  top    = 3cm,
+  bottom = 3.15cm,
+  left   = 3cm,
+  right  = 3cm]{geometry}
+
+
+\title{$1}%tema
+\author{$2}%clase
+\date{ today$3 }%para solo dar enter y que se ponga la fecha
+
+\begin{document}
+\maketitle
+\rhead{$1}
+
+\section*{$4}%subtema
+
+$0
+\end{document}
 endsnippet
