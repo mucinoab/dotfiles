@@ -12,6 +12,14 @@ snippet today "Date"
 `date +%A,\ %d\ %B,\ %Y`
 endsnippet
 
+snippet cd "^2" iA
+^2
+endsnippet
+
+snippet pp "potencia" iA
+^{$1}$0
+endsnippet
+
 snippet \[ "Math" wA
 \[ $1\] $0
 endsnippet
@@ -20,11 +28,11 @@ snippet \sq "Math" wA
 \sqrt{$1} $0
 endsnippet
 
-snippet '(?<!\\)(siin|pii|theta)' "ln" rwA
+snippet '(?<!\\)(sin|pi|theta)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
-snippet \in "Math" wA
+snippet \int "Math" wA
 \int_{$1}^{$2} $3 \,d$0
 endsnippet
 
