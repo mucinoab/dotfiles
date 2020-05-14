@@ -134,3 +134,31 @@ snippet templatec "Template clase" b
 $0
 \end{document}
 endsnippet
+
+snippet nn "Tnode" w
+\node ($1) at ($2, $3) {$1};
+$0
+endsnippet
+
+snippet dd "Tnode line" w
+\draw ($1) -- ($2);
+$0
+endsnippet
+
+snippet sympy "sympy block " w
+sympy $1 sympy$0
+endsnippet
+
+priority 10000
+snippet 'sympy(.*)sympy' "evaluate sympy" wr
+`!p
+from sympy import *
+x, y, z = symbols('x y z')
+k, m, n = symbols('k m n', integer=True)
+init_printing()
+snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
+    .replace('^', '**') \
+    .replace('{', '(') \
+    .replace('}', ')') + ')')
+`
+endsnippet
