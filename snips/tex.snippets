@@ -162,3 +162,13 @@ snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
     .replace('}', ')') + ')')
 `
 endsnippet
+
+snippet table "Table environment" b
+\begin{table}[h]
+	\centering
+	\caption{${2:caption}}
+	\begin{tabular}{${5:c}}
+	$0${5/((?<=.)c|l|r)|./(?1: & )/g}
+	\end{tabular}
+\end{table}
+endsnippet
