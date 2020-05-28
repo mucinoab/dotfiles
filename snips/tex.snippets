@@ -28,12 +28,16 @@ snippet \sq "Math" wA
 \sqrt{$1} $0
 endsnippet
 
-snippet '(?<!\\)(sin|pi|theta)' "ln" rwA
+snippet '(?<!\\)(sin|theta)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
 snippet \int "Math" wA
-\int_{$1}^{$2} $3 \,d$0
+\int_{$1}^{$2} $3 \,d $0
+endsnippet
+
+snippet \sum "Math" wA
+\sum_{$1}^{$2} $3 
 endsnippet
 
 snippet uul "underline" wA

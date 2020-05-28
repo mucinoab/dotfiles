@@ -45,6 +45,7 @@ bindkey '^ ' autosuggest-accept
 alias cr='cargo run'
 alias ct='cargo test'
 alias ccc='cargo check'
+alias tiempo='curl http://wttr.in/ -s | head -n-2'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
