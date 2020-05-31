@@ -80,7 +80,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
 Plug 'psliwka/vim-smoothie'
-Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
+"Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
 Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
 Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
 Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust'] }
@@ -118,7 +118,7 @@ let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor='latex'
 let g:vimtex_quickfix_mode=0
 let g:vimtex_view_method='zathura'
-set conceallevel=1
+set conceallevel=0
 let g:tex_conceal='abdmg'
 let g:UltiSnipsSnippetDirectories=['/home/bruno/Dotfiles/snips']
 let g:UltiSnipsExpandTrigger = '<tab>'
