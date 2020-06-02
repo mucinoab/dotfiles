@@ -251,7 +251,7 @@ function! s:check_back_space() abort
 endfunction
 
 
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " <leader>s for RC search, busca en directorio actual, en los contenidos de
 " los archivos
