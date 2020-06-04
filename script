@@ -12,6 +12,9 @@ ln -sf /home/bruno/Dotfiles/htoprc /home/bruno/.config/htop/htoprc
 
 ln -sf /home/bruno/Dotfiles/i3 /home/bruno/.i3/config
 
+ln -sf /home/bruno/Dotfiles/alacritty.yml /home/bruno/.alacritty.yml
+
+
 
 
 
