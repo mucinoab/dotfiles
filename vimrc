@@ -88,6 +88,7 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust'}
 Plug 'airblade/vim-rooter'
 Plug 'machakann/vim-highlightedyank'
 Plug 'Chiel92/vim-autoformat'
+Plug 'edkolev/tmuxline.vim'
 call plug#end()
 
 

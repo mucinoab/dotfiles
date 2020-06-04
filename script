@@ -1,0 +1,14 @@
+ln -s /home/bruno/Dotfiles/tealdeer.toml /home/bruno/.config/tealdeer/config.toml
+
+ln -s /home/bruno/Dotfiles/vimrc /home/bruno/.config/nvim/init.vim
+
+
+ln -sf /home/bruno/Dotfiles/tmux.conf /home/bruno/.tmux.conf
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+ln -sf /home/bruno/Dotfiles/gitconfig /home/bruno/.gitconfig
+
+
+ln -sf /home/bruno/Dotfiles/htoprc /home/bruno/.config/htop/htoprc
+
+
