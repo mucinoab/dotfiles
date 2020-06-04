@@ -8,7 +8,10 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 ln -sf /home/bruno/Dotfiles/gitconfig /home/bruno/.gitconfig
 
-
 ln -sf /home/bruno/Dotfiles/htoprc /home/bruno/.config/htop/htoprc
+
+ln -sf /home/bruno/Dotfiles/i3 /home/bruno/.i3/config
+
+
 
 
