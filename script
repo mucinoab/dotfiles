@@ -14,6 +14,7 @@ ln -sf /home/bruno/Dotfiles/i3 /home/bruno/.i3/config
 
 ln -sf /home/bruno/Dotfiles/alacritty.yml /home/bruno/.alacritty.yml
 
+ln -sf /home/bruno/Dotfiles/vscode.json /home/bruno/.config/VSCodium/User/settings.json
 
 
 
