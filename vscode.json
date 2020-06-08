@@ -17,7 +17,8 @@
       "before": ["j", "k"],
       "after": ["<Esc>"]
     }
-  ]
-    ],
-    "vim.leader": "<space>"
+  ],
+    "vim.leader": "<space>",
+    "vscode-neovim.neovimPath": "/usr/bin/nvim",
+    "vscode-neovim.neovimInitPath": "/home/bruno/Dotfiles/vimrc"
 }

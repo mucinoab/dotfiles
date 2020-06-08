@@ -89,6 +89,8 @@ Plug 'airblade/vim-rooter'
 Plug 'machakann/vim-highlightedyank'
 Plug 'Chiel92/vim-autoformat'
 Plug 'edkolev/tmuxline.vim'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 call plug#end()
 
 
