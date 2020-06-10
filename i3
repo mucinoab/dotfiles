@@ -279,7 +279,7 @@ exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
 #exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
-exec --no-startup-id xautolock -time 10 -notify 10 -bell -locker blurlock
+exec_always --no-startup-id xautolock -time 10 -notify 10 -bell -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
@@ -317,7 +317,8 @@ set_from_resource $term_color15    color15
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
 	i3bar_command i3bar
-	#status_command i3status
+	status_command ~/Dotfiles/date.sh
+  mode hide
 	position bottom
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
