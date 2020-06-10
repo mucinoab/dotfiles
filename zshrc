@@ -6,7 +6,7 @@ fi
 [[ -s /home/bruno/.autojump/etc/profile.d/autojump.sh ]] && source /home/bruno/.autojump/etc/profile.d/autojump.sh
 # If you come from bash you might have to change your $PATH.
 #export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=/usr/local/texlive/2020/bin/x86_64-linux:/usr/lib/ruby/gems/2.7.0:/home/bruno/.gem/ruby/2.7.0:$PATH
+export PATH=/usr/local/texlive/2020/bin/x86_64-linux:/home/bruno/.cargo/bin/:/home/bruno/.gem/ruby/2.7.0/bin:$PATH 
 
 
 export ZSH="/home/bruno/.oh-my-zsh"

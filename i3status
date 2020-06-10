@@ -1,0 +1,41 @@
+general {
+        output_format = "i3bar"
+        colors = true
+        interval = 30
+        separator = "  |  "
+}
+
+order += "battery 1"
+order += "battery 0"
+order += "tztime local"
+order += "tztime time"
+
+tztime time {
+        format = " %H:%M "
+}
+
+tztime local {
+        format = " %d/%m/%Y "
+}
+
+battery 0 {
+        format = "%status %percentage "
+        status_unk = ""
+        status_bat = ""
+        status_full = ""
+        status_chr = "⚡"
+        status_unk = ""
+        path = "/sys/class/power_supply/BAT0/uevent"
+        low_threshold = 10
+}
+
+battery 1 {
+        format = "%status %percentage "
+        status_chr = "⚡"
+        status_unk = ""
+        status_bat = ""
+        status_full = ""
+        status_unk = ""
+        path = "/sys/class/power_supply/BAT1/uevent"
+        low_threshold = 10
+}
