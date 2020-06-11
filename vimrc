@@ -91,6 +91,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'edkolev/tmuxline.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 
