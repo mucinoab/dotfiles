@@ -102,6 +102,10 @@ workspace_auto_back_and_forth yes
 bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
+#mueve contenedor, a otro monitor
+bindsym $mod+Shift+greater move workspace to output right
+bindsym $mod+Shift+less move workspace to output left
+
 # split orientation
 bindsym $mod+- split h;exec notify-send 'tile horizontally'
 bindsym $mod+| split v;exec notify-send 'tile vertically'
