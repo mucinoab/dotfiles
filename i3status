@@ -11,11 +11,11 @@ order += "tztime local"
 order += "tztime time"
 
 tztime time {
-        format = " %H:%M "
+        format = "%H:%M "
 }
 
 tztime local {
-        format = " %d/%m/%Y "
+        format = " %A %d/%m/%Y "
 }
 
 battery 0 {
