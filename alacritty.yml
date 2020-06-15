@@ -73,8 +73,8 @@ window:
     # General application class
     #general: Alacritty
 
-  # GTK theme variant (Linux/BSD only)
   #
+  # GTK theme variant (Linux/BSD only)
   # Override the variant of the GTK theme. Commonly supported values are `dark` and `light`.
   # Set this to `None` to use the default theme variant.
   #gtk_theme_variant: None
@@ -192,17 +192,17 @@ colors:
   #
   # Colors which should be used to draw the terminal cursor. If these are
   # unset, the cursor color will be the inverse of the cell color.
-  #cursor:
+  cursor:
   #  text: '#000000'
-  #  cursor: '#ffffff'
+    cursor: '#ffffff'
 
   # Vi mode cursor colors
   #
   # Colors for the cursor when the vi mode is active. If these are unset, the
   # cursor color will be the inverse of the cell color.
-  #vi_mode_cursor:
+  vi_mode_cursor:
   #  text: '#000000'
-  #  cursor: '#ffffff'
+    cursor: '#F58819'
 
   # Selection colors
   #
@@ -300,14 +300,14 @@ colors:
 # Allow terminal applications to change Alacritty's window title.
 #dynamic_title: true
 
-#cursor:
+cursor:
   # Cursor style
   #
   # Values for `style`:
   #   - ▇ Block
   #   - _ Underline
   #   - | Beam
-  #style: Block
+  style: Block
 
   # Vi mode cursor style
   #
@@ -315,7 +315,7 @@ colors:
   # the style of the active value of the normal cursor.
   #
   # See `cursor.style` for available options.
-  #vi_mode_style: None
+  vi_mode_style: Block
 
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.
@@ -329,14 +329,10 @@ colors:
 # You can set `shell.program` to the path of your favorite shell, e.g. `/bin/fish`.
 # Entries in `shell.args` are passed unmodified as arguments to the shell.
 #
-# Default:
-#   - (macOS) /bin/bash --login
-#   - (Linux/BSD) user login shell
-#   - (Windows) powershell
-#shell:
-#  program: /bin/bash
-#  args:
-#    - --login
+shell:
+  program: /usr/bin/tmux
+  args:
+    - -u
 
 # Startup directory
 #
@@ -347,8 +343,8 @@ colors:
 # WinPTY backend (Windows only)
 #
 # Alacritty defaults to using the newer ConPTY backend if it is available,
-# since it resolves a lot of bugs and is quite a bit faster. If it is not
 # available, the the WinPTY backend will be used instead.
+# since it resolves a lot of bugs and is quite a bit faster. If it is not
 #
 # Setting this option to `true` makes Alacritty use the legacy WinPTY backend,
 # even if the ConPTY backend is available.
@@ -469,8 +465,8 @@ colors:
 #   - ScrollToBottom
 #   - ClearHistory
 #   - Hide
-#   - Minimize
 #   - Quit
+#   - Minimize
 #   - ToggleFullscreen
 #   - SpawnNewInstance
 #   - ClearLogNotice
@@ -504,9 +500,6 @@ colors:
 #   - ToggleBlockSelection
 #   - ToggleSemanticSelection
 #
-#   (macOS only):
-#   - ToggleSimpleFullscreen: Enters fullscreen without occupying another space
-#
 #   (Linux/BSD only):
 #   - CopySelection: Copies into selection buffer
 #
@@ -521,8 +514,8 @@ colors:
 # - `mods`: Key modifiers to filter binding actions
 #
 #    - Command
-#    - Control
 #    - Option
+#    - Control
 #    - Super
 #    - Shift
 #    - Alt
@@ -551,7 +544,7 @@ colors:
 # If the same trigger is assigned to multiple actions, all of them are executed
 # at once.
 #key_bindings:
-  #- { key: Paste,                                action: Paste          }
+#  - { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
   #- { key: L,         mods: Control, mode: ~Vi,  chars: "\x0c"          }
@@ -615,22 +608,3 @@ colors:
   #- { key: Subtract, mods: Control,                 action: DecreaseFontSize }
   #- { key: Minus,    mods: Control,                 action: DecreaseFontSize }
 
-  # (Windows only)
-  #- { key: Return,   mods: Alt,           action: ToggleFullscreen }
-
-  # (macOS only)
-  #- { key: K,      mods: Command, mode: ~Vi, chars: "\x0c"            }
-  #- { key: Key0,   mods: Command,            action: ResetFontSize    }
-  #- { key: Equals, mods: Command,            action: IncreaseFontSize }
-  #- { key: Add,    mods: Command,            action: IncreaseFontSize }
-  #- { key: Minus,  mods: Command,            action: DecreaseFontSize }
-  #- { key: K,      mods: Command,            action: ClearHistory     }
-  #- { key: V,      mods: Command,            action: Paste            }
-  #- { key: C,      mods: Command,            action: Copy             }
-  #- { key: C,      mods: Command, mode: Vi,  action: ClearSelection   }
-  #- { key: H,      mods: Command,            action: Hide             }
-  #- { key: M,      mods: Command,            action: Minimize         }
-  #- { key: Q,      mods: Command,            action: Quit             }
-  #- { key: W,      mods: Command,            action: Quit             }
-  #- { key: N,      mods: Command,            action: SpawnNewInstance }
-  #- { key: F,      mods: Command|Control,    action: ToggleFullscreen }

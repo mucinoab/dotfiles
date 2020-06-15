@@ -5,6 +5,7 @@ vmap k gk
 nmap j gj
 nmap k gk
 nmap <c-n> o<Esc>
+map q: :q
 inoremap jk <esc>
 syntax on
 set hidden
@@ -69,10 +70,7 @@ map L $
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust'], 'branch': 'release'}
-Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ }
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next','do': 'bash install.sh',}
 Plug 'lifepillar/vim-solarized8'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -128,6 +126,9 @@ let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
+
+"No avisos rojos
+let g:LanguageClient_useVirtualText = 0
 "let g:ale_linters_explicit = 1
 "let g:ale_completion_enabled = 1
 "let g:ale_linters = {'tex':['texlab', 'writegood'], 'markdown':['writegood']}

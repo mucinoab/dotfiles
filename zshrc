@@ -20,6 +20,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
+  #zsh-vim-mode
 )
 
 source $ZSH/oh-my-zsh.sh
