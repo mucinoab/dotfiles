@@ -86,10 +86,38 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust'}
 Plug 'airblade/vim-rooter'
 Plug 'machakann/vim-highlightedyank'
 Plug 'Chiel92/vim-autoformat'
+Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 Plug 'edkolev/tmuxline.vim'
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'preservim/nerdtree'
 call plug#end()
+
+"nerd tree
+map <C-t> :NERDTreeToggle<CR>
+filetype plugin indent on
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
+let g:plug_window = 'noautocmd vertical topleft new'
+
+let g:NERDTreeDirArrowExpandable = ''
+let g:NERDTreeDirArrowCollapsible = ''
+
+"function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+" exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+" exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+"endfunction
+
+"call NERDTreeHighlightFile('py', 'green', 'none', 'green', '#032b35')
+"call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#032b35')
+"call NERDTreeHighlightFile('yml', 'yellow', 'blue', 'yellow', '#032b35')
+"call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#032b35')
+"call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#032b35')
+"call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#032b35')
+"call NERDTreeHighlightFile('toml', 'cyan', 'none', 'cyan', '#032b35')
+"call NERDTreeHighlightFile('rs', 'Red', 'none', 'red', '#032b35')
+"call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#032b35')
+"call NERDTreeHighlightFile('cpp', 'Magenta', 'none', '#ff00ff', '#032b35')
+
 
 
 "au BufWrite * :Autoformat
@@ -129,6 +157,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 "No avisos rojos
 let g:LanguageClient_useVirtualText = 0
+
 "let g:ale_linters_explicit = 1
 "let g:ale_completion_enabled = 1
 "let g:ale_linters = {'tex':['texlab', 'writegood'], 'markdown':['writegood']}
