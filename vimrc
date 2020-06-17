@@ -16,7 +16,8 @@ set shiftwidth=2
 set tabstop=2
 "set virtual edit=all
 set encoding=utf-8
-set laststatus=0
+set laststatus=2
+set noshowmode
 set scrolloff=5
 set undofile
 set cursorline
@@ -68,9 +69,8 @@ map L $
 "vim plug
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
-
-Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust'], 'branch': 'release'}
-Plug 'autozimu/LanguageClient-neovim', {'branch': 'next','do': 'bash install.sh',}
+Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust', 'rs', 'py'], 'branch': 'release'}
+Plug 'itchyny/lightline.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -78,7 +78,6 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
 Plug 'psliwka/vim-smoothie'
-"Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
 Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
 Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
 Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust'] }
@@ -86,11 +85,32 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust'}
 Plug 'airblade/vim-rooter'
 Plug 'machakann/vim-highlightedyank'
 Plug 'Chiel92/vim-autoformat'
-Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
-Plug 'edkolev/tmuxline.vim'
-Plug 'godlygeek/tabular'
 Plug 'preservim/nerdtree'
+"Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
+"Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
+"Plug 'edkolev/tmuxline.vim'
+"Plug 'godlygeek/tabular'
 call plug#end()
+
+"lightline 
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
+
+function! LightlineFilename()
+  return expand('%:t') !=# '' ? @% : '[No Name]'
+endfunction
+
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 "nerd tree
 map <C-t> :NERDTreeToggle<CR>
@@ -102,35 +122,12 @@ let g:plug_window = 'noautocmd vertical topleft new'
 let g:NERDTreeDirArrowExpandable = ''
 let g:NERDTreeDirArrowCollapsible = ''
 
-"function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-" exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-" exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-"endfunction
-
-"call NERDTreeHighlightFile('py', 'green', 'none', 'green', '#032b35')
-"call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#032b35')
-"call NERDTreeHighlightFile('yml', 'yellow', 'blue', 'yellow', '#032b35')
-"call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#032b35')
-"call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#032b35')
-"call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#032b35')
-"call NERDTreeHighlightFile('toml', 'cyan', 'none', 'cyan', '#032b35')
-"call NERDTreeHighlightFile('rs', 'Red', 'none', 'red', '#032b35')
-"call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#032b35')
-"call NERDTreeHighlightFile('cpp', 'Magenta', 'none', '#ff00ff', '#032b35')
-
-
 
 "au BufWrite * :Autoformat
 
 "highlightedyank
 let g:highlightedyank_highlight_duration = 350
 
-let g:LanguageClient_serverCommands = {
-      \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-      \ 'python': ['/usr/local/bin/pyls'],
-      \ 'tex': ['/home/bruno/.cargo/bin//texlab'],
-      \ 'latex': ['/home/bruno/.cargo/bin//texlab'],
-      \ }
 
 "Rustfmt on save
 let g:rustfmt_autosave = 1
