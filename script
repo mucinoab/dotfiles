@@ -2,7 +2,6 @@ ln -s /home/bruno/Dotfiles/tealdeer.toml /home/bruno/.config/tealdeer/config.tom
 
 ln -s /home/bruno/Dotfiles/vimrc /home/bruno/.config/nvim/init.vim
 
-
 ln -sf /home/bruno/Dotfiles/tmux.conf /home/bruno/.tmux.conf
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
@@ -16,6 +15,5 @@ ln -sf /home/bruno/Dotfiles/alacritty.yml /home/bruno/.alacritty.yml
 
 ln -sf /home/bruno/Dotfiles/vscode.json /home/bruno/.config/VSCodium/User/settings.json
 
-
-
+ln -sf /home/bruno/Dotfiles/dunstrc ~/Dotfiles/dunstrc
 
