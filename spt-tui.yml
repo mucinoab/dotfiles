@@ -16,4 +16,6 @@ behavior:
   seek_milliseconds: 3000
   volume_increment: 10
   tick_rate_milliseconds: 250
+  show_loading_indicator: false
+
 
