@@ -54,4 +54,4 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
+#eval "$(starship init zsh)"

@@ -115,8 +115,8 @@ bindsym $mod+q split toggle
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+#bindsym $mod+s layout stacking
+#bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -277,13 +277,14 @@ bindsym $mod+Ctrl+l exec --no-startup-id blurlock
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+#exec --no-startup-id nitrogen --restore; sleep 1; compton -b
 exec_always feh --bg-scale /home/bruno/Downloads/wall.png
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 #exec --no-startup-id clipit
 exec --no-startup-id blueman-applet
+exec --no-startup-id libinput-gestures-setup start
 # exec_always --no-startup-id sbxkb
 #exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green

@@ -86,11 +86,15 @@ Plug 'airblade/vim-rooter'
 Plug 'machakann/vim-highlightedyank'
 Plug 'Chiel92/vim-autoformat'
 Plug 'preservim/nerdtree'
+Plug 'luochen1990/rainbow'
 "Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
 "Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 "Plug 'edkolev/tmuxline.vim'
 "Plug 'godlygeek/tabular'
 call plug#end()
+
+"parentesis de colores
+let g:rainbow_active = 1
 
 "lightline 
 

@@ -20,5 +20,6 @@
   ],
     "vim.leader": "<space>",
     "vscode-neovim.neovimPath": "/usr/bin/nvim",
-    "vscode-neovim.neovimInitPath": "/home/bruno/Dotfiles/vimrc"
+    "vscode-neovim.neovimInitPath": "/home/bruno/Dotfiles/vimrc",
+    "window.zoomLevel": -1
 }
