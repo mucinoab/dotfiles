@@ -17,3 +17,5 @@ ln -sf /home/bruno/Dotfiles/vscode.json /home/bruno/.config/VSCodium/User/settin
 
 ln -sf /home/bruno/Dotfiles/dunstrc ~/Dotfiles/dunstrc
 
+ln -sf /home/bruno/Dotfiles/trackpadg.conf ~/.config/libinput-gestures.conf
+
