@@ -277,20 +277,22 @@ bindsym $mod+Ctrl+l exec --no-startup-id blurlock
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-#exec --no-startup-id nitrogen --restore; sleep 1; compton -b
 exec_always feh --bg-scale /home/bruno/Downloads/wall.png
+exec_always compton -b
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 #exec --no-startup-id clipit
 exec --no-startup-id blueman-applet
 exec --no-startup-id libinput-gestures-setup start
-# exec_always --no-startup-id sbxkb
-#exec --no-startup-id start_conky_maia
-# exec --no-startup-id start_conky_green
 exec_always --no-startup-id xautolock -time 10 -notify 10 -bell -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
+
+#exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+# exec_always --no-startup-id sbxkb
+#exec --no-startup-id start_conky_maia
+# exec --no-startup-id start_conky_green
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:

@@ -14,6 +14,7 @@ set mouse=a
 set clipboard=unnamedplus
 set shiftwidth=2
 set tabstop=2
+set nohlsearch
 "set virtual edit=all
 set encoding=utf-8
 set laststatus=2
