@@ -6,6 +6,8 @@ nmap j gj
 nmap k gk
 nmap <c-n> o<Esc>
 map q: :q
+"ex mode 
+map Q <Nop>
 inoremap jk <esc>
 syntax on
 set hidden
