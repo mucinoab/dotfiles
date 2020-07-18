@@ -1,9 +1,6 @@
 #export MOZ_ENABLE_WAYLAND=2
 #pacman -Syu xorg-server-xwayland
 
-
-
-
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -25,11 +22,15 @@ input * {
     xkb_options "ctrl:nocaps"
 }
 
+exec swayidle -w \
+         timeout 300 'swaylock -f -c 000000' \
+          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+          before-sleep 'swaylock -f -c 000000'
 
 
-
-
-
+#1366x768 
+output HDMI-A-1 pos 1366 0 
+output eDP-1 pos 0 0 
 
 
 # i3 config file (v4)
@@ -302,28 +303,29 @@ mode "resize" {
 }
 
 # Lock screen
-#
-bindsym $mod+Ctrl+l exec blurlock
-#bindsym $mod+Ctrl+l exec swaylock
+bindsym $mod+Ctrl+l exec swaylock \
+        --clock -c 000000FF
+        --indicator \
+        --indicator-radius 100 \
+        --indicator-thickness 7 \
+        --ring-color bb00cc \
+        --key-hl-color 880033 \
+        --line-color 00000000 \
+        --inside-color 00000088 \
+        --separator-color 00000000
 
 # Autostart applications
 exec  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 output "*" bg /home/bruno/Downloads/wall.png fill
 exec_always compton -b
-exec  nm-applet
-exec  xfce4-power-manager
-exec  pamac-tray
-exec  blueman-applet
-exec  libinput-gestures-setup start
+exec nm-applet
+exec xfce4-power-manager
+exec pamac-tray
+exec blueman-applet
+exec libinput-gestures-setup start
 exec mako
-exec_always  xautolock -time 10 -notify 10 -bell -locker blurlock
 exec_always  ff-theme-util
 exec_always  fix_xcursor
-
-#exec  nitrogen --restore; sleep 1; compton -b
-# exec_always  sbxkb
-#exec  start_conky_maia
-# exec  start_conky_green
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -362,10 +364,6 @@ bar {
   status_command i3status -c ~/Dotfiles/i3status
   mode hide
 	position bottom
-
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
 
 	strip_workspace_numbers yes
 
