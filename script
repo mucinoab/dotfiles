@@ -19,3 +19,4 @@ ln -sf /home/bruno/Dotfiles/dunstrc ~/Dotfiles/dunstrc
 
 ln -sf /home/bruno/Dotfiles/trackpadg.conf ~/.config/libinput-gestures.conf
 
+ln -sf /home/bruno/Dotfiles/swayconfig ~/.config/sway/config
