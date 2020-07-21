@@ -278,7 +278,10 @@ mode "resize" {
 
 # Lock screen
 bindsym $mod+Ctrl+l exec swaylock \
-        --clock -c 000000FF\
+        --clock\
+        --timestr '%H:%M'\
+        --datestr '%d/%m'\
+        -c 000000FF\
         --indicator \
         --indicator-radius 100 \
         --indicator-thickness 7 \
