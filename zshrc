@@ -45,7 +45,7 @@ alias grep='grep --color=auto'
 alias sptr='systemctl restart  --user spotifyd.service && spt'
 bindkey '^ ' autosuggest-accept
 alias cr='cargo run'
-alias crr='cargo run'
+alias crr='cargo run --release'
 alias ct='cargo test'
 alias ccc='cargo check'
 alias tiempo='curl http://wttr.in/ -s | head -n-2'

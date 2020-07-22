@@ -74,8 +74,8 @@ map L $
 call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust', 'rs', 'py'], 'branch': 'release'}
 Plug 'itchyny/lightline.vim'
-"Plug 'lifepillar/vim-solarized8'
-Plug 'cocopon/iceberg.vim/'
+Plug 'lifepillar/vim-solarized8'
+"Plug 'cocopon/iceberg.vim/'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'edkolev/tmuxline.vim'
@@ -184,9 +184,9 @@ let g:tmuxline_theme = {
 let &t_8f = "\<ESC>[38;2;%Lu;%Lu;%loom"
 let &t_8b = "\<ESC>[48;2;%Lu;%Lu;%loom"
 "colorscheme solarized8_flat
-"colorscheme solarized8
-"let g:solarized_extra_hi_groups=1
-colorscheme iceberg
+colorscheme solarized8
+let g:solarized_extra_hi_groups=1
+"colorscheme iceberg
 
 hi clear Spell Bad
 hi SpellBad cterm=underline  ctermfg=Red
