@@ -120,6 +120,9 @@ endfunction
 
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
+"rainbow 
+let g:rainbow_conf = {'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold', 'start=/</ end=/>/ fold'],}
+
 "nerd tree
 map <C-t> :NERDTreeToggle<CR>
 filetype plugin indent on
