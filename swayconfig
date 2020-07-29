@@ -13,7 +13,7 @@ input * {
     xkb_options "ctrl:nocaps"
 }
 
-output HDMI-A-1 pos 1366 0 
+output HDMI-A-2 pos 1366 0 
 output eDP-1 pos 0 0 
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)

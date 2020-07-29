@@ -1,12 +1,9 @@
-"map<c-h> :w <CR> :!g++ "%" -Wall -pedantic -std=c++11 -g -Or<CR>:!sleep 1<CR>:Q <CR>
-
 vmap j gj
 vmap k gk
 nmap j gj
 nmap k gk
 nmap <c-n> o<Esc>
 map q: :q
-"ex mode 
 map Q <Nop>
 inoremap jk <esc>
 syntax on
@@ -133,24 +130,16 @@ let g:plug_window = 'noautocmd vertical topleft new'
 let g:NERDTreeDirArrowExpandable = ''
 let g:NERDTreeDirArrowCollapsible = ''
 
-
-"au BufWrite * :Autoformat
-
 "highlightedyank
 let g:highlightedyank_highlight_duration = 350
-
 
 "Rustfmt on save
 let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 1
-
-
 let g:vimtex_format_enabled=1
 let g:vimtex_fold_manual=1
-let g:vimtex_compiler_latexmk = {
-      \ 'build_dir' : 'build',
-      \}
+let g:vimtex_compiler_latexmk = {'build_dir' : 'build',}
 let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor='latex'
 let g:vimtex_quickfix_mode=0
@@ -314,4 +303,4 @@ endfunction
 
 "Busa en tus archivos
 command! -bang -nargs=? -complete=dir Files
-      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
+\ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
