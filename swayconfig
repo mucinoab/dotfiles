@@ -13,7 +13,7 @@ input * {
     xkb_options "ctrl:nocaps"
 }
 
-output HDMI-A-2 pos 1366 0 
+output HDMI-A-1 pos 1366 0 
 output eDP-1 pos 0 0 
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
@@ -79,7 +79,7 @@ bindsym $mod+t exec  pkill compton
 bindsym $mod+Ctrl+t exec  compton -b
 bindsym $mod+Ctrl+x --release exec  xkill
 exec swayidle -w \
-      timeout 400 'swaylock -f -c 000000' \
+      timeout 650 'swaylock -f -c 000000' \
       timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
       before-sleep 'swaylock -f -c 000000'
 
@@ -292,13 +292,14 @@ bindsym $mod+Ctrl+l exec swaylock \
 # Autostart applications
 exec  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 output "*" bg /home/bruno/Downloads/wall.png fill
-exec_always compton -b
-exec nm-applet
 exec xfce4-power-manager
-exec blueman-applet
-exec libinput-gestures-setup start
+
+#exec_always ff-theme-util
+#exec_always compton -b
+#exec nm-applet
+#exec blueman-applet
+#exec libinput-gestures-setup start
 exec mako
-exec_always ff-theme-util
 exec_always fix_xcursor
 
 bar {
