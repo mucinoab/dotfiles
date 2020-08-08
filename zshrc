@@ -52,6 +52,7 @@ alias ccc='cargo check'
 alias tiempo='curl http://wttr.in/ -s | head -n-2'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export CARGO_TARGET_DIR='/home/bruno/cargo_target_dir'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
