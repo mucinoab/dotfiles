@@ -48,6 +48,7 @@ bindkey '^ ' autosuggest-accept
 alias cr='cargo run'
 alias crr='cargo run --release'
 alias ct='cargo test'
+alias cb='cargo build'
 alias ccc='cargo check'
 alias tiempo='curl http://wttr.in/ -s | head -n-2'
 
