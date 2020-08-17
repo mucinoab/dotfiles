@@ -292,8 +292,8 @@ bindsym $mod+Ctrl+l exec swaylock \
 # Autostart applications
 exec  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 output "*" bg /home/bruno/Downloads/wall.png fill
-exec xfce4-power-manager
 
+#exec xfce4-power-manager
 #exec_always ff-theme-util
 #exec_always compton -b
 #exec nm-applet
