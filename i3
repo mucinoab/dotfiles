@@ -280,7 +280,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always feh --bg-scale /home/bruno/Downloads/wall.png
 exec_always compton -b
 exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
+# exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 #exec --no-startup-id clipit
 exec --no-startup-id blueman-applet
