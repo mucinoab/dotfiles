@@ -27,5 +27,6 @@
     "workbench.sideBar.location": "left",
     "editor.minimap.enabled": false,
     "editor.fontLigatures": true,
-    "python.dataScience.alwaysTrustNotebooks": true
+    "python.dataScience.alwaysTrustNotebooks": true,
+    "editor.wordWrap": "on"
 }
