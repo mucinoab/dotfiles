@@ -29,7 +29,6 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
-#Comppila y abre .tex
 #Hace que los alias funcionen con sudo, a veces
 alias sudo='sudo '
 alias rm='rm -i'
@@ -60,4 +59,3 @@ export CARGO_TARGET_DIR='/home/bruno/cargo_target_dir'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-#eval "$(starship init zsh)"

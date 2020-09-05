@@ -88,6 +88,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'Chiel92/vim-autoformat'
 Plug 'preservim/nerdtree'
 Plug 'luochen1990/rainbow'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
 "Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 "Plug 'edkolev/tmuxline.vim'
