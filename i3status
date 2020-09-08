@@ -26,7 +26,7 @@ battery 0 {
         status_chr = "⚡"
         status_unk = ""
         path = "/sys/class/power_supply/BAT0/uevent"
-        low_threshold = 10
+        low_threshold = 15
 }
 
 battery 1 {
@@ -37,5 +37,5 @@ battery 1 {
         status_full = ""
         status_unk = ""
         path = "/sys/class/power_supply/BAT1/uevent"
-        low_threshold = 10
+        low_threshold = 15
 }

@@ -51,7 +51,7 @@ alias cb='cargo build'
 alias ccc='cargo check'
 alias tiempo='curl http://wttr.in/ -s | head -n-2'
 alias sss='grim -g "$(slurp)" ~/screenshoots/$(date +%Y-%m-%d_%H-%m-%s).png'
-
+alias foto='ffmpeg -loglevel panic -i /dev/video1 -frames 1 -f image2 -| convert - -colorspace gray - > ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).jpeg'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export CARGO_TARGET_DIR='/home/bruno/cargo_target_dir'
