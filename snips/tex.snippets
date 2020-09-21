@@ -113,6 +113,8 @@ snippet templatec "Template clase" b
 %!TeX program = xelatex
 \documentclass{article}
 \usepackage{unicode-math}
+\usepackage{xcolor}
+\usepackage{hyperref}
 \usepackage{blindtext}
 \usepackage{fancyhdr}
 \usepackage{physics}
@@ -124,6 +126,12 @@ snippet templatec "Template clase" b
   left   = 3cm,
   right  = 3cm]{geometry}
 
+\definecolor{Azul}{RGB}{20, 101, 159}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=Azul
+}
 
 \title{$1}%tema
 \author{$2}%clase
