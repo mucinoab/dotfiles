@@ -72,7 +72,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust', 'rs', 'py'], 'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'lifepillar/vim-solarized8'
-"Plug 'cocopon/iceberg.vim/'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'edkolev/tmuxline.vim'
