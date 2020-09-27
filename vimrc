@@ -49,7 +49,9 @@ set shortmess+=c
 "cosas para editar texto simple, no código
 filetype plugin indent on
 autocmd BufRead *.tex,*.latex set filetype=tex
-au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b
+au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b nornu nonumber
+au BufWrite *.tex,*.latex :Autoformat
+
 let g:latex_indent_enabled = 1
 
 set spell
@@ -80,7 +82,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'psliwka/vim-smoothie'
 Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
 Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
-Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust'] }
+Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust', 'go'] }
 Plug 'rust-lang/rust.vim', { 'for': 'rust'}
 Plug 'airblade/vim-rooter'
 Plug 'machakann/vim-highlightedyank'
