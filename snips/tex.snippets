@@ -98,7 +98,6 @@ snippet template "Template" b
   left   = 3cm,
   right  = 3cm]{geometry}
 
-\pagestyle{fancy}
 \fancyhf{}
 \setlength{\headheight}{35pt}
 
@@ -118,13 +117,12 @@ snippet templatec "Template clase" b
 \usepackage{blindtext}
 \usepackage{fancyhdr}
 \usepackage{physics}
-\pagestyle{fancy}
 \fancyhf{}
 \usepackage[
-  top    = 3cm,
-  bottom = 3.15cm,
-  left   = 3cm,
-  right  = 3cm]{geometry}
+top    = 3cm,
+bottom = 3.15cm,
+left   = 3cm,
+right  = 3cm]{geometry}
 
 \definecolor{Azul}{RGB}{20, 101, 159}
 
@@ -133,13 +131,17 @@ snippet templatec "Template clase" b
   urlcolor=Azul
 }
 
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{35pt}
+
 \title{$1}%tema
-\author{$2}%clase
+\author{$2 \\\\Muciño Guerrero Bruno A.}%clase
 \date{ today$3 }%para solo dar enter y que se ponga la fecha
 
 \begin{document}
 \maketitle
-\rhead{$1}
+\rhead{$1 \\\\Muciño Guerrero Bruno A.}
 
 \section*{$4}%subtema
 

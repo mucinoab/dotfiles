@@ -21,7 +21,7 @@ set $mod Mod4
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 0
-default_floating_border normal
+default_floating_border pixel 2
 
 # Hide borders
 hide_edge_borders none
@@ -291,7 +291,7 @@ bindsym $mod+Ctrl+l exec swaylock \
 
 # Autostart applications
 exec  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-output "*" bg /home/bruno/Downloads/wall.png fill
+output "*" bg /home/bruno/Downloads/wall3.jpg fill
 
 #exec xfce4-power-manager
 #exec_always ff-theme-util

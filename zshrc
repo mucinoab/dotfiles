@@ -32,10 +32,11 @@ export LC_CTYPE=en_US.UTF-8
 #Hace que los alias funcionen con sudo, a veces
 alias sudo='sudo '
 alias rm='rm -i'
-alias ls='exa'
-alias la='exa -a'
-alias lt='exa --tree --level=3'
-alias l='exa'
+alias ls='exa -s modified'
+
+alias la='exa -a -s modified'
+alias lt='exa --tree --level=3 -s modified'
+alias l='exa -s modified'
 alias tm='tmux -2'
 alias vim='nvim'
 alias v='nvim'
