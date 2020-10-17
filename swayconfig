@@ -299,7 +299,7 @@ output "*" bg /home/bruno/Downloads/wall3.jpg fill
 #exec nm-applet
 #exec blueman-applet
 #exec libinput-gestures-setup start
-exec mako
+exec mako --default-timeout 40000
 exec_always fix_xcursor
 
 bar {

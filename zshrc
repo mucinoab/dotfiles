@@ -1,16 +1,13 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 [[ -s /home/bruno/.autojump/etc/profile.d/autojump.sh ]] && source /home/bruno/.autojump/etc/profile.d/autojump.sh
 # If you come from bash you might have to change your $PATH.
+eval "$(starship init zsh)"
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=/usr/local/texlive/2020/bin/x86_64-linux:/home/bruno/.cargo/bin/:/home/bruno/.gem/ruby/2.7.0/bin:$PATH 
 
 
 export ZSH="/home/bruno/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
 
 DISABLE_MAGIC_FUNCTIONS=true
 ENABLE_CORRECTION="true"
@@ -57,6 +54,4 @@ alias foto='ffmpeg -loglevel panic -i /dev/video1 -frames 1 -f image2 -| convert
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export CARGO_TARGET_DIR='/home/bruno/cargo_target_dir'
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

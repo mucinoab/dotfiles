@@ -8,7 +8,7 @@ map Q <Nop>
 inoremap jk <esc>
 syntax on
 set hidden
-set synmaxcol=350
+set synmaxcol=400
 set mouse=a
 set clipboard=unnamedplus
 set shiftwidth=2
