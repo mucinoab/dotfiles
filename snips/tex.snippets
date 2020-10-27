@@ -5,7 +5,7 @@ $0
 endsnippet
 
 snippet \( "Math" wA
-\( $1\) $0
+\($1\) $0
 endsnippet
 
 snippet today "Date"
@@ -79,11 +79,11 @@ snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
 endsnippet
 
 snippet // "Fraction" iA
-\\frac{$1}{$2}$0
+\\nicefrac{$1}{$2}$0
 endsnippet
 
 snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
-\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+\\nicefrac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
 snippet template "Template" b
