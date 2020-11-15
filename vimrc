@@ -50,7 +50,7 @@ set shortmess+=c
 filetype plugin indent on
 autocmd BufRead *.tex,*.latex set filetype=tex
 au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b nornu nonumber
-au BufWrite *.tex,*.latex :Autoformat
+au BufWrite *.tex,*.latex,*.cpp :Autoformat
 
 let g:latex_indent_enabled = 1
 
@@ -90,7 +90,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'preservim/nerdtree'
 Plug 'luochen1990/rainbow'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
+"Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
 "Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 "Plug 'edkolev/tmuxline.vim'
 "Plug 'godlygeek/tabular'
@@ -120,7 +120,7 @@ endfunction
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 "rainbow 
-let g:rainbow_conf = {'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold', 'start=/</ end=/>/ fold'],}
+let g:rainbow_conf = {'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],}
 
 "nerd tree
 map <C-t> :NERDTreeToggle<CR>
@@ -146,8 +146,8 @@ let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor='latex'
 let g:vimtex_quickfix_mode=0
 let g:vimtex_view_method='zathura'
-set conceallevel=1
-let g:tex_conceal='abdmg'
+set conceallevel=0
+let g:tex_conceal="abdgm"
 let g:UltiSnipsSnippetDirectories=['/home/bruno/Dotfiles/snips']
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
