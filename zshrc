@@ -56,3 +56,21 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 export CARGO_TARGET_DIR='/home/bruno/cargo_target_dir'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+noti() {
+  notify-send 'Terminal Done' -u critical
+}
+
+rgf() {
+	RG_PREFIX="rga --files-with-matches"
+	local file
+	file="$(
+		FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
+			fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
+				--phony -q "$1" \
+				--bind "change:reload:$RG_PREFIX {q}" \
+				--preview-window="70%:wrap"
+	)" &&
+	echo "opening $file" &&
+	xdg-open "$file"
+}

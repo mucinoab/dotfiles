@@ -32,7 +32,7 @@ set autoread
 set expandtab
 set shiftround
 set lazyredraw
-set relativenumber
+"set relativenumber
 set termguicolors
 
 " Proper search
@@ -50,6 +50,7 @@ set shortmess+=c
 filetype plugin indent on
 autocmd BufRead *.tex,*.latex set filetype=tex
 au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b nornu nonumber
+"au BufWrite *.tex,*.latex,*.cpp,*.rs :Autoformat
 au BufWrite *.tex,*.latex,*.cpp :Autoformat
 
 let g:latex_indent_enabled = 1
@@ -71,7 +72,7 @@ map L $
 "vim plug
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
-Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust', 'rs', 'py'], 'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust', 'rs', 'py', 'julia', 'jl'], 'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -82,14 +83,15 @@ Plug 'justinmk/vim-sneak'
 Plug 'psliwka/vim-smoothie'
 Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
 Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
-Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust', 'go'] }
+Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust', 'go', 'julia'] }
 Plug 'rust-lang/rust.vim', { 'for': 'rust'}
 Plug 'airblade/vim-rooter'
 Plug 'machakann/vim-highlightedyank'
 Plug 'Chiel92/vim-autoformat'
 Plug 'preservim/nerdtree'
 Plug 'luochen1990/rainbow'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'JuliaEditorSupport/julia-vim'
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
 "Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 "Plug 'edkolev/tmuxline.vim'
@@ -139,6 +141,7 @@ let g:highlightedyank_highlight_duration = 350
 let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 1
+
 let g:vimtex_format_enabled=1
 let g:vimtex_fold_manual=1
 let g:vimtex_compiler_latexmk = {'build_dir' : 'build',}
@@ -156,10 +159,6 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 "No avisos rojos
 let g:LanguageClient_useVirtualText = 0
-
-"let g:ale_linters_explicit = 1
-"let g:ale_completion_enabled = 1
-"let g:ale_linters = {'tex':['texlab', 'writegood'], 'markdown':['writegood']}
 
 let g:tmuxline_preset = 'minimal'
 let g:tmuxline_theme = {

@@ -54,7 +54,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+z exec dmenu_recency
 
 # launch categorized menu
-bindsym $mod+d exec j4-dmenu-desktop
+bindsym $mod+d exec rofi -show run
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##

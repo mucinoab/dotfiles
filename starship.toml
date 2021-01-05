@@ -1,0 +1,22 @@
+add_newline = false
+
+[rust]
+disabled = true
+symbol = ""
+
+[julia]
+disabled = true
+symbol = ""
+
+[cmd_duration]
+min_time = 100
+format = "[$duration](bold yellow)"
+
+[git_branch]
+format = "[$symbol$branch]($style) "
+
+[package]
+disabled = true
+
+[python]
+disabled = true
