@@ -6,6 +6,10 @@ nmap <c-n> o<Esc>
 map q: :q
 map Q <Nop>
 inoremap jk <esc>
+
+noremap! <C-BS> <C-w>
+noremap! <C-h> <C-w>
+
 syntax on
 set hidden
 set synmaxcol=400
@@ -51,7 +55,7 @@ filetype plugin indent on
 autocmd BufRead *.tex,*.latex set filetype=tex
 au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b nornu nonumber
 "au BufWrite *.tex,*.latex,*.cpp,*.rs :Autoformat
-au BufWrite *.tex,*.latex,*.cpp :Autoformat
+au BufWrite *.tex,*.latex,*.cpp,*.htlm :Autoformat
 
 let g:latex_indent_enabled = 1
 
@@ -59,8 +63,12 @@ set spell
 set spelllang=es,en
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u<Esc>ha
 
-autocmd FileType cpp,rust let b:comment_leader = '// '
-autocmd FileType python let b:comment_leader = '# '
+"tera templates -> html
+autocmd BufNewFile,BufRead *.tera set syntax=html
+autocmd BufNewFile,BufRead *.tera set ft=html
+
+autocmd FileType cpp,rust,htlm,js let b:comment_leader = '// '
+autocmd FileType python,julia let b:comment_leader = '# '
 autocmd FileType tex let b:comment_leader = '% '
 noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> ,u :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
@@ -72,7 +80,7 @@ map L $
 "vim plug
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
-Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust', 'rs', 'py', 'julia', 'jl'], 'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust', 'rs', 'py', 'js'], 'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -80,10 +88,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
-Plug 'psliwka/vim-smoothie'
+"Plug 'psliwka/vim-smoothie'
 Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
 Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
-Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust', 'go', 'julia'] }
+Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust', 'go', 'julia', 'html', 'javascript'] }
 Plug 'rust-lang/rust.vim', { 'for': 'rust'}
 Plug 'airblade/vim-rooter'
 Plug 'machakann/vim-highlightedyank'

@@ -74,3 +74,7 @@ rgf() {
 	echo "opening $file" &&
 	xdg-open "$file"
 }
+
+function pcsv {
+    cat "$@" | sed 's/,/ ,/g' | column -t -s, | less -S
+}
