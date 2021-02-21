@@ -7,8 +7,17 @@ map q: :q
 map Q <Nop>
 inoremap jk <esc>
 
+"borrar palabra completa 
 noremap! <C-BS> <C-w>
 noremap! <C-h> <C-w>
+
+"control j-k para mover lineas y selecciones completas
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
 
 syntax on
 set hidden
@@ -201,38 +210,6 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
-
-"ctr j-k para mover lineas completas
-function! s:swap_lines(n1, n2)
-  let line1 = getline(a:n1)
-  let line2 = getline(a:n2)
-  call setline(a:n1, line2)
-  call setline(a:n2, line1)
-endfunction
-
-
-function! s:swap_up()
-  let n = line('.')
-  if n == 1
-    return
-  endif
-
-  call s:swap_lines(n, n - 1)
-  exec n - 1
-endfunction
-
-function! s:swap_down()
-  let n = line('.')
-  if n == line('$')
-    return
-  endif
-
-  call s:swap_lines(n, n + 1)
-  exec n + 1
-endfunction
-
-noremap <silent> <c-k> :call <SID>swap_up()<CR>
-noremap <silent> <c-j> :call <SID>swap_down()<CR>
 
 " Quick-save y salir con C-espacio
 let mapleader = "\<Space>"
