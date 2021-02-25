@@ -83,7 +83,7 @@ snippet // "Fraction" iA
 endsnippet
 
 snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
-\\nicefrac{`!p snip.rv = match.group(1)`}{$1}$0
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
 snippet template "Template" b
@@ -185,4 +185,12 @@ snippet table "Table environment" b
 	$0${5/((?<=.)c|l|r)|./(?1: & )/g}
 	\end{tabular}
 \end{table}
+endsnippet
+
+snippet title "Convierte el texto seleccionado a Title mode" i
+`!p snip.rv = snip.v.text.title()`
+endsnippet
+
+snippet ital "Pone el texto en italicas de latex" i
+`!p snip.rv = f"\\textit{{{snip.v.text}}}"`
 endsnippet
