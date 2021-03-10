@@ -64,7 +64,7 @@ filetype plugin indent on
 autocmd BufRead *.tex,*.latex set filetype=tex
 au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b nornu nonumber
 "au BufWrite *.tex,*.latex,*.cpp,*.rs :Autoformat
-au BufWrite *.tex,*.latex,*.cpp,*.htlm :Autoformat
+au BufWrite *.tex,*.latex,*.cpp,*.ts :Autoformat
 
 let g:latex_indent_enabled = 1
 
@@ -89,7 +89,7 @@ map L $
 "vim plug
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
-Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust', 'rs', 'py', 'js', 'html', 'tera'], 'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust', 'rs', 'py', 'js', 'html', 'tera', 'typescript'], 'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -107,13 +107,14 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'Chiel92/vim-autoformat'
 Plug 'preservim/nerdtree'
 Plug 'luochen1990/rainbow'
-Plug 'JuliaEditorSupport/julia-vim'
+Plug 'mengelbrecht/lightline-bufferline'
 "Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
 "Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 "Plug 'edkolev/tmuxline.vim'
 "Plug 'godlygeek/tabular'
 call plug#end()
+set showtabline=2
 
 "parentesis de colores
 let g:rainbow_active = 1
@@ -131,6 +132,24 @@ let g:lightline = {
       \   'cocstatus': 'coc#status'
       \ },
       \ }
+
+let g:lightline#bufferline#shorten_path = 0
+let g:lightline#bufferline#show_number = 0
+let g:lightline#bufferline#unnamed = '[No Name]'
+
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [['']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+"let g:lightline#bufferline#auto_hide = 12000
+let g:lightline#bufferline#min_buffer_count = 3
+let g:lightline.component_raw = {'buffers': 1}
+let g:lightline#bufferline#clickable = 1
+
+"hace el lightline del mismo color
+let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
+let s:palette.normal.middle = [ [ 'NONE', 'NONE', 'NONE', 'NONE' ] ]
+let s:palette.inactive.middle = s:palette.normal.middle
+let s:palette.tabline.middle = s:palette.normal.middle
 
 function! LightlineFilename()
   return expand('%:t') !=# '' ? @% : '[No Name]'

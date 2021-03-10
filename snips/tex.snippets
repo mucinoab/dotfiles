@@ -167,8 +167,8 @@ priority 10000
 snippet 'sympy(.*)sympy' "evaluate sympy" wr
 `!p
 from sympy import *
-x, y, z = symbols('x y z')
-k, m, n = symbols('k m n', integer=True)
+x, y, z, t, s = symbols('x y z t s')
+a, b, k, m, n = symbols('a b k m n', integer=True)
 init_printing()
 snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
     .replace('^', '**') \
@@ -193,4 +193,8 @@ endsnippet
 
 snippet ital "Pone el texto en italicas de latex" i
 `!p snip.rv = f"\\textit{{{snip.v.text}}}"`
+endsnippet
+
+snippet ma "Pone el texto en in-line math" i
+`!p snip.rv = f"\\({snip.v.text}\)"`
 endsnippet
