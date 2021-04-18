@@ -122,7 +122,7 @@ bindsym $mod+Shift+less move workspace to output down
 bindsym $mod+q split toggle
 
 # toggle fullscreen mode for the focused container
-bindsym $mod+f exec swaymsg fullscreen toggle && swaymsg 'border pixel 3'
+bindsym fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 #bindsym $mod+s layout stacking
