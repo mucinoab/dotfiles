@@ -76,7 +76,7 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u<Esc>ha
 autocmd BufNewFile,BufRead *.tera set syntax=html
 autocmd BufNewFile,BufRead *.tera set ft=html
 
-autocmd FileType cpp,rust,htlm,js let b:comment_leader = '// '
+autocmd FileType cpp,rust,htlm,js,typescript let b:comment_leader = '// '
 autocmd FileType python,julia let b:comment_leader = '# '
 autocmd FileType tex let b:comment_leader = '% '
 noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
@@ -108,6 +108,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'preservim/nerdtree'
 Plug 'luochen1990/rainbow'
 Plug 'mengelbrecht/lightline-bufferline'
+"Plug 'lukas-reineke/indent-blankline.nvim'
 "Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
 "Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
