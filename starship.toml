@@ -4,6 +4,10 @@ add_newline = false
 disabled = true
 symbol = ""
 
+[golang]
+disabled = true
+symbol = ""
+
 [julia]
 disabled = true
 symbol = ""
