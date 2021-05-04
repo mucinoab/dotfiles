@@ -64,7 +64,7 @@ filetype plugin indent on
 autocmd BufRead *.tex,*.latex set filetype=tex
 au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b nornu nonumber
 "au BufWrite *.tex,*.latex,*.cpp,*.rs :Autoformat
-au BufWrite *.tex,*.latex,*.cpp,*.ts :Autoformat
+au BufWrite *.tex,*.latex,*.cpp,*.ts,*.go :Autoformat
 
 let g:latex_indent_enabled = 1
 
@@ -89,7 +89,7 @@ map L $
 "vim plug
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
-Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust', 'rs', 'py', 'js', 'html', 'tera', 'typescript'], 'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'for': ['cpp', 'python', 'rust', 'rs', 'py', 'js', 'html', 'tera', 'typescript', 'go'], 'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -108,8 +108,8 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'preservim/nerdtree'
 Plug 'luochen1990/rainbow'
 Plug 'mengelbrecht/lightline-bufferline'
+Plug 'chaoren/vim-wordmotion'
 "Plug 'lukas-reineke/indent-blankline.nvim'
-"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "Plug 'KeitaNakamura/tex-conceal.vim', { 'for': ['tex', 'latex'] }
 "Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 "Plug 'edkolev/tmuxline.vim'
