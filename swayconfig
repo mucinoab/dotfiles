@@ -26,11 +26,11 @@ output eDP-1 pos 277 1080
 set $mod Mod4
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-default_border pixel 0
+default_border pixel 1
 default_floating_border pixel 2
 
 # Hide borders
-hide_edge_borders none
+hide_edge_borders smart
 
 # change borders
 #bindsym $mod+u border none
@@ -54,7 +54,9 @@ bindsym $mod+Shift+q kill
 bindsym $mod+z exec dmenu_recency
 
 # launch categorized menu
-bindsym $mod+d exec rofi -show run -monitor 0
+set $launcher dmenu_path | sk --layout reverse --history=/home/bruno/.menu_history | xargs swaymsg exec 
+bindsym $mod+d exec alacritty --option "window.dimensions={lines: 16, columns: 64}" --title 'launcher' -e sh -c \'$launcher\' 
+#bindsym $mod+d exec rofi -show run -monitor 0
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
@@ -91,10 +93,10 @@ exec swayidle -w \
 exec "systemctl --user import-environment"
 
 # change focus
-bindsym $mod+h exec swaymsg focus left && swaymsg 'border pixel 1' && sleep .2 && swaymsg 'border pixel 0'
-bindsym $mod+j exec swaymsg focus down && swaymsg 'border pixel 1' && sleep .2 && swaymsg 'border pixel 0'
-bindsym $mod+k exec swaymsg focus up && swaymsg 'border pixel 1' && sleep .2 && swaymsg 'border pixel 0'
-bindsym $mod+l exec swaymsg focus right && swaymsg 'border pixel 1' && sleep .2 && swaymsg 'border pixel 0'
+bindsym $mod+h exec swaymsg focus left
+bindsym $mod+j exec swaymsg focus down
+bindsym $mod+k exec swaymsg focus up
+bindsym $mod+l exec swaymsg focus right
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -237,6 +239,9 @@ for_window [class="Xfburn"] floating enable
 for_window [class="^.*"] inhibit_idle fullscreen
 for_window [app_id="^.*"] inhibit_idle fullscreen
 
+# menu de aplicaciones con terminal
+for_window [title="^launcher$"] floating enable, border none, opacity 0.9
+
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
 
@@ -345,13 +350,13 @@ bindsym $mod+m bar mode toggle
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
-  client.focused          #556064 #556064 #80FFF9 #FDF6E3
-  client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
-  client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
-  client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
-  client.placeholder      #000000 #0c0c0c #ffffff #000000 
+client.focused          #556064 #01cdfe #80FFF9 #FDF6E3
+client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
+client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
+client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
+client.placeholder      #000000 #0c0c0c #ffffff #000000 
 
-  client.background       #2B2C2B
+client.background       #2B2C2B
 
 #############################
 ### settings for i3-gaps: ###
