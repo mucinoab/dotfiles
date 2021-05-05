@@ -17,6 +17,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
+  zsh-vi-mode
   #zsh-vim-mode
 )
 
@@ -41,7 +42,6 @@ alias du='dust -b'
 alias z='zathura'
 alias grep='grep --color=auto'
 alias sptr='systemctl restart  --user spotifyd.service && spt'
-bindkey '^ ' autosuggest-accept
 alias cr='cargo run'
 alias crr='cargo run --release'
 alias ct='cargo test'
@@ -58,7 +58,26 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 export CARGO_TARGET_DIR='/home/bruno/cargo_target_dir'
 export RUSTFLAGS="-C target-cpu=native"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+
+function endl() {
+  zle vi-end-of-line
+}
+
+function beginl() {
+  zle vi-first-non-blank
+}
+
+function zvm_after_lazy_keybindings() {
+  zvm_define_widget endl
+  zvm_define_widget beginl
+
+  zvm_bindkey vicmd "H" beginl
+  zvm_bindkey vicmd "L" endl
+}
+
+zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
+zvm_after_init_commands+=("bindkey '^ ' autosuggest-accept")
 
 noti() {
   notify-send 'Terminal Done' -u critical

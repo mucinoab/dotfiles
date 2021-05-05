@@ -88,6 +88,7 @@ exec swayidle -w \
       timeout 650 'swaylock -f -c 000000' \
       timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
       before-sleep 'swaylock -f -c 000000'
+exec "systemctl --user import-environment"
 
 # change focus
 bindsym $mod+h exec swaymsg focus left && swaymsg 'border pixel 1' && sleep .2 && swaymsg 'border pixel 0'
