@@ -55,7 +55,7 @@ set smartcase
 set gdefault
 
 set redrawtime=10000
-set updatetime=500
+set updatetime=100
 set shortmess+=c
 "set signcolumn=yes
 
@@ -310,3 +310,9 @@ endfunction
 "Busa en tus archivos
 command! -bang -nargs=? -complete=dir Files
 \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
+
+"Salta a definición de función con gd, go to definition 
+nmap <silent> gd <Plug>(coc-definition)
+"highlight de la palabra que esta sobre el cursor y color del highlight 
+au BufRead,BufNewFile *.cpp,*.py,*.rs,*.js,*.ts,*.go autocmd CursorHold * silent call CocActionAsync('highlight')
+highlight CocHighlightText guifg=#FF0FF0
