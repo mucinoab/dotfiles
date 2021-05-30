@@ -55,7 +55,7 @@ bindsym $mod+z exec dmenu_recency
 
 # launch categorized menu
 set $launcher dmenu_path | sk --layout reverse --history=/home/bruno/.menu_history | xargs swaymsg exec 
-bindsym $mod+d exec alacritty --option "window.dimensions={lines: 16, columns: 64}" --title 'launcher' -e sh -c \'$launcher\' 
+bindsym $mod+d exec alacritty --option "window.dimensions={lines: 16, columns: 32}" --title 'launcher' -e sh -c \'$launcher\' 
 #bindsym $mod+d exec rofi -show run -monitor 0
 
 ################################################################################################

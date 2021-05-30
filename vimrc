@@ -19,6 +19,10 @@ inoremap <C-j> <Esc>:m .+1<CR>==gi
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
+"moverte entre splits
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
 syntax on
 set hidden
 set synmaxcol=400
@@ -41,6 +45,7 @@ set smartindent
 set ruler
 set title
 set showcmd
+set showmatch
 set autoread
 set expandtab
 set shiftround
@@ -58,6 +63,20 @@ set redrawtime=10000
 set updatetime=100
 set shortmess+=c
 "set signcolumn=yes
+
+" Wrapping options
+set formatoptions=tc " wrap text and comments using textwidth
+set formatoptions+=r " continue comments when pressing ENTER in I mode
+set formatoptions+=q " enable formatting of comments with gq
+set formatoptions+=n " detect lists for formatting
+set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
+
+" Show actions available at this location
+nnoremap <silent> <space>a  :CocAction<cr>
+
+" Prevent accidental writes to buffers that shouldn't be edited
+autocmd BufRead *.orig set readonly
+autocmd BufRead *.pacnew set readonly
 
 "cosas para editar texto simple, no código
 filetype plugin indent on
@@ -247,14 +266,13 @@ nmap <leader><leader> <c-^>
 tnoremap <leader><leader> <C-\><C-n><c-^>
 
 
-"cierra buffer actual y solo lo guarda si no esta vacio.
-"tmabien cierra vim si solo queda un buffer y es vacio:wq
+"cierra buffer actual y solo lo guarda si no esta vacío.
+"también cierra vim si solo queda un buffer y esta vacío:wq
 fu! CloseIfEmpty()
   exec 'w'
   exec 'bd'
   if line('$') == 1 && getline(1) == ''
     exec 'q'
-    exec '<CR>'
   endif
 endfu
 
@@ -314,5 +332,6 @@ command! -bang -nargs=? -complete=dir Files
 "Salta a definición de función con gd, go to definition 
 nmap <silent> gd <Plug>(coc-definition)
 "highlight de la palabra que esta sobre el cursor y color del highlight 
-au BufRead,BufNewFile *.cpp,*.py,*.rs,*.js,*.ts,*.go autocmd CursorHold * silent call CocActionAsync('highlight')
+au BufRead,BufNewFile *.cpp,*.py,*.rs,*.ts,*.go autocmd CursorHold * silent call CocActionAsync('highlight')
 highlight CocHighlightText guifg=#FF0FF0
+highlight CocHintSign guifg=#676767
