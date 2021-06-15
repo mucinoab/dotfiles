@@ -1,13 +1,16 @@
-#export MOZ_ENABLE_WAYLAND=2
-#pacman -Syu xorg-server-xwayland
+# Set mod key (Mod1=<Alt>, Mod4=<Super>)
+set $mod Mod4
 
 #Keyboard and trackpad
 input "2:7:SynPS/2_Synaptics_TouchPad" {
     tap enabled
 }
 
-input * xkb_capslock disable
+# deshabilita touchpad
+#input 2:7:SynPS/2_Synaptics_TouchPad events disabled
+bindsym $mod+y input type:touchpad events toggle enabled disabled
 
+input * xkb_capslock disable
 input * {
     xkb_layout "latam"
     xkb_options "ctrl:nocaps"
@@ -22,8 +25,6 @@ output HDMI-A-2 pos 0 0
 output eDP-1 pos 277 1080 
 
 
-# Set mod key (Mod1=<Alt>, Mod4=<Super>)
-set $mod Mod4
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 1
@@ -54,8 +55,9 @@ bindsym $mod+Shift+q kill
 bindsym $mod+z exec dmenu_recency
 
 # launch categorized menu
-set $launcher dmenu_path | sk --layout reverse --history=/home/bruno/.menu_history | xargs swaymsg exec 
+set $launcher fre --sorted | sk --layout reverse --no-sort | xargs program_log.sh | xargs swaymsg exec
 bindsym $mod+d exec alacritty --option "window.dimensions={lines: 16, columns: 32}" --title 'launcher' -e sh -c \'$launcher\' 
+
 #bindsym $mod+d exec rofi -show run -monitor 0
 
 ################################################################################################
