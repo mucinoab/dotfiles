@@ -102,8 +102,8 @@ noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR
 noremap <silent> ,u :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 " Jump to start and end of line using the home row keys
-map H ^
-map L $
+map H g^
+map L g$
 
 "vim plug
 call plug#begin('~/.vim/plugged')
@@ -132,6 +132,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'ThePrimeagen/vim-be-good'
 call plug#end()
 
 augroup highlight_yank
@@ -369,11 +370,12 @@ nmap <leader><leader> <c-^>
 tnoremap <leader><leader> <C-\><C-n><c-^>
 
 "telescope find f-ile, s-earch, b-uffer
-nmap <leader>f <cmd>Telescope find_files theme=get_dropdown<cr>
-nmap <leader>s <cmd>Telescope live_grep theme=get_dropdown<cr>
-nmap <leader>b <cmd>Telescope buffers theme=get_dropdown<cr>
+nmap <leader>f <cmd>Telescope find_files<cr>
+nmap <leader>s <cmd>Telescope live_grep<cr>
+nmap <leader>b <cmd>Telescope buffers<cr>
 nmap <leader>gs <cmd>Telescope git_status<cr>
 nmap <leader>ld <cmd>Telescope lsp_workspace_diagnostics<cr>
+nmap <leader>h <cmd>Telescope command_history<cr>
 highlight TelescopeSelectionCaret guifg=#ff3333
 highlight TelescopeSelection      guifg=#D79921 gui=bold,underline
 highlight TelescopePreviewLine    guifg=#D79921 gui=underline
