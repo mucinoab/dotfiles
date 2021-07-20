@@ -236,6 +236,8 @@ for_window [class="(?i)System-config-printer.py"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
+for_window [app_id="wdisplays"] floating enable
+for_window [app_id="wdisplays"] resize set width 55 ppt 
 
 # no se apaga cuando esta en pantalla completa 
 for_window [class="^.*"] inhibit_idle fullscreen

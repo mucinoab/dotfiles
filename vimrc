@@ -24,6 +24,7 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 syntax on
+set relativenumber
 set hidden
 set synmaxcol=400
 set mouse=a
@@ -50,7 +51,6 @@ set autoread
 set expandtab
 set shiftround
 set lazyredraw
-"set relativenumber
 set termguicolors
 set showtabline=2
 
@@ -63,7 +63,6 @@ set gdefault
 set redrawtime=10000
 set updatetime=100
 set shortmess+=c
-"set signcolumn=yes
 
 " Wrapping options
 set formatoptions=tc " wrap text and comments using textwidth
@@ -81,9 +80,7 @@ autocmd BufRead *.pacnew set readonly
 "cosas para editar texto simple, no código
 filetype plugin indent on
 autocmd BufRead *.tex,*.latex set filetype=tex
-au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=80 wrapmargin=0 formatoptions=l lbr fo+=b nornu nonumber
-"au BufWrite *.tex,*.latex,*.cpp,*.rs :Autoformat
-"au BufWrite *.tex,*.latex,*.cpp,*.ts,*.go,*.by :Autoformat
+au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=79 wrapmargin=0 formatoptions=l lbr fo+=b nornu nonumber
 
 let g:latex_indent_enabled = 1
 
@@ -91,11 +88,16 @@ set spell
 set spelllang=es,en
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u<Esc>ha
 
-"tera templates -> html
+" tera templates -> html
 autocmd BufNewFile,BufRead *.tera set syntax=html
 autocmd BufNewFile,BufRead *.tera set ft=html
 
-autocmd FileType cpp,rust,htlm,js,typescript,go let b:comment_leader = '// '
+" blade templates -> html
+autocmd BufNewFile,BufRead *.blade.php set syntax=html
+autocmd BufNewFile,BufRead *.blade.php set ft=html
+
+" comentar líneas
+autocmd FileType cpp,rust,htlm,js,typescript,go,cs let b:comment_leader = '// '
 autocmd FileType python,julia let b:comment_leader = '# '
 autocmd FileType tex let b:comment_leader = '% '
 noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
@@ -107,19 +109,16 @@ map L g$
 
 "vim plug
 call plug#begin('~/.vim/plugged')
+Plug 'shaunsingh/solarized.nvim'
 Plug 'itchyny/lightline.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'edkolev/tmuxline.vim'
-Plug 'tpope/vim-surround'
 Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
 Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
 Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust', 'go', 'julia', 'html', 'javascript'] }
-Plug 'rust-lang/rust.vim', { 'for': 'rust'}
+Plug 'ojroques/nvim-bufdel'
 Plug 'airblade/vim-rooter'
 Plug 'Chiel92/vim-autoformat'
-"Plug 'sbdchd/neoformat'
-Plug 'preservim/nerdtree'
-Plug 'luochen1990/rainbow'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'chaoren/vim-wordmotion'
 
@@ -130,9 +129,12 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'ThePrimeagen/vim-be-good'
+
+Plug 'rmagatti/auto-session'
+Plug 'rmagatti/session-lens'
 call plug#end()
 
 augroup highlight_yank
@@ -142,20 +144,24 @@ augroup END
 
 augroup fmt
   autocmd!
-  autocmd BufWritePre *.tex,*.latex,*.cpp,*.ts,*.go,*.py Autoformat
+  autocmd BufWritePre *.tex,*.latex,*.cpp,*.ts,*.go,*.py,*rs,*cs Autoformat
 augroup END
 
 "tema polarized"tema polarized
 let &t_8f = "\<ESC>[38;2;%Lu;%Lu;%loom"
 let &t_8b = "\<ESC>[48;2;%Lu;%Lu;%loom"
 colorscheme solarized8
-"colorscheme moonlight
+"colorscheme solarized
 let g:solarized_extra_hi_groups=1
-
 
 lua <<EOF
 -- nvim_lsp object
 local nvim_lsp = require'lspconfig'
+
+-- function to attach completion when setting up lsp
+local on_attach = function(client)
+    require'completion'.on_attach(client)
+end
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {"rust", "python", "typescript", "cpp", "html", "latex"},
@@ -166,16 +172,17 @@ require'nvim-treesitter.configs'.setup {
 -- TypeScript
 nvim_lsp.tsserver.setup {}
 
+-- CPP
+require'lspconfig'.clangd.setup{}
+
 -- HTML
-require'lspconfig'.html.setup{}
+require'lspconfig'.html.setup {}
 
 -- Python
 require'lspconfig'.pyright.setup{}
 
--- function to attach completion when setting up lsp
-local on_attach = function(client)
-    require'completion'.on_attach(client)
-end
+-- PHP
+require'lspconfig'.phpactor.setup{}
 
 -- Enable rust_analyzer
 -- https://sharksforarms.dev/posts/neovim-rust/
@@ -221,25 +228,49 @@ lspconfig = require "lspconfig"
     },
   }
 
--- Key bindings
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
---buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-end
+-- C#
+local pid = vim.fn.getpid()
+local omnisharp_bin = "/home/bruno/Downloads/omnisharp/OmniSharp.exe"
+require'lspconfig'.omnisharp.setup{
+    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+}
 
 -- telescope 
 local actions = require('telescope.actions')
 
 require('telescope').setup{ 
   defaults = { 
-    winblend = 5,
+   layout_config = {
+      horizontal = { preview_width = 0.60 }
+    },
+    path_display = { 'shorten' },
+    winblend = 15,
     mappings = { i = { ["<esc>"] = actions.close } },
     set_env = { ['COLORTERM'] = 'truecolor' },
   },
 }
+
+require('telescope').load_extension('fzy_native')
+require("telescope").load_extension("session-lens")
+
+-- Auto Session
+local opts = {
+  log_level = 'info',
+  auto_session_enable_last_session = false,
+  auto_session_root_dir = vim.fn.stdpath('data').."/sessions/",
+  auto_session_enabled = true,
+  auto_save_enabled = false,
+  auto_restore_enabled = nil,
+  auto_session_suppress_dirs = nil
+}
+require('auto-session').setup(opts)
+
 EOF
+
+"completion-nvim
+let g:completion_trigger_keyword_length = 4
+let g:completion_matching_strategy_list = ['exact', 'fuzzy']
+let g:completion_matching_smart_case = 1
 
 " Enable type inlay hints
 autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
@@ -260,9 +291,6 @@ nnoremap <space>e <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 " use <Tab> as trigger keys
 imap <Tab> <Plug>(completion_smart_tab)
 imap <S-Tab> <Plug>(completion_smart_s_tab)
-
-"parentesis de colores
-let g:rainbow_active = 1
 
 "lightline 
 let g:lightline = {
@@ -285,7 +313,7 @@ let g:lightline.tabline          = {'left': [['buffers']], 'right': [['']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
 "let g:lightline#bufferline#auto_hide = 12000
-let g:lightline#bufferline#min_buffer_count = 3
+let g:lightline#bufferline#min_buffer_count = 2
 let g:lightline.component_raw = {'buffers': 1}
 let g:lightline#bufferline#clickable = 1
 
@@ -298,24 +326,6 @@ let s:palette.tabline.middle = s:palette.normal.middle
 function! LightlineFilename()
   return expand('%:t') !=# '' ? @% : '[No Name]'
 endfunction
-
-"rainbow 
-let g:rainbow_conf = {'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],}
-
-"nerd tree
-map <C-t> :NERDTreeToggle<CR>
-filetype plugin indent on
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
-let g:plug_window = 'noautocmd vertical topleft new'
-
-let g:NERDTreeDirArrowExpandable = ''
-let g:NERDTreeDirArrowCollapsible = ''
-
-"Rustfmt on save
-let g:rustfmt_autosave = 1
-let g:rustfmt_emit_files = 1
-let g:rustfmt_fail_silently = 1
 
 let g:vimtex_format_enabled=1
 let g:vimtex_fold_manual=1
@@ -361,7 +371,7 @@ let mapleader = "\<Space>"
 nmap <leader>w :w<CR>
 nmap <C-Space> :call CloseIfEmpty()<CR>
 imap <C-Space> <Esc>:call CloseIfEmpty()<CR>
-nmap <leader>t :ene <CR> :file new<CR>
+"nmap <leader>t :ene <CR> :file new<CR>
 
 "navegar entre buffers.
 map <leader><Tab> :bn<CR>
@@ -369,27 +379,23 @@ map <leader><S-Tab> :bp<CR>
 nmap <leader><leader> <c-^>
 tnoremap <leader><leader> <C-\><C-n><c-^>
 
-"telescope find f-ile, s-earch, b-uffer
-nmap <leader>f <cmd>Telescope find_files<cr>
-nmap <leader>s <cmd>Telescope live_grep<cr>
-nmap <leader>b <cmd>Telescope buffers<cr>
+"telescope find f-ile, s-earch, b-uffer, g-it s-tatus, h-istory
+nmap <leader>f  <cmd>Telescope find_files<cr>
+nmap <leader>s  <cmd>Telescope live_grep<cr>
+nmap <leader>b  <cmd>Telescope buffers<cr>
 nmap <leader>gs <cmd>Telescope git_status<cr>
 nmap <leader>ld <cmd>Telescope lsp_workspace_diagnostics<cr>
-nmap <leader>h <cmd>Telescope command_history<cr>
+nmap <leader>h  <cmd>Telescope command_history<cr>
+nmap <leader>p  <cmd>Telescope session-lens search_session<cr>
 highlight TelescopeSelectionCaret guifg=#ff3333
 highlight TelescopeSelection      guifg=#D79921 gui=bold,underline
 highlight TelescopePreviewLine    guifg=#D79921 gui=underline
-highlight TelescopePreviewNormal  guibg=#222222
-highlight TelescopeNormal         guibg=#222222
 
 "cierra buffer actual y solo lo guarda si no esta vacío.
 "también cierra vim si solo queda un buffer y esta vacío:wq
 fu! CloseIfEmpty()
   exec 'w'
-  exec 'bd'
-  if line('$') == 1 && getline(1) == ''
-    exec 'q'
-  endif
+  exec 'BufDel'
 endfu
 
 "indent Line
@@ -401,13 +407,31 @@ if has("autocmd")
         \| exe "normal! g`\"" | endif
 endif
 
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+" nvim built in file viewer   
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 15
+
+" Toggle Vexplore with Ctrl-T
+function! ToggleVExplorer()
+  if exists("t:expl_buf_num")
+      let expl_win_num = bufwinnr(t:expl_buf_num)
+      if expl_win_num != -1
+          let cur_win_nr = winnr()
+          exec expl_win_num . 'wincmd w'
+          close
+          exec cur_win_nr . 'wincmd w'
+          unlet t:expl_buf_num
+      else
+          unlet t:expl_buf_num
+      endif
+  else
+      exec '1wincmd w'
+      Vexplore
+      let t:expl_buf_num = bufnr("%")
+  endif
 endfunction
+map <silent> <C-T> :call ToggleVExplorer()<CR>

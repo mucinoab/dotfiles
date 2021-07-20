@@ -12,9 +12,9 @@ padding=0,5,10
 border-size=2
 border-color=#88c0d099
 border-radius=8
-icons=0
+icons=1
 max-icon-size=64
-default-timeout=5000
+default-timeout=7000
 ignore-timeout=1
 
 [urgency=normal]
