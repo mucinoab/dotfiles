@@ -4,7 +4,9 @@
 # If you come from bash you might have to change your $PATH.
 eval "$(starship init zsh)"
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.config/composer/vendor/bin:$PATH
 export PATH=/usr/local/texlive/2020/bin/x86_64-linux:/home/bruno/.cargo/bin/:/home/bruno/.gem/ruby/2.7.0/bin:$PATH 
+
 
 export ZSH="/home/bruno/.oh-my-zsh"
 
@@ -41,12 +43,12 @@ alias du='dust -b'
 alias z='zathura'
 alias grep='grep --color=auto'
 alias sptr='systemctl restart  --user spotifyd.service && spt'
-alias cr='cargo run'
-alias crr='cargo run --release'
-alias ct='cargo test'
+alias cr='mold -run cargo run'
+alias crr='mold -run cargo run --release'
+alias ct='mold -run cargo test'
 alias gt='go test'
-alias cb='cargo build'
-alias ccc='cargo check'
+alias cb='mold -run cargo build'
+alias ccc='mold -run cargo check'
 alias tiempo='curl http://wttr.in/ -s | head -n-2'
 alias sss='grim -g "$(slurp)" ~/screenshoots/$(date +%Y-%m-%d_%H-%m-%s).png'
 alias foto='ffmpeg -loglevel panic -i /dev/video1 -frames 1 -f image2 -| convert - -colorspace gray - > ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).jpeg'
