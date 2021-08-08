@@ -2,18 +2,24 @@ add_newline = false
 
 [rust]
 disabled = true
-symbol = ""
 
 [golang]
 disabled = true
-symbol = ""
 
 [julia]
 disabled = true
-symbol = ""
+
+[dotnet]
+disabled = true
+
+[php]
+disabled = true
+
+[nodejs]
+disabled = true
 
 [cmd_duration]
-min_time = 100
+min_time = 150
 format = "[$duration](bold yellow)"
 
 [git_branch]
