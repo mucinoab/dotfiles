@@ -11,6 +11,15 @@ inoremap jk <esc>
 noremap! <C-BS> <C-w>
 noremap! <C-h> <C-w>
 
+nnoremap Y y$
+
+"exit con Q
+:command Q q
+
+" mantienen el cursor en el centro al iterar en búsquedas
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
 "control j-k para mover lineas y selecciones completas
 nnoremap <C-j> :m .+1<CR>==
 nnoremap <C-k> :m .-2<CR>==
@@ -97,7 +106,7 @@ autocmd BufNewFile,BufRead *.blade.php set syntax=html
 autocmd BufNewFile,BufRead *.blade.php set ft=html
 
 " comentar líneas
-autocmd FileType cpp,rust,htlm,js,typescript,go,cs let b:comment_leader = '// '
+autocmd FileType cpp,rust,htlm,js,typescript,go,cs,php let b:comment_leader = '// '
 autocmd FileType python,julia let b:comment_leader = '# '
 autocmd FileType tex let b:comment_leader = '% '
 noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
@@ -109,13 +118,12 @@ map L g$
 
 "vim plug
 call plug#begin('~/.vim/plugged')
-Plug 'shaunsingh/solarized.nvim'
+Plug 'mhartington/oceanic-next'
 Plug 'itchyny/lightline.vim'
-Plug 'lifepillar/vim-solarized8'
 Plug 'edkolev/tmuxline.vim'
 Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
 Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
-Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust', 'go', 'julia', 'html', 'javascript'] }
+Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust', 'go', 'julia', 'html', 'javascript', 'php', 'blade', 'typescript'] }
 Plug 'ojroques/nvim-bufdel'
 Plug 'airblade/vim-rooter'
 Plug 'Chiel92/vim-autoformat'
@@ -124,14 +132,15 @@ Plug 'chaoren/vim-wordmotion'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'nvim-lua/completion-nvim'
+Plug 'hrsh7th/nvim-compe'
+Plug 'l3mon4d3/luasnip'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
 
 Plug 'rmagatti/auto-session'
 Plug 'rmagatti/session-lens'
@@ -150,7 +159,11 @@ augroup END
 "tema polarized"tema polarized
 let &t_8f = "\<ESC>[38;2;%Lu;%Lu;%loom"
 let &t_8b = "\<ESC>[48;2;%Lu;%Lu;%loom"
-colorscheme solarized8
+colorscheme OceanicNext
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+
+"colorscheme solarized8
 "colorscheme solarized
 let g:solarized_extra_hi_groups=1
 
@@ -158,10 +171,15 @@ lua <<EOF
 -- nvim_lsp object
 local nvim_lsp = require'lspconfig'
 
--- function to attach completion when setting up lsp
-local on_attach = function(client)
-    require'completion'.on_attach(client)
-end
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {"rust", "python", "typescript", "cpp", "html", "latex"},
@@ -184,6 +202,14 @@ require'lspconfig'.pyright.setup{}
 -- PHP
 require'lspconfig'.phpactor.setup{}
 
+-- CSS
+local css_capabilities = vim.lsp.protocol.make_client_capabilities()
+css_capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+require'lspconfig'.cssls.setup {
+  css_capabilities = capabilities,
+}
+
 -- Enable rust_analyzer
 -- https://sharksforarms.dev/posts/neovim-rust/
 nvim_lsp.rust_analyzer.setup({
@@ -198,7 +224,8 @@ nvim_lsp.rust_analyzer.setup({
                 enableExperimental = true,
             },
         }
-    }
+    },
+    capabilities = capabilities,
 })
 
 -- Enable diagnostics
@@ -243,6 +270,15 @@ require('telescope').setup{
    layout_config = {
       horizontal = { preview_width = 0.60 }
     },
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case'
+    },
     path_display = { 'shorten' },
     winblend = 15,
     mappings = { i = { ["<esc>"] = actions.close } },
@@ -265,17 +301,46 @@ local opts = {
 }
 require('auto-session').setup(opts)
 
+-- completion stuff 
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  resolve_timeout = 800;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = {
+    border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
+    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+    max_width = 120,
+    min_width = 60,
+    max_height = math.floor(vim.o.lines * 0.3),
+    min_height = 1,
+  };
+  source = {
+    path = true;
+    buffer = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    ultisnips = false;
+    luasnip = true;  
+    treesitter = true;
+  };
+}
 EOF
 
-"completion-nvim
-let g:completion_trigger_keyword_length = 4
-let g:completion_matching_strategy_list = ['exact', 'fuzzy']
-let g:completion_matching_smart_case = 1
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-w> compe#complete()
 
 " Enable type inlay hints
 autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
 \ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
-let g:completition_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -284,13 +349,11 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Goto previous/next diagnostic warning/error
 nnoremap <silent> g{ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> g} <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <leader> k <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <space>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <space>e <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-
-" use <Tab> as trigger keys
-imap <Tab> <Plug>(completion_smart_tab)
-imap <S-Tab> <Plug>(completion_smart_s_tab)
 
 "lightline 
 let g:lightline = {
@@ -382,7 +445,7 @@ tnoremap <leader><leader> <C-\><C-n><c-^>
 "telescope find f-ile, s-earch, b-uffer, g-it s-tatus, h-istory
 nmap <leader>f  <cmd>Telescope find_files<cr>
 nmap <leader>s  <cmd>Telescope live_grep<cr>
-nmap <leader>b  <cmd>Telescope buffers<cr>
+nmap <Leader>b  <cmd>lua require'telescope.builtin'.buffers(require('telescope.themes').get_dropdown({}))<cr>
 nmap <leader>gs <cmd>Telescope git_status<cr>
 nmap <leader>ld <cmd>Telescope lsp_workspace_diagnostics<cr>
 nmap <leader>h  <cmd>Telescope command_history<cr>
@@ -434,4 +497,5 @@ function! ToggleVExplorer()
       let t:expl_buf_num = bufnr("%")
   endif
 endfunction
+
 map <silent> <C-T> :call ToggleVExplorer()<CR>
