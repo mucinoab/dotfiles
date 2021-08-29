@@ -9,6 +9,9 @@ disabled = true
 [julia]
 disabled = true
 
+[lua]
+disabled = true
+
 [dotnet]
 disabled = true
 

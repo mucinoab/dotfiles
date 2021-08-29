@@ -118,16 +118,16 @@ map L g$
 
 "vim plug
 call plug#begin('~/.vim/plugged')
+Plug 'lewis6991/impatient.nvim'
 Plug 'mhartington/oceanic-next'
-Plug 'itchyny/lightline.vim'
-Plug 'edkolev/tmuxline.vim'
+"Plug 'edkolev/tmuxline.vim'
 Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
 Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
 Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust', 'go', 'julia', 'html', 'javascript', 'php', 'blade', 'typescript'] }
 Plug 'ojroques/nvim-bufdel'
 Plug 'airblade/vim-rooter'
 Plug 'Chiel92/vim-autoformat'
-Plug 'mengelbrecht/lightline-bufferline'
+Plug 'romgrk/barbar.nvim'
 Plug 'chaoren/vim-wordmotion'
 
 Plug 'neovim/nvim-lspconfig'
@@ -144,6 +144,9 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpda
 
 Plug 'rmagatti/auto-session'
 Plug 'rmagatti/session-lens'
+
+Plug 'hoob3rt/lualine.nvim'
+Plug 'SmiteshP/nvim-gps'
 call plug#end()
 
 augroup highlight_yank
@@ -156,189 +159,15 @@ augroup fmt
   autocmd BufWritePre *.tex,*.latex,*.cpp,*.ts,*.go,*.py,*.rs,*.cs Autoformat
 augroup END
 
-"tema polarized"tema polarized
-let &t_8f = "\<ESC>[38;2;%Lu;%Lu;%loom"
-let &t_8b = "\<ESC>[48;2;%Lu;%Lu;%loom"
 colorscheme OceanicNext
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1
 
-"colorscheme solarized8
-"colorscheme solarized
-let g:solarized_extra_hi_groups=1
-
 lua <<EOF
--- nvim_lsp object
-local nvim_lsp = require'lspconfig'
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
-}
-
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"rust", "python", "typescript", "cpp", "html", "latex"},
-  highlight = { enable = true },
-  indent = { enable = true }
-}
-
--- TypeScript
-nvim_lsp.tsserver.setup {}
-
--- CPP
-require'lspconfig'.clangd.setup{}
-
--- Vue JS
-require'lspconfig'.vuels.setup{}
-
--- HTML
-require'lspconfig'.html.setup {}
-
--- Python
-require'lspconfig'.pyright.setup{}
-
--- PHP
-require'lspconfig'.phpactor.setup{}
-
--- CSS
-local css_capabilities = vim.lsp.protocol.make_client_capabilities()
-css_capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-require'lspconfig'.cssls.setup {
-  css_capabilities = capabilities,
-}
-
--- Enable rust_analyzer
--- https://sharksforarms.dev/posts/neovim-rust/
-nvim_lsp.rust_analyzer.setup({
-    on_attach=on_attach,
-    settings = {
-        ["rust-analyzer"] = {
-            cargo = { loadOutDirsFromCheck = true },
-            procMacro = { enable = false },
-            diagnostics = {
-                enable = true,
-                disabled = {"unresolved-proc-macro"},
-                enableExperimental = true,
-            },
-        }
-    },
-    capabilities = capabilities,
-})
-
--- Enable diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    signs = true,
-    update_in_insert = true,
-  }
-)
-
-
--- golang
-lspconfig = require "lspconfig"
-  lspconfig.gopls.setup {
-    cmd = {"gopls", "serve"},
-    settings = {
-      gopls = {
-        analyses = {
-          unusedparams = true,
-          nilness = true,
-          simplifyrange = true,
-          unusedwrite = true,
-        },
-        staticcheck = true,
-      },
-    },
-  }
-
--- C#
-local pid = vim.fn.getpid()
-local omnisharp_bin = "/home/bruno/Downloads/omnisharp/OmniSharp.exe"
-require'lspconfig'.omnisharp.setup{
-    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
-}
-
--- telescope 
-local actions = require('telescope.actions')
-
-require('telescope').setup{ 
-  defaults = { 
-   layout_config = {
-      horizontal = { preview_width = 0.60 }
-    },
-    vimgrep_arguments = {
-      'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case'
-    },
-    path_display = { 'shorten' },
-    winblend = 15,
-    mappings = { i = { ["<esc>"] = actions.close } },
-    set_env = { ['COLORTERM'] = 'truecolor' },
-  },
-}
-
-require('telescope').load_extension('fzy_native')
-require("telescope").load_extension("session-lens")
-
--- Auto Session
-local opts = {
-  log_level = 'info',
-  auto_session_enable_last_session = false,
-  auto_session_root_dir = vim.fn.stdpath('data').."/sessions/",
-  auto_session_enabled = true,
-  auto_save_enabled = false,
-  auto_restore_enabled = nil,
-  auto_session_suppress_dirs = nil
-}
-require('auto-session').setup(opts)
-
--- completion stuff 
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  resolve_timeout = 800;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = {
-    border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
-    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-    max_width = 120,
-    min_width = 60,
-    max_height = math.floor(vim.o.lines * 0.3),
-    min_height = 1,
-  };
-  source = {
-    path = true;
-    buffer = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    ultisnips = false;
-    luasnip = true;  
-    treesitter = true;
-  };
-}
+require('settings')
 EOF
 
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <CR>  compe#confirm('<CR>')
 inoremap <silent><expr> <C-w> compe#complete()
 
 " Enable type inlay hints
@@ -357,41 +186,6 @@ nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <leader> k <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <space>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <space>e <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-
-"lightline 
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \   'cocstatus': 'coc#status'
-      \ },
-      \ }
-
-let g:lightline#bufferline#shorten_path = 0
-let g:lightline#bufferline#show_number = 0
-let g:lightline#bufferline#unnamed = '[No Name]'
-
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [['']]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
-"let g:lightline#bufferline#auto_hide = 12000
-let g:lightline#bufferline#min_buffer_count = 2
-let g:lightline.component_raw = {'buffers': 1}
-let g:lightline#bufferline#clickable = 1
-
-"hace el lightline del mismo color
-let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
-let s:palette.normal.middle = [ [ 'NONE', 'NONE', 'NONE', 'NONE' ] ]
-let s:palette.inactive.middle = s:palette.normal.middle
-let s:palette.tabline.middle = s:palette.normal.middle
-
-function! LightlineFilename()
-  return expand('%:t') !=# '' ? @% : '[No Name]'
-endfunction
 
 let g:vimtex_format_enabled=1
 let g:vimtex_fold_manual=1
@@ -440,8 +234,8 @@ imap <C-Space> <Esc>:call CloseIfEmpty()<CR>
 "nmap <leader>t :ene <CR> :file new<CR>
 
 "navegar entre buffers.
-map <leader><Tab> :bn<CR>
-map <leader><S-Tab> :bp<CR>
+map <leader><Tab> :BufferNext<CR>
+map <leader><S-Tab> :BufferPrevious<CR>
 nmap <leader><leader> <c-^>
 tnoremap <leader><leader> <C-\><C-n><c-^>
 
@@ -461,7 +255,12 @@ highlight TelescopePreviewLine    guifg=#D79921 gui=underline
 "también cierra vim si solo queda un buffer y esta vacío:wq
 fu! CloseIfEmpty()
   exec 'w'
-  exec 'BufDel'
+  let nbuffers = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+  if nbuffers == 1
+    exec 'BufDel'
+  else 
+    exec 'BufferClose'
+  endif
 endfu
 
 "indent Line

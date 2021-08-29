@@ -22,3 +22,5 @@ ln -sf /home/bruno/Dotfiles/trackpadg.conf ~/.config/libinput-gestures.conf
 ln -sf /home/bruno/Dotfiles/swayconfig ~/.config/sway/config
 
 ln -sf /home/bruno/Dotfiles/mako ~/.config/mako/config
+
+ln -sf /home/bruno/Dotfiles/settings.lua ~/.config/nvim/lua/settings.lua
