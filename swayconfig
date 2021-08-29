@@ -21,9 +21,9 @@ input * {
 #output eDP-1 pos 0 0 
 
 #----monitor arriba----
+# scale 1
 output HDMI-A-2 pos 0 0 
-output eDP-1 pos 277 1080 
-
+output eDP-1 pos 197 1080 
 
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
@@ -31,7 +31,7 @@ default_border pixel 1
 default_floating_border pixel 2
 
 # Hide borders
-hide_edge_borders smart
+hide_edge_borders none
 
 # change borders
 #bindsym $mod+u border none
@@ -118,8 +118,8 @@ bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 #mueve contenedor, a otro monitor
-bindsym $mod+Shift+greater move workspace to output up
-bindsym $mod+Shift+less move workspace to output down
+bindsym $mod+Shift+greater move workspace to output down
+bindsym $mod+Shift+less move workspace to output up
 
 # split orientation
 #bindsym $mod+- split h;exec notify-send 'tile horizontally'
@@ -354,7 +354,7 @@ bindsym $mod+m bar mode toggle
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
-client.focused          #556064 #01cdfe #80FFF9 #FDF6E3
+client.focused          #556064 #01cdfe #80FFF9 #01cdfe
 client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
 client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
 client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
@@ -376,11 +376,11 @@ gaps outer 0
 # gaps outer all plus 5
 
 # Smart gaps (gaps used if only more than one container on the workspace)
-smart_gaps on
+# smart_gaps on
 
 # Smart borders (draw borders around container only if it is not the only container on this workspace) 
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
-smart_borders on
+# smart_borders on
 
 # Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
 set $mode_gaps Gaps: (o) outer, (i) inner
