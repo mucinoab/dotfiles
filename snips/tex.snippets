@@ -81,9 +81,8 @@ endsnippet
 snippet template "Template" b
 %!TeX program = xelatex
 \documentclass{article}
-\usepackage{fancyhdr}
-\usepackage{physics}
-\usepackage{unicode-math}
+\usepackage{fancyhdr, physics, unicode-math}
+
 \usepackage[
   top    = 3cm,
   bottom = 3.15cm,
@@ -103,12 +102,12 @@ endsnippet
 snippet templatec "Template clase" b
 %!TeX program = xelatex
 \documentclass{article}
-\usepackage{unicode-math}
-\usepackage{xcolor}
-\usepackage{hyperref}
-\usepackage{blindtext}
-\usepackage{fancyhdr}
-\usepackage{physics}
+\usepackage{unicode-math,
+  xcolor,
+  hyperref,
+  blindtext,
+  fancyhdr,
+  physics}
 \fancyhf{}
 \usepackage[
 top    = 1.5cm,
