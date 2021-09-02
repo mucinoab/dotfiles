@@ -89,7 +89,7 @@ autocmd BufRead *.pacnew set readonly
 "cosas para editar texto simple, no código
 filetype plugin indent on
 autocmd BufRead *.tex,*.latex set filetype=tex
-au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=79 wrapmargin=0 formatoptions=l lbr fo+=b nornu nonumber
+au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=79 wrapmargin=0 lbr fo=tro nonumber nornu
 
 let g:latex_indent_enabled = 1
 
@@ -132,13 +132,19 @@ Plug 'chaoren/vim-wordmotion'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'hrsh7th/nvim-compe'
 Plug 'l3mon4d3/luasnip'
+
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
+"nvim-telescope/telescope-project.nvim
 
 Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
 
@@ -147,6 +153,8 @@ Plug 'rmagatti/session-lens'
 
 Plug 'hoob3rt/lualine.nvim'
 Plug 'SmiteshP/nvim-gps'
+
+Plug 'karb94/neoscroll.nvim'
 call plug#end()
 
 augroup highlight_yank
@@ -166,9 +174,6 @@ let g:oceanic_next_terminal_italic = 1
 lua <<EOF
 require('settings')
 EOF
-
-inoremap <silent><expr> <CR>  compe#confirm('<CR>')
-inoremap <silent><expr> <C-w> compe#complete()
 
 " Enable type inlay hints
 autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
@@ -271,7 +276,6 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal! g`\"" | endif
 endif
-
 
 " nvim built in file viewer   
 let g:netrw_banner = 0
