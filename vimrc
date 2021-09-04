@@ -62,6 +62,7 @@ set shiftround
 set lazyredraw
 set termguicolors
 set showtabline=2
+set colorcolumn=99999
 
 " Proper search
 set incsearch
@@ -123,7 +124,7 @@ Plug 'mhartington/oceanic-next'
 "Plug 'edkolev/tmuxline.vim'
 Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
 Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
-Plug 'Yggdroot/indentLine', { 'for': ['cpp', 'python', 'rust', 'go', 'julia', 'html', 'javascript', 'php', 'blade', 'typescript'] }
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'ojroques/nvim-bufdel'
 Plug 'airblade/vim-rooter'
 Plug 'Chiel92/vim-autoformat'
@@ -268,8 +269,9 @@ fu! CloseIfEmpty()
   endif
 endfu
 
-"indent Line
-let g:indentLine_char ='┊'
+let g:indent_blankline_filetype = ['cpp', 'python', 'rust', 'go', 'javascript', 'php', 'blade', 'typescript']
+let g:indent_blankline_show_trailing_blankline_indent = v:false
+let g:indent_blankline_use_treesitter = v:true
 
 " Jump to last edit position on opening file
 if has("autocmd")
