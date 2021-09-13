@@ -7,7 +7,7 @@ cmp.setup {
     ['<S-Tab>'] = cmp.mapping.select_prev_item(),
     ['<CR>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+      select = false,
     })
   },
   snippet = {
@@ -20,7 +20,7 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'path' },
-    --{ name = 'treesitter' },
+    { name = 'treesitter' },
   }
 }
 
@@ -153,6 +153,8 @@ vim.g.bufferline = {
   insert_at_end = true,
   icons = false,
   closable = false,
+  clickable = true,
+  semantic_letters = false,
   tabpages = false,
   auto_hide = true,
   animation = false,
@@ -185,7 +187,7 @@ require('neoscroll').setup({
   stop_eof = false,
   use_local_scrolloff = false,
   respect_scrolloff = false,
-  cursor_scrolls_alone = false,
+  cursor_scrolls_alone = true,
 })
 
 local t = {}
@@ -195,3 +197,4 @@ t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '100'}}
 require('neoscroll.config').set_mappings(t)
 
 require("indent_blankline").setup { char = "┊" }
+--require('alpha').setup(require'alpha.themes.dashboard'.opts)

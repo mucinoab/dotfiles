@@ -7,6 +7,9 @@ map q: :q
 map Q <Nop>
 inoremap jk <esc>
 
+
+let mapleader = "\<Space>"
+
 "borrar palabra completa 
 noremap! <C-BS> <C-w>
 noremap! <C-h> <C-w>
@@ -107,7 +110,7 @@ autocmd BufNewFile,BufRead *.blade.php set syntax=html
 autocmd BufNewFile,BufRead *.blade.php set ft=html
 
 " comentar líneas
-autocmd FileType cpp,rust,htlm,js,typescript,go,cs,php let b:comment_leader = '// '
+autocmd FileType c,cpp,rust,htlm,js,typescript,go,cs,php let b:comment_leader = '// '
 autocmd FileType python,julia let b:comment_leader = '# '
 autocmd FileType tex let b:comment_leader = '% '
 noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
@@ -140,6 +143,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'ray-x/cmp-treesitter'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
@@ -156,6 +160,7 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'SmiteshP/nvim-gps'
 
 Plug 'karb94/neoscroll.nvim'
+"Plug 'goolord/alpha-nvim'
 call plug#end()
 
 augroup highlight_yank
@@ -190,8 +195,9 @@ nnoremap <silent> g} <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <leader> k <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <space>a <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <space>e <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>e <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nmap <leader>d <cmd>BufferPick<CR>
 
 let g:vimtex_format_enabled=1
 let g:vimtex_fold_manual=1
@@ -233,7 +239,6 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 
 " Quick-save y salir con C-espacio
-let mapleader = "\<Space>"
 nmap <leader>w :w<CR>
 nmap <C-Space> :call CloseIfEmpty()<CR>
 imap <C-Space> <Esc>:call CloseIfEmpty()<CR>

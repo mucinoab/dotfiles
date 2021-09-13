@@ -52,7 +52,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+z exec dmenu_recency
+#bindsym $mod+z exec dmenu_recency
 
 # launch categorized menu
 set $launcher fre --sorted | sk --layout reverse --no-sort | xargs program_log.sh | xargs swaymsg exec
@@ -64,7 +64,7 @@ bindsym $mod+d exec alacritty --option "window.dimensions={lines: 16, columns: 3
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
-#exec  volumeicon
+exec  volumeicon
 bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 #exec  pulseaudio
 exec  pa-applet
