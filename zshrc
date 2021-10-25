@@ -1,14 +1,16 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-[[ -s /home/bruno/.autojump/etc/profile.d/autojump.sh ]] && source /home/bruno/.autojump/etc/profile.d/autojump.sh
+[[ -s /home/mucinoab/.autojump/etc/profile.d/autojump.sh ]] && source /home/mucinoab/.autojump/etc/profile.d/autojump.sh
+
 # If you come from bash you might have to change your $PATH.
+eval "$(zoxide init --cmd j zsh)"
 eval "$(starship init zsh)"
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/.config/composer/vendor/bin:$PATH
-export PATH=/usr/local/texlive/2020/bin/x86_64-linux:/home/bruno/.cargo/bin/:/home/bruno/.gem/ruby/2.7.0/bin:$PATH 
+export PATH=/usr/local/texlive/2020/bin/x86_64-linux:/home/mucinoab/.cargo/bin/:$PATH 
 
 
-export ZSH="/home/bruno/.oh-my-zsh"
+export ZSH="/home/mucinoab/.oh-my-zsh"
 
 DISABLE_MAGIC_FUNCTIONS=true
 ENABLE_CORRECTION="true"
@@ -43,6 +45,7 @@ alias du='dust -b'
 alias z='zathura'
 alias grep='grep --color=auto'
 alias sptr='systemctl restart  --user spotifyd.service && spt'
+alias dr='dotnet run'
 alias cr='mold -run cargo run'
 alias crr='mold -run cargo run --release'
 alias ct='mold -run cargo test'
@@ -55,9 +58,11 @@ alias foto='ffmpeg -loglevel panic -i /dev/video1 -frames 1 -f image2 -| convert
 alias sf='rg --files | sk --preview="bat {} --color=always"'
 alias rg='rg -S'
 alias gr='go run .'
+alias dnd='makoctl set-mode do-not-disturb'
+alias ddd='makoctl set-mode default'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-export CARGO_TARGET_DIR='/home/bruno/cargo_target_dir'
+export CARGO_TARGET_DIR='/home/mucinoab/cargo_target_dir'
 export RUSTFLAGS="-C target-cpu=native"
 
 #no cierra terminal con shift D
