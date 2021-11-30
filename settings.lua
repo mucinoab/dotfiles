@@ -1,3 +1,5 @@
+vim.g.did_load_filetypes = 1
+
 --- completion stuff
 
 local cmp = require 'cmp'
@@ -18,18 +20,41 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-    { name = 'buffer' },
+    { name = 'buffer', options = { keyword_pattern = [[\k\+]] } },
+    { name = 'rg' },
     { name = 'path' },
     { name = 'treesitter' },
-  }
+  },
+  sorting = {
+    comparators = {
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      require "cmp-under-comparator".under,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
+  },
 }
 
 
 -- Treesitter
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"rust", "python", "typescript", "cpp", "html", "latex"},
-  highlight = { enable = true },
-  indent = { enable = true }
+  ensure_installed = {"rust", "python", "typescript", "cpp", "html", "latex", "go", "c_sharp"},
+  highlight = { enable = true, additional_vim_regex_highlighting = false },
+  indent = { enable = true },
+  refactor = { highlight_definitions = { enable = true }, },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<CR>',
+      scope_incremental = '<CR>',
+      node_incremental = '<TAB>',
+      node_decremental = '<S-TAB>',
+    }
+  }
 }
 
 -- nvim_lsp object
@@ -41,6 +66,12 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- TypeScript
 nvim_lsp.tsserver.setup {capabilities = capabilities,}
+
+-- Julia
+nvim_lsp.julials.setup {capabilities = capabilities,}
+
+-- Vue
+nvim_lsp.vuels.setup{}
 
 -- CPP
 nvim_lsp.clangd.setup {capabilities = capabilities,}
@@ -77,11 +108,11 @@ nvim_lsp.rust_analyzer.setup({
 
 -- Enable diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    signs = true,
-    update_in_insert = true,
-  }
+vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = true,
+  signs = true,
+  update_in_insert = true,
+}
 )
 
 -- golang
@@ -103,7 +134,7 @@ nvim_lsp.gopls.setup {
 
 -- C#
 local pid = vim.fn.getpid()
-local omnisharp_bin = "/home/bruno/Downloads/omnisharp/OmniSharp.exe"
+local omnisharp_bin = "/home/mucinoab/Downloads/omnisharp/run"
 nvim_lsp.omnisharp.setup{
   cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
   capabilities = capabilities,
@@ -115,7 +146,7 @@ local actions = require('telescope.actions')
 require('telescope').setup{
   defaults = {
     layout_config = {
-      horizontal = { preview_width = 0.60 }
+      horizontal = { preview_width = 90 }
     },
     vimgrep_arguments = {
       'rg',
@@ -197,4 +228,11 @@ t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '100'}}
 require('neoscroll.config').set_mappings(t)
 
 require("indent_blankline").setup { char = "┊" }
---require('alpha').setup(require'alpha.themes.dashboard'.opts)
+require'hop'.setup()
+
+--- LSP keymaps
+local opts = { noremap=true, silent=true }
+vim.api.nvim_set_keymap('n', 'grr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+
+require('Comment').setup()
+require "lsp_signature".setup()

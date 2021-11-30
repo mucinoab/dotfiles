@@ -7,7 +7,6 @@ map q: :q
 map Q <Nop>
 inoremap jk <esc>
 
-
 let mapleader = "\<Space>"
 
 "borrar palabra completa 
@@ -24,19 +23,19 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 "control j-k para mover lineas y selecciones completas
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+nnoremap <silent><C-j> :m .+1<CR>==
+nnoremap <silent><C-k> :m .-2<CR>==
+inoremap <silent><C-k> <Esc>:m .-2<CR>==gi
+inoremap <silent><C-j> <Esc>:m .+1<CR>==gi
+vnoremap <silent><C-j> :m '>+1<CR>gv=gv
+vnoremap <silent><C-k> :m '<-2<CR>gv=gv
 
 "moverte entre splits
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 syntax on
-set relativenumber
+"set relativenumber
 set hidden
 set synmaxcol=400
 set mouse=a
@@ -109,13 +108,6 @@ autocmd BufNewFile,BufRead *.tera set ft=html
 autocmd BufNewFile,BufRead *.blade.php set syntax=html
 autocmd BufNewFile,BufRead *.blade.php set ft=html
 
-" comentar líneas
-autocmd FileType c,cpp,rust,htlm,js,typescript,go,cs,php let b:comment_leader = '// '
-autocmd FileType python,julia let b:comment_leader = '# '
-autocmd FileType tex let b:comment_leader = '% '
-noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> ,u :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
-
 " Jump to start and end of line using the home row keys
 map H g^
 map L g$
@@ -139,11 +131,14 @@ Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'l3mon4d3/luasnip'
 
 Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
+Plug 'lukas-reineke/cmp-under-comparator'
 Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'ray-x/cmp-treesitter'
+
+Plug 'lukas-reineke/cmp-rg'
+Plug 'ray-x/lsp_signature.nvim'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
@@ -151,16 +146,25 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 "nvim-telescope/telescope-project.nvim
 
-Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
 
 Plug 'rmagatti/auto-session'
 Plug 'rmagatti/session-lens'
 
-Plug 'hoob3rt/lualine.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'SmiteshP/nvim-gps'
 
 Plug 'karb94/neoscroll.nvim'
-"Plug 'goolord/alpha-nvim'
+
+Plug 'phaazon/hop.nvim'
+
+Plug 'nathom/filetype.nvim'
+Plug 'numToStr/Comment.nvim'
+
+Plug 'shaunsingh/solarized.nvim'
+
+"Plug 'mfussenegger/nvim-dap' debugger
 call plug#end()
 
 augroup highlight_yank
@@ -170,7 +174,7 @@ augroup END
 
 augroup fmt
   autocmd!
-  autocmd BufWritePre *.tex,*.latex,*.cpp,*.ts,*.go,*.py,*.rs,*.cs Autoformat
+  autocmd BufWritePre *.tex,*.latex,*.cpp,*.ts,*.go,*.py,*.rs Autoformat
 augroup END
 
 colorscheme OceanicNext
@@ -197,6 +201,8 @@ nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <leader> k <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>e <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <leader>e <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+
 nmap <leader>d <cmd>BufferPick<CR>
 
 let g:vimtex_format_enabled=1
@@ -208,7 +214,7 @@ let g:vimtex_quickfix_mode=0
 let g:vimtex_view_method='zathura'
 set conceallevel=0
 let g:tex_conceal="abdgm"
-let g:UltiSnipsSnippetDirectories=['/home/bruno/Dotfiles/snips']
+let g:UltiSnipsSnippetDirectories=['/home/mucinoab/Dotfiles/snips']
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
@@ -258,6 +264,8 @@ nmap <leader>gs <cmd>Telescope git_status<cr>
 nmap <leader>ld <cmd>Telescope lsp_workspace_diagnostics<cr>
 nmap <leader>h  <cmd>Telescope command_history<cr>
 nmap <leader>p  <cmd>Telescope session-lens search_session<cr>
+nmap <Leader>r  <cmd>lua require'telescope.builtin'.lsp_references()<cr>
+
 highlight TelescopeSelectionCaret guifg=#ff3333
 highlight TelescopeSelection      guifg=#D79921 gui=bold,underline
 highlight TelescopePreviewLine    guifg=#D79921 gui=underline
@@ -274,7 +282,8 @@ fu! CloseIfEmpty()
   endif
 endfu
 
-let g:indent_blankline_filetype = ['cpp', 'python', 'rust', 'go', 'javascript', 'php', 'blade', 'typescript']
+autocmd Filetype cs setlocal tabstop=4 shiftwidth=4
+let g:indent_blankline_filetype = ['cpp', 'python', 'rust', 'go', 'javascript', 'php', 'blade', 'typescript', 'cs', 'julia']
 let g:indent_blankline_show_trailing_blankline_indent = v:false
 let g:indent_blankline_use_treesitter = v:true
 
@@ -293,3 +302,15 @@ let g:netrw_winsize = 25
 
 " Toggle Vexplore with Ctrl-T
 map <silent> <C-T> :Lexplore!<CR>
+
+nmap <leader>m <cmd>HopChar1<cr>
+
+augroup HiglightTODO
+    autocmd!
+    autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
+augroup END
+
+highlight MatchParen gui=underline guibg=NONE guifg=red
+
+"colorscheme solarized
+"autocmd InsertLeave * highlight CursorLine guibg=#cbcbcb guifg=fg
