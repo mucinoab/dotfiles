@@ -125,46 +125,34 @@ Plug 'airblade/vim-rooter'
 Plug 'Chiel92/vim-autoformat'
 Plug 'romgrk/barbar.nvim'
 Plug 'chaoren/vim-wordmotion'
-
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'l3mon4d3/luasnip'
-
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
 Plug 'lukas-reineke/cmp-under-comparator'
 Plug 'saadparwaiz1/cmp_luasnip'
-
-Plug 'lukas-reineke/cmp-rg'
 Plug 'ray-x/lsp_signature.nvim'
-
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
-"nvim-telescope/telescope-project.nvim
-
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
-
 Plug 'rmagatti/auto-session'
 Plug 'rmagatti/session-lens'
-
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'SmiteshP/nvim-gps'
-
 Plug 'karb94/neoscroll.nvim'
-
 Plug 'phaazon/hop.nvim'
-
 Plug 'nathom/filetype.nvim'
 Plug 'numToStr/Comment.nvim'
-
-Plug 'shaunsingh/solarized.nvim'
-
 "Plug 'mfussenegger/nvim-dap' debugger
+Plug 'shaunsingh/solarized.nvim'
+Plug 'stevearc/dressing.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 call plug#end()
 
 augroup highlight_yank
@@ -186,8 +174,8 @@ require('settings')
 EOF
 
 " Enable type inlay hints
-autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
-\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
+" autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+"  \ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -314,3 +302,14 @@ highlight MatchParen gui=underline guibg=NONE guifg=red
 
 "colorscheme solarized
 "autocmd InsertLeave * highlight CursorLine guibg=#cbcbcb guifg=fg
+highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+highlight! CmpItemAbbrMatch      guibg=NONE guifg=#569CD6
+highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
+highlight! CmpItemKindVariable   guibg=NONE guifg=#9CDCFE
+highlight! CmpItemKindInterface  guibg=NONE guifg=#9CDCFE
+highlight! CmpItemKindText       guibg=NONE guifg=#51A1EE
+highlight! CmpItemKindFunction   guibg=NONE guifg=#C586C0
+highlight! CmpItemKindMethod     guibg=NONE guifg=#C586C0
+highlight! CmpItemKindKeyword    guibg=NONE guifg=#D4D4D4
+highlight! CmpItemKindProperty   guibg=NONE guifg=#D4D4D4
+highlight! CmpItemKindUnit       guibg=NONE guifg=#D4D4D4

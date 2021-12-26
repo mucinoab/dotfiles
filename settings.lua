@@ -1,6 +1,62 @@
 vim.g.did_load_filetypes = 1
 
 --- completion stuff
+-- https://github.com/hrsh7th/nvim-cmp/issues/156#issuecomment-916338617
+-- Custom comparators based on a given priority
+local lspkind_comparator = function(conf)
+  local lsp_types = require('cmp.types').lsp
+  return function(entry1, entry2)
+    if entry1.source.name ~= 'nvim_lsp' then
+      if entry2.source.name == 'nvim_lsp' then
+        return false
+      else
+        return nil
+      end
+    end
+    local kind1 = lsp_types.CompletionItemKind[entry1:get_kind()]
+    local kind2 = lsp_types.CompletionItemKind[entry2:get_kind()]
+
+    local priority1 = conf.kind_priority[kind1] or 0
+    local priority2 = conf.kind_priority[kind2] or 0
+    if priority1 == priority2 then
+      return nil
+    end
+    return priority2 < priority1
+  end
+end
+
+-- Lexicographical order (?)
+local label_comparator = function(entry1, entry2)
+  return entry1.completion_item.label < entry2.completion_item.label
+end
+
+local kind_icons = {
+  Text = "",
+  Method = "",
+  Function = "",
+  Constructor = "",
+  Field = "",
+  Variable = "",
+  Class = "ﴯ",
+  Interface = "",
+  Module = "",
+  Property = "ﰠ",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "",
+  Event = "",
+  Operator = "",
+  TypeParameter = ""
+}
 
 local cmp = require 'cmp'
 cmp.setup {
@@ -21,28 +77,56 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'buffer', options = { keyword_pattern = [[\k\+]] } },
-    { name = 'rg' },
     { name = 'path' },
     { name = 'treesitter' },
   },
   sorting = {
     comparators = {
-      cmp.config.compare.offset,
-      cmp.config.compare.exact,
-      cmp.config.compare.score,
       require "cmp-under-comparator".under,
-      cmp.config.compare.kind,
-      cmp.config.compare.sort_text,
-      cmp.config.compare.length,
-      cmp.config.compare.order,
+      lspkind_comparator({
+        kind_priority = {
+          Field = 11,
+          Property = 11,
+          Method = 11,
+          Constant = 10,
+          Enum = 10,
+          EnumMember = 10,
+          Event = 10,
+          Function = 10,
+          Operator = 10,
+          Reference = 10,
+          Struct = 10,
+          Variable = 10,
+          File = 8,
+          Folder = 8,
+          Class = 5,
+          Color = 5,
+          Module = 5,
+          Keyword = 2,
+          Constructor = 1,
+          Interface = 1,
+          Text = 1,
+          TypeParameter = 1,
+          Unit = 1,
+          Value = 1,
+          Snippet = -1,
+        },
+      }),
+      label_comparator,
     },
+  },
+  formatting = {
+    format = function(_, vim_item)
+      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
+      return vim_item
+    end
   },
 }
 
 
 -- Treesitter
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"rust", "python", "typescript", "cpp", "html", "latex", "go", "c_sharp"},
+  ensure_installed = {"rust", "python", "typescript", "cpp", "html", "latex", "go", "c_sharp", "markdown"},
   highlight = { enable = true, additional_vim_regex_highlighting = false },
   indent = { enable = true },
   refactor = { highlight_definitions = { enable = true }, },
@@ -236,3 +320,10 @@ vim.api.nvim_set_keymap('n', 'grr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
 require('Comment').setup()
 require "lsp_signature".setup()
+require('gitsigns').setup {
+  signcolumn = false,
+  numhl      = true,
+  watch_gitdir = { interval = 15000, follow_files = true },
+  update_debounce = 100,
+  max_file_length = 4000,
+}
