@@ -96,7 +96,7 @@ cmp.setup {
           Operator = 10,
           Reference = 10,
           Struct = 10,
-          Variable = 10,
+          Variable = 12,
           File = 8,
           Folder = 8,
           Class = 5,
@@ -193,7 +193,7 @@ nvim_lsp.rust_analyzer.setup({
 -- Enable diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = true,
+  virtual_text = false,
   signs = true,
   update_in_insert = true,
 }
@@ -327,3 +327,5 @@ require('gitsigns').setup {
   update_debounce = 100,
   max_file_length = 4000,
 }
+
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})]] -- Error on cursor on
