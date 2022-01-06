@@ -153,7 +153,13 @@ Plug 'numToStr/Comment.nvim'
 Plug 'shaunsingh/solarized.nvim'
 Plug 'stevearc/dressing.nvim'
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'tpope/vim-repeat'
 call plug#end()
+
+" Repeat f/F with .
+nnoremap <Plug>NextMatch ;
+nnoremap <silent> F :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>F
+nnoremap <silent> f :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>f
 
 augroup highlight_yank
     autocmd!
@@ -249,7 +255,7 @@ nmap <leader>f  <cmd>Telescope find_files<cr>
 nmap <leader>s  <cmd>Telescope live_grep<cr>
 nmap <Leader>b  <cmd>lua require'telescope.builtin'.buffers(require('telescope.themes').get_dropdown({}))<cr>
 nmap <leader>gs <cmd>Telescope git_status<cr>
-nmap <leader>ld <cmd>Telescope lsp_workspace_diagnostics<cr>
+nmap <leader>ld <cmd>Telescope diagnostics<cr>
 nmap <leader>h  <cmd>Telescope command_history<cr>
 nmap <leader>p  <cmd>Telescope session-lens search_session<cr>
 nmap <Leader>r  <cmd>lua require'telescope.builtin'.lsp_references()<cr>
