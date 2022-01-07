@@ -1,6 +1,9 @@
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec "systemctl --user import-environment"
+
 #Keyboard and trackpad
 input "2:7:SynPS/2_Synaptics_TouchPad" {
     tap enabled
@@ -16,14 +19,14 @@ input * {
     xkb_options "ctrl:nocaps"
 }
 
-#----monitor derecha----
-#output HDMI-A-1 pos 1366 0 
-#output eDP-1 pos 0 0 
+#----monitor izquierda----
+# output HDMI-A-1 pos 0 0
+# output eDP-1 pos 1919 685
 
 #----monitor arriba----
 # scale 1
-output HDMI-A-2 pos 0 0 
-output eDP-1 pos 197 1080 
+# output HDMI-A-2 pos 0 0 
+# output eDP-1 pos 197 1080 
 
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
@@ -55,10 +58,11 @@ bindsym $mod+Shift+q kill
 #bindsym $mod+z exec dmenu_recency
 
 # launch categorized menu
-set $launcher fre --sorted | sk --layout reverse --no-sort | xargs program_log.sh | xargs swaymsg exec
-bindsym $mod+d exec alacritty --option "window.dimensions={lines: 16, columns: 32}" --title 'launcher' -e sh -c \'$launcher\' 
+#set $launcher fre --sorted | sk --layout reverse --no-sort | xargs program_log.sh | xargs swaymsg exec
+#bindsym $mod+d exec alacritty --option "window.dimensions={lines: 16, columns: 32}" --title 'launcher' -e sh -c \'$launcher\' 
 
-#bindsym $mod+d exec rofi -show run -monitor 0
+#bindsym $mod+d exec rofi -show run  -m -1 
+bindsym $mod+d exec rofi -show run -monitor 0
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
@@ -67,7 +71,7 @@ bindsym $mod+d exec alacritty --option "window.dimensions={lines: 16, columns: 3
 exec  volumeicon
 bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 #exec  pulseaudio
-exec  pa-applet
+#exec  pa-applet
 #bindsym $mod+Ctrl+m exec pavucontrol
 
 ################################################################################################
@@ -79,9 +83,6 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
@@ -238,6 +239,8 @@ for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 for_window [app_id="wdisplays"] floating enable
 for_window [app_id="wdisplays"] resize set width 55 ppt 
+for_window [app_id="qemu"] floating enable
+# for_window [app_id="firefox"] floating enable
 
 # no se apaga cuando esta en pantalla completa 
 for_window [class="^.*"] inhibit_idle fullscreen
@@ -261,11 +264,11 @@ set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot
 bindsym $mod+0 mode "$mode_system"
 
 mode "$mode_system" {
-    bindsym s exec  i3exit suspend, mode "default"
-    bindsym e exec  i3exit logout, mode "default"
-    bindsym h exec  i3exit hibernate, mode "default"
-    bindsym r exec  i3exit reboot, mode "default"
-    bindsym Shift+s exec  i3exit shutdown, mode "default"
+    bindsym s exec  systemctl suspend, mode "default"
+    bindsym e exec  swaymsg 'exit', mode "default"
+    bindsym h exec  systemctl hibernate, mode "default"
+    bindsym r exec  systemctl reboot, mode "default"
+    bindsym Shift+s exec  systemctl poweroff, mode "default"
 
     # exit system mode: "Enter" or "Escape"
     bindsym Return mode "default"
@@ -274,6 +277,18 @@ mode "$mode_system" {
 #bindsym l exec  i3exit lock, mode "default"
 #bindsym u exec  i3exit switch_user, mode "default"
 }
+
+# Set power mode
+set $mode_power_mode (1)performance, (2)balanced, (3)power-save
+bindsym $mod+p mode "$mode_power_mode"
+mode "$mode_power_mode" {
+    bindsym 1 exec powerprofilesctl set performance, mode "default"
+    bindsym 2 exec powerprofilesctl set balanced, mode "default"
+    bindsym 3 exec powerprofilesctl set power-saver, mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
 
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
@@ -315,7 +330,8 @@ bindsym $mod+Ctrl+l exec swaylock \
         --separator-color 00000000
 
 # Autostart applications
-exec  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id lxpolkit
+exec --no-startup-id kanshi
 # output "*" bg /home/bruno/Downloads/wall3.jpg fill
 
 #exec xfce4-power-manager
@@ -324,7 +340,7 @@ exec  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec nm-applet
 #exec blueman-applet
 #exec libinput-gestures-setup start
-exec mako --default-timeout 40000
+exec mako --default-timeout 15000
 exec_always fix_xcursor
 
 bar {
