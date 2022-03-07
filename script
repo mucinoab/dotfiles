@@ -1,26 +1,34 @@
-ln -s /home/bruno/Dotfiles/tealdeer.toml /home/bruno/.config/tealdeer/config.toml
+#!/bin/bash
 
-ln -s /home/bruno/Dotfiles/vimrc /home/bruno/.config/nvim/init.vim
+ln -s ~/Dotfiles/tealdeer.toml ~/.config/tealdeer/config.toml
 
-ln -sf /home/bruno/Dotfiles/tmux.conf /home/bruno/.tmux.conf
+ln -s ~/Dotfiles/vimrc ~/.config/nvim/init.vim
+
+ln -sf ~/Dotfiles/tmux.conf ~/.tmux.conf
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-ln -sf /home/bruno/Dotfiles/gitconfig /home/bruno/.gitconfig
+ln -sf ~/Dotfiles/gitconfig ~/.gitconfig
 
-ln -sf /home/bruno/Dotfiles/htoprc /home/bruno/.config/htop/htoprc
+ln -sf ~/Dotfiles/htoprc ~/.config/htop/htoprc
 
-ln -sf /home/bruno/Dotfiles/i3 /home/bruno/.i3/config
+ln -sf ~/Dotfiles/i3 ~/.i3/config
 
-ln -sf /home/bruno/Dotfiles/alacritty.yml /home/bruno/.alacritty.yml
+ln -sf ~/Dotfiles/alacritty.yml ~/.alacritty.yml
 
-ln -sf /home/bruno/Dotfiles/vscode.json /home/bruno/.config/VSCodium/User/settings.json
+ln -sf ~/Dotfiles/vscode.json ~/.config/VSCodium/User/settings.json
 
-ln -sf /home/bruno/Dotfiles/dunstrc ~/Dotfiles/dunstrc
+ln -sf ~/Dotfiles/dunstrc ~/Dotfiles/dunstrc
 
-ln -sf /home/bruno/Dotfiles/trackpadg.conf ~/.config/libinput-gestures.conf
+ln -sf ~/Dotfiles/trackpadg.conf ~/.config/libinput-gestures.conf
 
-ln -sf /home/bruno/Dotfiles/swayconfig ~/.config/sway/config
+ln -sf ~/Dotfiles/swayconfig ~/.config/sway/config
 
-ln -sf /home/bruno/Dotfiles/mako ~/.config/mako/config
+ln -sf ~/Dotfiles/mako ~/.config/mako/config
 
-ln -sf /home/bruno/Dotfiles/settings.lua ~/.config/nvim/lua/settings.lua
+ln -sf ~/Dotfiles/settings.lua ~/.config/nvim/lua/settings.lua
+
+ln -sf ~/Dotfiles/zshrc ~/.zshrc
+
+ln -sf ~/Dotfiles/starship ~/config/starship.toml
+
+ln -sf ~/Dotfiles/kanshi ~/config/kanshi/config
