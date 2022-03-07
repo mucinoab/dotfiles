@@ -61,28 +61,26 @@ bindsym $mod+Shift+q kill
 #set $launcher fre --sorted | sk --layout reverse --no-sort | xargs program_log.sh | xargs swaymsg exec
 #bindsym $mod+d exec alacritty --option "window.dimensions={lines: 16, columns: 32}" --title 'launcher' -e sh -c \'$launcher\' 
 
-#bindsym $mod+d exec rofi -show run  -m -1 
-bindsym $mod+d exec rofi -show run -monitor 0
+#bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec rofi -show run
 
-################################################################################################
-## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
-################################################################################################
+#### audio, mic and backlight 
 
-exec  volumeicon
-bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
-#exec  pulseaudio
-#exec  pa-applet
-#bindsym $mod+Ctrl+m exec pavucontrol
+# https://github.com/francma/wob
+set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+exec mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
 
-################################################################################################
+# audio buttons
+bindsym XF86AudioRaiseVolume exec amixer -D pipewire sset Master 2%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
+bindsym XF86AudioLowerVolume exec amixer -D pipewire sset Master 2%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
+bindsym XF86AudioMute exec amixer -D pipewire sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $WOBSOCK
 
-#audio and backlight buttons
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+# mic buttons
+bindsym XF86AudioMicMute exec amixer set Capture toggle
+
+# backlight buttons
+bindsym XF86MonBrightnessDown exec brightnessctl set 3%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
+bindsym XF86MonBrightnessUp exec brightnessctl set +3% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
@@ -342,6 +340,7 @@ exec --no-startup-id kanshi
 #exec libinput-gestures-setup start
 exec mako --default-timeout 15000
 exec_always fix_xcursor
+exec_always --no-startup-id kanshi
 
 bar {
 	#i3bar_command i3bar
