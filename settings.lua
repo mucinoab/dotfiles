@@ -126,7 +126,7 @@ cmp.setup {
 
 -- Treesitter
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"rust", "python", "typescript", "cpp", "html", "latex", "go", "c_sharp", "markdown"},
+  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "c_sharp", "markdown"},
   highlight = { enable = true, additional_vim_regex_highlighting = false },
   indent = { enable = true },
   refactor = { highlight_definitions = { enable = true }, },
@@ -153,9 +153,6 @@ nvim_lsp.tsserver.setup {capabilities = capabilities,}
 
 -- Julia
 nvim_lsp.julials.setup {capabilities = capabilities,}
-
--- Vue
-nvim_lsp.vuels.setup{}
 
 -- CPP
 nvim_lsp.clangd.setup {capabilities = capabilities,}
@@ -218,7 +215,7 @@ nvim_lsp.gopls.setup {
 
 -- C#
 local pid = vim.fn.getpid()
-local omnisharp_bin = "/home/mucinoab/Downloads/omnisharp/run"
+local omnisharp_bin = "~/Downloads/omnisharp/OmniSharp"
 nvim_lsp.omnisharp.setup{
   cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
   capabilities = capabilities,
