@@ -157,6 +157,7 @@ Plug 'tpope/vim-repeat'
 Plug 'petertriho/nvim-scrollbar'
 Plug 'j-hui/fidget.nvim'
 Plug 'mvllow/modes.nvim'
+Plug 'theprimeagen/jvim.nvim'
 call plug#end()
 
 lua require('impatient')
@@ -323,3 +324,8 @@ highlight! CmpItemKindMethod     guibg=NONE guifg=#C586C0
 highlight! CmpItemKindKeyword    guibg=NONE guifg=#D4D4D4
 highlight! CmpItemKindProperty   guibg=NONE guifg=#D4D4D4
 highlight! CmpItemKindUnit       guibg=NONE guifg=#D4D4D4
+
+autocmd FileType json nnoremap <left>  :lua require("jvim").to_parent()   <CR>
+autocmd FileType json nnoremap <right> :lua require("jvim").descend()     <CR>
+autocmd FileType json nnoremap <up>    :lua require("jvim").prev_sibling()<CR>
+autocmd FileType json nnoremap <down>  :lua require("jvim").next_sibling()<CR>

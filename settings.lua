@@ -126,7 +126,7 @@ cmp.setup {
 
 -- Treesitter
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "c_sharp", "markdown"},
+  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "c_sharp", "markdown", "json"},
   highlight = { enable = true, additional_vim_regex_highlighting = false },
   indent = { enable = true },
   refactor = { highlight_definitions = { enable = true }, },
