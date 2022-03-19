@@ -190,9 +190,9 @@ nvim_lsp.rust_analyzer.setup({
 -- Enable diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = false,
-  signs = true,
-  update_in_insert = true,
+  virtual_text = true,
+  signs = false,
+  update_in_insert = false,
 }
 )
 
@@ -325,4 +325,42 @@ require('gitsigns').setup {
   max_file_length = 4000,
 }
 
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})]] -- Error on cursor on
+require("scrollbar").setup({
+  show = true,
+  handle = {
+    text = " ",
+    color = "gray",
+    hide_if_all_visible = true,
+  },
+  marks = {
+    Search = { text = { "--", "==" }, priority = 0, color = "orange" },
+    Error = { text = { "--", "==" }, priority = 1, color = "red" },
+    Warn = { text = { "--", "==" }, priority = 2, color = "yellow" },
+    Info = { text = { "--", "==" }, priority = 3, color = "blue" },
+    Hint = { text = { "--", "==" }, priority = 4, color = "green" },
+    Misc = { text = { "--", "==" }, priority = 5, color = "purple" },
+  },
+  excluded_filetypes = {
+    "",
+    "prompt",
+    "TelescopePrompt",
+  },
+  autocmd = {
+    render = {
+      "BufWinEnter",
+      "TabEnter",
+      "TermEnter",
+      "WinEnter",
+      "CmdwinLeave",
+      "TextChanged",
+      "VimResized",
+      "WinScrolled",
+    },
+  },
+  handlers = {
+    diagnostic = true,
+    search = false,
+  },
+})
+
+require"fidget".setup{}

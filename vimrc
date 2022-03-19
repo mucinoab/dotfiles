@@ -154,6 +154,8 @@ Plug 'shaunsingh/solarized.nvim'
 Plug 'stevearc/dressing.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-repeat'
+Plug 'petertriho/nvim-scrollbar'
+Plug 'j-hui/fidget.nvim'
 call plug#end()
 
 " Repeat f/F with .
@@ -188,14 +190,13 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Goto previous/next diagnostic warning/error
-nnoremap <silent> g{ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> g} <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent> g{ <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> g} <cmd>lua vim.diagnostic.goto_next()<CR>
 
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <leader> k <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>e <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap <leader>e <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <leader>e <cmd>lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"}) <CR>
 
 nmap <leader>d <cmd>BufferPick<CR>
 
