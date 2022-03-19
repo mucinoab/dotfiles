@@ -3,7 +3,7 @@
 [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && source ~/.autojump/etc/profile.d/autojump.sh
 
 # If you come from bash you might have to change your $PATH.
-export PATH=~/dev/dotMemory:/usr/local/texlive/2020/bin/x86_64-linux:~/.cargo/bin/:$PATH 
+export PATH=~/dev/dotMemory:/usr/local/texlive/2020/bin/x86_64-linux:~/.cargo/bin/:/home/mucinoab/go/bin:$PATH 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/.config/composer/vendor/bin:$PATH
 eval "$(zoxide init --cmd j zsh)"
