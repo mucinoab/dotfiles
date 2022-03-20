@@ -10,7 +10,7 @@ eval "$(zoxide init --cmd j zsh)"
 eval "$(starship init zsh)"
 
 
-export ZSH="~/.oh-my-zsh"
+export ZSH="/home/mucinoab/.oh-my-zsh"
 
 DISABLE_MAGIC_FUNCTIONS=true
 ENABLE_CORRECTION="true"
@@ -63,7 +63,7 @@ alias dnd='makoctl set-mode do-not-disturb'
 alias ddd='makoctl set-mode default'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-export CARGO_TARGET_DIR='~/cargo_target_dir'
+export CARGO_TARGET_DIR='/home/mucinoab/cargo_target_dir'
 export RUSTFLAGS="-C target-cpu=native"
 
 #no cierra terminal con shift D
