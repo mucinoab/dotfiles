@@ -364,3 +364,19 @@ require("scrollbar").setup({
 })
 
 require"fidget".setup{}
+
+-- Different Cursorline depending on the mode
+require('modes').setup({
+  colors = {
+    delete = "#c75c6a",
+    insert = "#78ccc5",
+    visual = "#f5c359",
+  },
+  line_opacity = 0.1,
+  set_cursor = true,
+  focus_only = false
+})
+
+vim.cmd('hi ModesDelete guibg=#c75c6a')
+vim.cmd('hi ModesInsert guibg=#78ccc5')
+vim.cmd('hi ModesVisual guibg=#9745be')

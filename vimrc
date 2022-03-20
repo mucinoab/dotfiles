@@ -156,7 +156,10 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'petertriho/nvim-scrollbar'
 Plug 'j-hui/fidget.nvim'
+Plug 'mvllow/modes.nvim'
 call plug#end()
+
+lua require('impatient')
 
 " Repeat f/F with .
 nnoremap <Plug>NextMatch ;
