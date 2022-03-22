@@ -1,3 +1,53 @@
+"vim plug
+call plug#begin('~/.vim/plugged')
+Plug 'lewis6991/impatient.nvim'
+Plug 'mhartington/oceanic-next'
+"Plug 'edkolev/tmuxline.vim'
+Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
+Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'ojroques/nvim-bufdel'
+Plug 'airblade/vim-rooter'
+Plug 'Chiel92/vim-autoformat'
+Plug 'romgrk/barbar.nvim'
+Plug 'chaoren/vim-wordmotion'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'l3mon4d3/luasnip'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
+Plug 'lukas-reineke/cmp-under-comparator'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'ray-x/lsp_signature.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
+Plug 'rmagatti/auto-session'
+Plug 'rmagatti/session-lens'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'SmiteshP/nvim-gps'
+Plug 'karb94/neoscroll.nvim'
+Plug 'phaazon/hop.nvim'
+Plug 'nathom/filetype.nvim'
+Plug 'numToStr/Comment.nvim'
+"Plug 'mfussenegger/nvim-dap' debugger
+Plug 'shaunsingh/solarized.nvim'
+Plug 'stevearc/dressing.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'tpope/vim-repeat'
+Plug 'petertriho/nvim-scrollbar'
+Plug 'j-hui/fidget.nvim'
+Plug 'mvllow/modes.nvim'
+Plug 'theprimeagen/jvim.nvim'
+call plug#end()
+
+lua require('config')
+
 vmap j gj
 vmap k gk
 nmap j gj
@@ -100,67 +150,9 @@ set spell
 set spelllang=es,en
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u<Esc>ha
 
-" tera templates -> html
-autocmd BufNewFile,BufRead *.tera set syntax=html
-autocmd BufNewFile,BufRead *.tera set ft=html
-
-" blade templates -> html
-autocmd BufNewFile,BufRead *.blade.php set syntax=html
-autocmd BufNewFile,BufRead *.blade.php set ft=html
-
 " Jump to start and end of line using the home row keys
 map H g^
 map L g$
-
-"vim plug
-call plug#begin('~/.vim/plugged')
-Plug 'lewis6991/impatient.nvim'
-Plug 'mhartington/oceanic-next'
-"Plug 'edkolev/tmuxline.vim'
-Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
-Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'ojroques/nvim-bufdel'
-Plug 'airblade/vim-rooter'
-Plug 'Chiel92/vim-autoformat'
-Plug 'romgrk/barbar.nvim'
-Plug 'chaoren/vim-wordmotion'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'l3mon4d3/luasnip'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-path'
-Plug 'lukas-reineke/cmp-under-comparator'
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'ray-x/lsp_signature.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug 'rmagatti/auto-session'
-Plug 'rmagatti/session-lens'
-Plug 'nvim-lualine/lualine.nvim'
-Plug 'SmiteshP/nvim-gps'
-Plug 'karb94/neoscroll.nvim'
-Plug 'phaazon/hop.nvim'
-Plug 'nathom/filetype.nvim'
-Plug 'numToStr/Comment.nvim'
-"Plug 'mfussenegger/nvim-dap' debugger
-Plug 'shaunsingh/solarized.nvim'
-Plug 'stevearc/dressing.nvim'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'tpope/vim-repeat'
-Plug 'petertriho/nvim-scrollbar'
-Plug 'j-hui/fidget.nvim'
-Plug 'mvllow/modes.nvim'
-Plug 'theprimeagen/jvim.nvim'
-call plug#end()
-
-lua require('impatient')
 
 " Repeat f/F with .
 nnoremap <Plug>NextMatch ;
@@ -181,10 +173,6 @@ colorscheme OceanicNext
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1
 
-lua <<EOF
-require('settings')
-EOF
-
 " Enable type inlay hints
 " autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
 "  \ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
@@ -199,8 +187,8 @@ nnoremap <silent> g} <cmd>lua vim.diagnostic.goto_next()<CR>
 
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <leader> k <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>e <cmd>lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"}) <CR>
+nnoremap <leader> a <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader> e <cmd>lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"}) <CR>
 
 nmap <leader>d <cmd>BufferPick<CR>
 
@@ -259,9 +247,7 @@ tnoremap <leader><leader> <C-\><C-n><c-^>
 nmap <leader>f  <cmd>Telescope find_files<cr>
 nmap <leader>s  <cmd>Telescope live_grep<cr>
 nmap <Leader>b  <cmd>lua require'telescope.builtin'.buffers(require('telescope.themes').get_dropdown({}))<cr>
-nmap <leader>gs <cmd>Telescope git_status<cr>
 nmap <leader>ld <cmd>Telescope diagnostics<cr>
-nmap <leader>h  <cmd>Telescope command_history<cr>
 nmap <leader>p  <cmd>Telescope session-lens search_session<cr>
 nmap <Leader>r  <cmd>lua require'telescope.builtin'.lsp_references()<cr>
 
