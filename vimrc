@@ -1,6 +1,7 @@
 "vim plug
 call plug#begin('~/.vim/plugged')
 Plug 'lewis6991/impatient.nvim'
+Plug 'nathom/filetype.nvim'
 Plug 'mhartington/oceanic-next'
 "Plug 'edkolev/tmuxline.vim'
 Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
@@ -8,7 +9,7 @@ Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'ojroques/nvim-bufdel'
 Plug 'airblade/vim-rooter'
-Plug 'Chiel92/vim-autoformat'
+"Plug 'Chiel92/vim-autoformat'
 Plug 'romgrk/barbar.nvim'
 Plug 'chaoren/vim-wordmotion'
 Plug 'neovim/nvim-lspconfig'
@@ -28,15 +29,13 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'rmagatti/auto-session'
-Plug 'rmagatti/session-lens'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'SmiteshP/nvim-gps'
 Plug 'karb94/neoscroll.nvim'
 Plug 'phaazon/hop.nvim'
-Plug 'nathom/filetype.nvim'
 Plug 'numToStr/Comment.nvim'
 "Plug 'mfussenegger/nvim-dap' debugger
-Plug 'shaunsingh/solarized.nvim'
+"Plug 'shaunsingh/solarized.nvim'
 Plug 'stevearc/dressing.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-repeat'
@@ -44,6 +43,7 @@ Plug 'petertriho/nvim-scrollbar'
 Plug 'j-hui/fidget.nvim'
 Plug 'mvllow/modes.nvim'
 Plug 'theprimeagen/jvim.nvim'
+Plug 'lukas-reineke/lsp-format.nvim'
 call plug#end()
 
 lua require('config')
@@ -268,7 +268,7 @@ fu! CloseIfEmpty()
 endfu
 
 autocmd Filetype cs setlocal tabstop=4 shiftwidth=4
-let g:indent_blankline_filetype = ['cpp', 'python', 'rust', 'go', 'javascript', 'php', 'blade', 'typescript', 'cs', 'julia']
+let g:indent_blankline_filetype = ['cpp', 'python', 'rust', 'go', 'javascript', 'typescript', 'cs']
 let g:indent_blankline_show_trailing_blankline_indent = v:false
 let g:indent_blankline_use_treesitter = v:true
 

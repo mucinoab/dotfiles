@@ -1,5 +1,5 @@
 require('impatient')
-vim.g.did_load_filetypes = 1
+require("lsp-format").setup {}
 
 --- completion stuff
 -- https://github.com/hrsh7th/nvim-cmp/issues/156#issuecomment-916338617
@@ -59,7 +59,7 @@ local kind_icons = {
   TypeParameter = ""
 }
 
-local cmp = require 'cmp'
+local cmp = require('cmp')
 cmp.setup {
   mapping = {
     ['<Tab>'] = cmp.mapping.select_next_item(),
@@ -71,7 +71,7 @@ cmp.setup {
   },
   snippet = {
     expand = function(args)
-      require'luasnip'.lsp_expand(args.body)
+      require('luasnip').lsp_expand(args.body)
     end
   },
   sources = {
@@ -83,7 +83,7 @@ cmp.setup {
   },
   sorting = {
     comparators = {
-      require "cmp-under-comparator".under,
+      require("cmp-under-comparator").under,
       lspkind_comparator({
         kind_priority = {
           Field = 11,
@@ -126,54 +126,48 @@ cmp.setup {
 
 
 -- Treesitter
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
   ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "c_sharp", "markdown", "json"},
   highlight = { enable = true, additional_vim_regex_highlighting = false, disable = { "c_sharp" } },
   indent = { enable = true },
-  refactor = { highlight_definitions = { enable = true }, },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<CR>',
-      scope_incremental = '<CR>',
-      node_incremental = '<TAB>',
-      node_decremental = '<S-TAB>',
-    }
-  }
+  refactor = {
+    highlight_definitions = { enable = true },
+    smart_rename = {
+      enable = true,
+      keymaps = {
+        smart_rename = "grr",
+      },
+    },
+  },
 }
 
 -- nvim_lsp object
-local nvim_lsp = require'lspconfig'
+local nvim_lsp = require('lspconfig')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- TypeScript
-nvim_lsp.tsserver.setup {capabilities = capabilities,}
+local on_attach = require("lsp-format").on_attach
 
--- Julia
-nvim_lsp.julials.setup {capabilities = capabilities,}
+-- TypeScript
+nvim_lsp.tsserver.setup {capabilities = capabilities, on_attach=on_attach,}
 
 -- CPP
-nvim_lsp.clangd.setup {capabilities = capabilities,}
+nvim_lsp.clangd.setup {capabilities = capabilities, on_attach=on_attach,}
 
 -- HTML
-nvim_lsp.html.setup {capabilities = capabilities,}
+nvim_lsp.html.setup {capabilities = capabilities, on_attach=on_attach,}
 
 -- Python
-nvim_lsp.pyright.setup{capabilities = capabilities,}
-
--- PHP
-nvim_lsp.phpactor.setup{capabilities = capabilities,}
+nvim_lsp.pyright.setup{capabilities = capabilities, on_attach=on_attach,}
 
 -- CSS
-nvim_lsp.cssls.setup {capabilities = capabilities,}
+nvim_lsp.cssls.setup {capabilities = capabilities, on_attach=on_attach,}
 
 -- Enable rust_analyzer
 -- https://sharksforarms.dev/posts/neovim-rust/
 nvim_lsp.rust_analyzer.setup({
-  on_attach=on_attach,
   settings = {
     ["rust-analyzer"] = {
       cargo = { loadOutDirsFromCheck = true },
@@ -186,6 +180,7 @@ nvim_lsp.rust_analyzer.setup({
     }
   },
   capabilities = capabilities,
+  on_attach=on_attach,
 })
 
 -- Enable diagnostics
@@ -212,6 +207,7 @@ nvim_lsp.gopls.setup {
     },
   },
   capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 -- C#
@@ -220,6 +216,7 @@ local omnisharp_bin = "/home/mucinoab/Downloads/omnisharp/OmniSharp"
 nvim_lsp.omnisharp.setup{
   cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
   capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 -- telescope
@@ -247,7 +244,6 @@ require('telescope').setup{
 }
 
 require('telescope').load_extension('fzy_native')
-require("telescope").load_extension("session-lens")
 
 -- Auto Session
 local opts = {
@@ -275,17 +271,7 @@ vim.g.bufferline = {
 
 -- GPS
 local gps = require("nvim-gps")
-gps.setup({
-  languages = {
-    ["c"] = true,
-    ["cpp"] = true,
-    ["go"] = true,
-    ["javascript"] = true,
-    ["typescript"] = true,
-    ["python"] = true,
-    ["rust"] = true,
-  },
-})
+gps.setup()
 
 require('lualine').setup ({
   options = { icons_enabled = false, theme = 'wombat', },
@@ -311,11 +297,6 @@ require('neoscroll.config').set_mappings(t)
 
 require("indent_blankline").setup { char = "┊" }
 require'hop'.setup()
-
---- LSP keymaps
-local opts = { noremap=true, silent=true }
-vim.api.nvim_set_keymap('n', 'grr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-
 require('Comment').setup()
 require "lsp_signature".setup()
 require('gitsigns').setup {
