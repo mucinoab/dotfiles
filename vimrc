@@ -164,11 +164,6 @@ augroup highlight_yank
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 350})
 augroup END
 
-augroup fmt
-  autocmd!
-  autocmd BufWritePre *.tex,*.latex,*.cpp,*.ts,*.go,*.py,*.rs Autoformat
-augroup END
-
 colorscheme OceanicNext
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1

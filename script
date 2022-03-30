@@ -25,7 +25,7 @@ ln -sf ~/Dotfiles/swayconfig ~/.config/sway/config
 
 ln -sf ~/Dotfiles/mako ~/.config/mako/config
 
-ln -sf ~/Dotfiles/settings.lua ~/.config/nvim/lua/settings.lua
+ln -sf ~/Dotfiles/config.lua ~/.config/nvim/lua/config.lua
 
 ln -sf ~/Dotfiles/zshrc ~/.zshrc
 
