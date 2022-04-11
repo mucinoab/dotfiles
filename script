@@ -32,3 +32,5 @@ ln -sf ~/Dotfiles/zshrc ~/.zshrc
 ln -sf ~/Dotfiles/starship ~/config/starship.toml
 
 ln -sf ~/Dotfiles/kanshi ~/config/kanshi/config
+
+ln -sf ~/Dotfiles/kitty.conf ~/.config/kitty/kitty.conf
