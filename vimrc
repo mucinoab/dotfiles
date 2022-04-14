@@ -177,13 +177,13 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Goto previous/next diagnostic warning/error
-nnoremap <silent> g{ <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <silent> g} <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <silent>g{ <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent>g} <cmd>lua vim.diagnostic.goto_next()<CR>
 
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <leader> k <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <leader> a <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader> e <cmd>lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"}) <CR>
+nnoremap <leader>k <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>e <cmd>lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"}) <CR>
 
 nmap <leader>d <cmd>BufferPick<CR>
 
@@ -263,6 +263,10 @@ fu! CloseIfEmpty()
 endfu
 
 autocmd Filetype cs setlocal tabstop=4 shiftwidth=4
+
+" No spell check for programming languages
+autocmd Filetype cs,rs,js,py,go,ts,c,cpp  setlocal nospell
+
 let g:indent_blankline_filetype = ['cpp', 'python', 'rust', 'go', 'javascript', 'typescript', 'cs']
 let g:indent_blankline_show_trailing_blankline_indent = v:false
 let g:indent_blankline_use_treesitter = v:true
