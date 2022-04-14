@@ -5,7 +5,11 @@ $0
 endsnippet
 
 snippet \( "Math" wA
-\($1\) $0
+\( $1 \) $0
+endsnippet
+
+snippet \{ "Math" wA
+\\{ $1 \\} $0
 endsnippet
 
 snippet today "Date"
@@ -26,6 +30,12 @@ endsnippet
 
 snippet uul "underline" wA
 \underline{$1} $0
+endsnippet
+
+snippet comm "comment" wA
+\comment{
+	$1
+} $0
 endsnippet
 
 snippet enumm "Enumerate" bA
@@ -113,6 +123,9 @@ right  = 3cm]{geometry}
 \title{$1}%tema
 \author{$2 \\\\Muciño Guerrero Bruno A.}%clase
 \date{ today$3 }%para solo dar enter y que se ponga la fecha
+
+
+\newcommand{\comment}[1]{}
 
 \begin{document}
 \maketitle
