@@ -1,5 +1,5 @@
 profile Monitor {
-  output HDMI-A-2 mode 1920x1080 position 0,0
+  output HDMI-A-1 mode 1920x1080 position 0,0
   output eDP-1 mode 1366x768 position 296,1080
 }
 

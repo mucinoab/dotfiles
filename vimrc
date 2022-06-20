@@ -9,11 +9,11 @@ Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'ojroques/nvim-bufdel'
 Plug 'airblade/vim-rooter'
-"Plug 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat'
 Plug 'romgrk/barbar.nvim'
 Plug 'chaoren/vim-wordmotion'
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/lsp_extensions.nvim'
+"Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'l3mon4d3/luasnip'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
@@ -44,6 +44,9 @@ Plug 'j-hui/fidget.nvim'
 Plug 'mvllow/modes.nvim'
 Plug 'theprimeagen/jvim.nvim'
 Plug 'lukas-reineke/lsp-format.nvim'
+"Plug 'mfussenegger/nvim-jdtls'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['md', 'markdown'] }
+Plug 'nvim-treesitter/nvim-treesitter-context'
 call plug#end()
 
 lua require('config')
@@ -88,14 +91,13 @@ syntax on
 "set relativenumber
 set hidden
 set synmaxcol=400
-set mouse=a
+"set mouse=a
 set clipboard=unnamedplus
 set shiftwidth=2
 set tabstop=2
 set nohlsearch
 "set virtual edit=all
 set encoding=utf-8
-set laststatus=2
 set noshowmode
 set scrolloff=5
 set undofile
@@ -170,7 +172,7 @@ let g:oceanic_next_terminal_italic = 1
 
 " Enable type inlay hints
 " autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
-"  \ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
+" \ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -277,6 +279,7 @@ if has("autocmd")
         \| exe "normal! g`\"" | endif
 endif
 
+
 " nvim built in file viewer   
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
@@ -314,3 +317,5 @@ autocmd FileType json nnoremap <left>  :lua require("jvim").to_parent()   <CR>
 autocmd FileType json nnoremap <right> :lua require("jvim").descend()     <CR>
 autocmd FileType json nnoremap <up>    :lua require("jvim").prev_sibling()<CR>
 autocmd FileType json nnoremap <down>  :lua require("jvim").next_sibling()<CR>
+
+"autocmd BufRead *.tex,*.latex autocmd BufWrite :Autoformat <CR>

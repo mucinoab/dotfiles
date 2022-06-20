@@ -1,9 +1,9 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && source ~/.autojump/etc/profile.d/autojump.sh
+[[ -s /home/mucinoab/.autojump/etc/profile.d/autojump.sh ]] && source /home/mucinoab/.autojump/etc/profile.d/autojump.sh
 
 # If you come from bash you might have to change your $PATH.
-export PATH=~/dev/dotMemory:/usr/local/texlive/2020/bin/x86_64-linux:~/.cargo/bin/:/home/mucinoab/go/bin:$PATH 
+export PATH=/home/mucinoab/dev/dotMemory:/usr/local/texlive/2020/bin/x86_64-linux:/home/mucinoab/.cargo/bin/:/home/mucinoab/go/bin/:/home/mucinoab/dev/dotMemory:$PATH 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/.config/composer/vendor/bin:$PATH
 eval "$(zoxide init --cmd j zsh)"
@@ -13,7 +13,7 @@ eval "$(starship init zsh)"
 export ZSH="/home/mucinoab/.oh-my-zsh"
 
 DISABLE_MAGIC_FUNCTIONS=true
-ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"
 COMPLETION_WAITING_DOTS="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
@@ -45,8 +45,9 @@ alias du='dust -b'
 alias z='zathura'
 alias grep='grep --color=auto'
 alias sptr='systemctl restart  --user spotifyd.service && spt'
-alias dr='mold -run dotnet run -r linux-x64 --property:Configuration=Debug'
-alias db='mold -run dotnet build'
+alias dr='mold -run dotnet run -r linux-x64 --no-self-contained --property:Configuration=Debug'
+alias db='mold -run dotnet build -r:linux-x64'
+alias dt='mold -run dotnet test /p:ExcludeByFile="**/calixta-foundation/**/*.cs" --no-restore --verbosity n . '
 alias cr='mold -run cargo run'
 alias crr='mold -run cargo run --release'
 alias ct='mold -run cargo test'

@@ -1,5 +1,4 @@
 require('impatient')
-require("lsp-format").setup {}
 
 --- completion stuff
 -- https://github.com/hrsh7th/nvim-cmp/issues/156#issuecomment-916338617
@@ -127,7 +126,7 @@ cmp.setup {
 
 -- Treesitter
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "c_sharp", "markdown", "json"},
+  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "c_sharp", "markdown", "json", "java"},
   highlight = { enable = true, additional_vim_regex_highlighting = false, disable = { "c_sharp" } },
   indent = { enable = true },
   refactor = {
