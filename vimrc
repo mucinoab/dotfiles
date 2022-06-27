@@ -265,7 +265,7 @@ endfu
 autocmd Filetype cs setlocal tabstop=4 shiftwidth=4
 
 " No spell check for programming languages
-autocmd Filetype cs,rs,js,py,go,ts,c,cpp  setlocal nospell
+autocmd Filetype cs,rs,js,py,go,ts,c,cpp  set nospell
 
 let g:indent_blankline_filetype = ['cpp', 'python', 'rust', 'go', 'javascript', 'typescript', 'cs']
 let g:indent_blankline_show_trailing_blankline_indent = v:false
@@ -314,3 +314,6 @@ autocmd FileType json nnoremap <left>  :lua require("jvim").to_parent()   <CR>
 autocmd FileType json nnoremap <right> :lua require("jvim").descend()     <CR>
 autocmd FileType json nnoremap <up>    :lua require("jvim").prev_sibling()<CR>
 autocmd FileType json nnoremap <down>  :lua require("jvim").next_sibling()<CR>
+
+" Don't touch unnamed register when pasting over visual selection
+xnoremap <expr> p 'pgv"' . v:register . 'y'
