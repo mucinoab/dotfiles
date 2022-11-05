@@ -1,5 +1,5 @@
 require('impatient')
-require("lsp-format").setup {}
+require('lsp-format').setup {}
 
 --- completion stuff
 -- https://github.com/hrsh7th/nvim-cmp/issues/156#issuecomment-916338617
@@ -127,7 +127,7 @@ cmp.setup {
 
 -- Treesitter
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "c_sharp", "markdown", "json"},
+  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "markdown", "json", "java"},
   highlight = { enable = true, additional_vim_regex_highlighting = false, disable = { "c_sharp" } },
   indent = { enable = true },
   refactor = {
@@ -145,7 +145,7 @@ require('nvim-treesitter.configs').setup {
 local nvim_lsp = require('lspconfig')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = require("lsp-format").on_attach
@@ -170,6 +170,9 @@ nvim_lsp.cssls.setup {capabilities = capabilities, on_attach=on_attach,}
 nvim_lsp.rust_analyzer.setup({
   settings = {
     ["rust-analyzer"] = {
+      checkOnSave = {
+        extraArgs={"--target-dir", "/tmp/rust-analyzer-check"}
+      },
       cargo = { loadOutDirsFromCheck = true },
       procMacro = { enable = false },
       diagnostics = {
