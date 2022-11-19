@@ -1,5 +1,9 @@
-add_newline = false
+# https://starship.rs/config/
 
+add_newline = false
+scan_timeout = 50
+command_timeout = 100
+ 
 [rust]
 disabled = true
 
