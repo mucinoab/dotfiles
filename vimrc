@@ -1,8 +1,10 @@
 "vim plug
 call plug#begin('~/.vim/plugged')
 Plug 'lewis6991/impatient.nvim'
-Plug 'nathom/filetype.nvim'
-Plug 'mhartington/oceanic-next'
+"Plug 'mhartington/oceanic-next'
+Plug 'glepnir/zephyr-nvim'
+"Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+"Plug 'nathom/filetype.nvim'
 "Plug 'edkolev/tmuxline.vim'
 Plug 'SirVer/ultisnips', { 'for': ['tex', 'latex'] }
 Plug 'lervag/vimtex', { 'for': ['tex', 'latex']}
@@ -30,21 +32,23 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'rmagatti/auto-session'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'SmiteshP/nvim-gps'
+"Plug 'SmiteshP/nvim-gps' " TODO https://github.com/SmiteshP/nvim-navia
 Plug 'karb94/neoscroll.nvim'
 Plug 'phaazon/hop.nvim'
 Plug 'numToStr/Comment.nvim'
-"Plug 'mfussenegger/nvim-dap' debugger
+Plug 'mfussenegger/nvim-dap'
 "Plug 'shaunsingh/solarized.nvim'
 Plug 'stevearc/dressing.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'petertriho/nvim-scrollbar'
-Plug 'j-hui/fidget.nvim'
+Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
 Plug 'mvllow/modes.nvim'
 Plug 'theprimeagen/jvim.nvim'
 Plug 'lukas-reineke/lsp-format.nvim'
+"Plug 'nvim-treesitter/playground'
 call plug#end()
+
 
 lua require('config')
 
@@ -52,7 +56,6 @@ vmap j gj
 vmap k gk
 nmap j gj
 nmap k gk
-nmap <c-n> o<Esc>
 map q: :q
 map Q <Nop>
 inoremap jk <esc>
@@ -88,7 +91,7 @@ syntax on
 "set relativenumber
 set hidden
 set synmaxcol=400
-set mouse=a
+"set mouse=a
 set clipboard=unnamedplus
 set shiftwidth=2
 set tabstop=2
@@ -164,9 +167,10 @@ augroup highlight_yank
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 350})
 augroup END
 
-colorscheme OceanicNext
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
+colorscheme zephyr
+"colorscheme OceanicNext
+"let g:oceanic_next_terminal_bold = 1
+"let g:oceanic_next_terminal_italic = 1
 
 " Enable type inlay hints
 " autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
@@ -265,9 +269,9 @@ endfu
 autocmd Filetype cs setlocal tabstop=4 shiftwidth=4
 
 " No spell check for programming languages
-autocmd Filetype cs,rs,js,py,go,ts,c,cpp  set nospell
+autocmd Filetype cs,rs,js,py,go,ts,cpp  set nospell
 
-let g:indent_blankline_filetype = ['cpp', 'python', 'rust', 'go', 'javascript', 'typescript', 'cs']
+let g:indent_blankline_filetype = ['cpp', 'python', 'rust', 'go', 'javascript', 'typescript', 'cs', 'c']
 let g:indent_blankline_show_trailing_blankline_indent = v:false
 let g:indent_blankline_use_treesitter = v:true
 
@@ -298,17 +302,17 @@ highlight MatchParen gui=underline guibg=NONE guifg=red
 
 "colorscheme solarized
 "autocmd InsertLeave * highlight CursorLine guibg=#cbcbcb guifg=fg
-highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
-highlight! CmpItemAbbrMatch      guibg=NONE guifg=#569CD6
-highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
-highlight! CmpItemKindVariable   guibg=NONE guifg=#9CDCFE
-highlight! CmpItemKindInterface  guibg=NONE guifg=#9CDCFE
-highlight! CmpItemKindText       guibg=NONE guifg=#51A1EE
-highlight! CmpItemKindFunction   guibg=NONE guifg=#C586C0
-highlight! CmpItemKindMethod     guibg=NONE guifg=#C586C0
-highlight! CmpItemKindKeyword    guibg=NONE guifg=#D4D4D4
-highlight! CmpItemKindProperty   guibg=NONE guifg=#D4D4D4
-highlight! CmpItemKindUnit       guibg=NONE guifg=#D4D4D4
+"highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+"highlight! CmpItemAbbrMatch      guibg=NONE guifg=#569CD6
+"highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
+"highlight! CmpItemKindVariable   guibg=NONE guifg=#9CDCFE
+"highlight! CmpItemKindInterface  guibg=NONE guifg=#9CDCFE
+"highlight! CmpItemKindText       guibg=NONE guifg=#51A1EE
+"highlight! CmpItemKindFunction   guibg=NONE guifg=#C586C0
+"highlight! CmpItemKindMethod     guibg=NONE guifg=#C586C0
+"highlight! CmpItemKindKeyword    guibg=NONE guifg=#D4D4D4
+"highlight! CmpItemKindProperty   guibg=NONE guifg=#D4D4D4
+"highlight! CmpItemKindUnit       guibg=NONE guifg=#D4D4D4
 
 autocmd FileType json nnoremap <left>  :lua require("jvim").to_parent()   <CR>
 autocmd FileType json nnoremap <right> :lua require("jvim").descend()     <CR>

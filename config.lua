@@ -127,7 +127,7 @@ cmp.setup {
 
 -- Treesitter
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "markdown", "json", "java"},
+  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "markdown", "json", "java", "c" , "svelte"},
   highlight = { enable = true, additional_vim_regex_highlighting = false, disable = { "c_sharp" } },
   indent = { enable = true },
   refactor = {
@@ -144,20 +144,31 @@ require('nvim-treesitter.configs').setup {
 -- nvim_lsp object
 local nvim_lsp = require('lspconfig')
 
+-- Disable Semantic Highlighting
+-- https://old.reddit.com/r/neovim/comments/12gvms4/this_is_why_your_higlights_look_different_in_90/
+for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do vim.api.nvim_set_hl(0, group, {}) end 
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local on_attach = require("lsp-format").on_attach
+local on_attach = function(client)
+  require("lsp-format").on_attach(client)
+  -- Disable code highlight by the LSP server
+  client.server_capabilities.semanticTokensProvider = nil 
+end
 
 -- TypeScript
 nvim_lsp.tsserver.setup {capabilities = capabilities, on_attach=on_attach,}
+
+-- Svelte
+nvim_lsp.svelte.setup {capabilities = capabilities, on_attach=on_attach,}
 
 -- CPP
 nvim_lsp.clangd.setup {capabilities = capabilities, on_attach=on_attach,}
 
 -- HTML
-nvim_lsp.html.setup {capabilities = capabilities, on_attach=on_attach,}
+nvim_lsp.html.setup {capabilities = capabilities } --, on_attach=on_attach,}
 
 -- Python
 nvim_lsp.pyright.setup{capabilities = capabilities, on_attach=on_attach,}
@@ -183,7 +194,7 @@ nvim_lsp.rust_analyzer.setup({
     }
   },
   capabilities = capabilities,
-  on_attach=on_attach,
+  on_attach = on_attach,
 })
 
 -- Enable diagnostics
@@ -228,7 +239,7 @@ local actions = require('telescope.actions')
 require('telescope').setup{
   defaults = {
     layout_config = {
-      horizontal = { preview_width = 90 }
+      horizontal = { preview_width = 95 }
     },
     vimgrep_arguments = {
       'rg',
@@ -239,7 +250,7 @@ require('telescope').setup{
       '--column',
       '--smart-case'
     },
-    path_display = { 'shorten' },
+   -- path_display = { 'shorten' },
     winblend = 15,
     mappings = { i = { ["<esc>"] = actions.close } },
     set_env = { ['COLORTERM'] = 'truecolor' },
@@ -261,10 +272,9 @@ local opts = {
 require('auto-session').setup(opts)
 
 -- various
-vim.g.bufferline = {
+require('barbar').setup {
+  icons = { filetype = { enabled = false } },
   insert_at_end = true,
-  icons = false,
-  closable = false,
   clickable = true,
   semantic_letters = false,
   tabpages = false,
@@ -273,14 +283,14 @@ vim.g.bufferline = {
 }
 
 -- GPS
-local gps = require("nvim-gps")
-gps.setup()
+-- local gps = require("nvim-gps")
+-- gps.setup()
 
 require('lualine').setup ({
   options = { icons_enabled = false, theme = 'wombat', },
   sections = {
     lualine_b = {'filename'},
-    lualine_c = {{ gps.get_location, condition = gps.is_available }},
+--    lualine_c = {{ gps.get_location, condition = gps.is_available }},
     lualine_x = {'encoding', 'filetype'},
   },
 })
