@@ -6,7 +6,6 @@ general {
 }
 
 order += "battery 1"
-order += "battery 0"
 order += "tztime local"
 order += "tztime time"
 
@@ -16,17 +15,6 @@ tztime time {
 
 tztime local {
         format = " %A %d/%m/%Y "
-}
-
-battery 0 {
-        format = "%status %percentage "
-        status_unk = ""
-        status_bat = ""
-        status_full = ""
-        status_chr = "⚡"
-        status_unk = ""
-        path = "/sys/class/power_supply/BAT0/uevent"
-        low_threshold = 15
 }
 
 battery 1 {
