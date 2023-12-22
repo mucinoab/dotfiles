@@ -34,3 +34,5 @@ ln -sf ~/Dotfiles/starship ~/config/starship.toml
 ln -sf ~/Dotfiles/kanshi ~/config/kanshi/config
 
 ln -sf ~/Dotfiles/kitty.conf ~/.config/kitty/kitty.conf
+
+ln -sf ~/Dotfiles/config.fish ~/.config/fish/config.fish
