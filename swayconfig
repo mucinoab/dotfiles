@@ -5,7 +5,8 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec "systemctl --user import-environment"
 
 #Keyboard and trackpad
-input "2:7:SynPS/2_Synaptics_TouchPad" {
+# Get identifier with "swaymsg -t get_inputs"
+input "2362:628:PIXA3854:00_093A:0274_Touchpad" {
     tap enabled
 }
 
@@ -21,7 +22,7 @@ input * {
 
 #----monitor izquierda----
 # output HDMI-A-1 pos 0 0
-# output eDP-1 pos 1919 685
+output eDP-1 scale 1.2
 
 #----monitor arriba----
 # scale 1
@@ -58,11 +59,10 @@ bindsym $mod+Shift+q kill
 #bindsym $mod+z exec dmenu_recency
 
 # launch categorized menu
-#set $launcher fre --sorted | sk --layout reverse --no-sort | xargs program_log.sh | xargs swaymsg exec
-#bindsym $mod+d exec alacritty --option "window.dimensions={lines: 16, columns: 32}" --title 'launcher' -e sh -c \'$launcher\' 
+# set $launcher dmenu_path | fzf | xargs swaymsg exec
+# bindsym $mod+d exec alacritty --option "window.dimensions={lines: 16, columns: 32}" --title 'launcher' -e sh -c \'$launcher\' 
 
-#bindsym $mod+d exec rofi -show run
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec wofi --show=drun 
 
 #### audio, mic and backlight 
 
@@ -330,17 +330,9 @@ bindsym $mod+Ctrl+l exec swaylock \
 # Autostart applications
 exec --no-startup-id lxpolkit
 exec --no-startup-id kanshi
-# output "*" bg /home/bruno/Downloads/wall3.jpg fill
 
-#exec xfce4-power-manager
-#exec_always ff-theme-util
-#exec_always compton -b
-#exec nm-applet
-#exec blueman-applet
-#exec libinput-gestures-setup start
 exec mako --default-timeout 15000
-exec_always fix_xcursor
-exec_always --no-startup-id kanshi
+# exec_always fix_xcursor
 
 bar {
 	#i3bar_command i3bar
