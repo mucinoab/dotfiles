@@ -308,7 +308,7 @@ t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '100'}}
 
 require('neoscroll.config').set_mappings(t)
 
-require("indent_blankline").setup { char = "┊" }
+require("ibl").setup()
 require'hop'.setup()
 require('Comment').setup()
 require "lsp_signature".setup()
