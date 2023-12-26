@@ -42,7 +42,7 @@ Plug 'stevearc/dressing.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'petertriho/nvim-scrollbar'
-Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
+Plug 'j-hui/fidget.nvim'
 Plug 'mvllow/modes.nvim'
 Plug 'theprimeagen/jvim.nvim'
 Plug 'lukas-reineke/lsp-format.nvim'
