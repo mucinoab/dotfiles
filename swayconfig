@@ -88,9 +88,10 @@ bindsym $mod+t exec  pkill compton
 bindsym $mod+Ctrl+t exec  compton -b
 bindsym $mod+Ctrl+x --release exec  xkill
 exec swayidle -w \
-      timeout 650 'swaylock -f -c 000000' \
+      timeout 650 'swaylock --clock --timestr '%H:%M' --datestr '%d/%m' -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7' \
       timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-      before-sleep 'swaylock -f -c 000000'
+      before-sleep 'swaylock --clock --timestr "%H:%M" --datestr "%d/%m" -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7'
+
 exec "systemctl --user import-environment"
 
 # change focus
@@ -319,7 +320,7 @@ bindsym $mod+Ctrl+l exec swaylock \
         --datestr '%d/%m'\
         -c 000000FF\
         --indicator \
-        --indicator-radius 100 \
+        --indicator-radius 140 \
         --indicator-thickness 7 \
         --ring-color bb00cc \
         --key-hl-color 880033 \
