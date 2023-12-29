@@ -2,8 +2,6 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
-#Hace que los alias funcionen con sudo, a veces
-abbr sudo 'sudo '
 abbr rm 'rm -i'
 abbr ls 'exa -s modified'
 
