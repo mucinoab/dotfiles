@@ -4,7 +4,7 @@
   "height": 30,
   "spacing": 2,
   "modules-left": [ "hyprland/submap", "hyprland/workspaces" ],
-  "modules-right": [ "network", "battery", "clock"],
+  "modules-right": [ "network", "battery", "clock", "tray"],
   "tray": { "spacing": 10 },
   "clock": { "format": "{:%a, %d %b | %H:%M}" },
   "battery": {
@@ -13,7 +13,7 @@
       "critical": 15
     },
     "format": "{capacity}% {icon}",
-    "format-charging": "{capacity}% ",
+    "format-charging": "{capacity}% ⚡",
     "format-plugged": "{capacity}% ",
     "format-alt": "{time} {icon}",
     "format-icons": [ "", "", "", "", "" ]
