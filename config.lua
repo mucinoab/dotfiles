@@ -375,3 +375,7 @@ require('modes').setup({
 vim.cmd('hi ModesDelete guibg=#c75c6a')
 vim.cmd('hi ModesInsert guibg=#78ccc5')
 vim.cmd('hi ModesVisual guibg=#9745be')
+
+local rt = require("rust-tools")
+rt.setup()
+rt.inlay_hints.enable()

@@ -46,6 +46,7 @@ Plug 'j-hui/fidget.nvim'
 Plug 'mvllow/modes.nvim'
 Plug 'theprimeagen/jvim.nvim'
 Plug 'lukas-reineke/lsp-format.nvim'
+Plug 'simrat39/rust-tools.nvim'
 "Plug 'nvim-treesitter/playground'
 call plug#end()
 
