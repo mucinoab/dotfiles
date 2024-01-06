@@ -1,29 +1,37 @@
 general {
-        output_format = "i3bar"
-        colors = true
-        interval = 45
-        separator = "  |  "
+  output_format = "i3bar"
+  colors = true
+  interval = 15
+  separator = "  |  "
 }
 
-order += "battery 1"
+order += "wireless wlp1s0"
+order += "ethernet enp193s0f3u2"
+order += "battery 0"
 order += "tztime local"
 order += "tztime time"
 
-tztime time {
-        format = "%H:%M "
+tztime time { format = "%H:%M " }
+
+tztime local { format = " %A %d/%m/%Y " }
+
+battery 0 {
+  format = "%status %percentage "
+  status_chr = "⚡"
+  status_unk = ""
+  status_bat = ""
+  status_full = ""
+  status_unk = ""
+  path = "/sys/class/power_supply/BAT1/uevent"
+  low_threshold = 15
 }
 
-tztime local {
-        format = " %A %d/%m/%Y "
+wireless wlp1s0 {
+  format_up = "%essid %quality "
+  format_down = ""
 }
 
-battery 1 {
-        format = "%status %percentage "
-        status_chr = "⚡"
-        status_unk = ""
-        status_bat = ""
-        status_full = ""
-        status_unk = ""
-        path = "/sys/class/power_supply/BAT1/uevent"
-        low_threshold = 15
+ethernet enp193s0f3u2 {
+  format_up = "E"
+  format_down = ""
 }
