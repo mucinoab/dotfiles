@@ -39,3 +39,9 @@ export EDITOR="nvim"
 
 
 zoxide init --cmd j fish | source
+
+
+# Bindings 
+# funced fish_user_key_bindings
+# bind --erase --preset \cd # https://stackoverflow.com/questions/34216850/how-to-prevent-fish-shell-from-closing-when-typing-ctrl-d-eof 
+# funcsave fish_user_key_bindings
