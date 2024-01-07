@@ -1,7 +1,7 @@
 general {
   output_format = "i3bar"
   colors = true
-  interval = 15
+  interval = 20
   separator = "  |  "
 }
 
@@ -16,7 +16,7 @@ tztime time { format = "%H:%M " }
 tztime local { format = " %A %d/%m/%Y " }
 
 battery 0 {
-  format = "%status %percentage "
+  format = "%status %percentage (%emptytime %consumption)"
   status_chr = "⚡"
   status_unk = ""
   status_bat = ""
