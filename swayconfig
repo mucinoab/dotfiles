@@ -16,9 +16,9 @@ exec mako --default-timeout 15000
 exec swaybg --color "#111111"
 
 exec swayidle -w \
-      timeout 650 'swaylock --clock --timestr '%H:%M' --datestr '%d/%m' -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7' \
+      timeout 650 'swaylock --clock --timestr '%H:%M' --datestr '%d/%m' -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7 --grace 5 --fade-in 8' \
       timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-      before-sleep 'swaylock --clock --timestr "%H:%M" --datestr "%d/%m" -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7'
+      before-sleep 'swaylock --clock --timestr "%H:%M" --datestr "%d/%m" -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7 --grace 3'
 
 #---- Bindings ----
 # Program selector
