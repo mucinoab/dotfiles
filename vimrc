@@ -37,7 +37,7 @@ Plug 'karb94/neoscroll.nvim'
 Plug 'phaazon/hop.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'mfussenegger/nvim-dap'
-"Plug 'shaunsingh/solarized.nvim'
+Plug 'shaunsingh/solarized.nvim'
 Plug 'stevearc/dressing.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-repeat'
@@ -47,6 +47,7 @@ Plug 'mvllow/modes.nvim'
 Plug 'theprimeagen/jvim.nvim'
 Plug 'lukas-reineke/lsp-format.nvim'
 Plug 'simrat39/rust-tools.nvim'
+Plug 'zaldih/themery.nvim'
 "Plug 'nvim-treesitter/playground'
 call plug#end()
 
@@ -300,20 +301,6 @@ augroup HiglightTODO
 augroup END
 
 highlight MatchParen gui=underline guibg=NONE guifg=red
-
-"colorscheme solarized
-"autocmd InsertLeave * highlight CursorLine guibg=#cbcbcb guifg=fg
-"highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
-"highlight! CmpItemAbbrMatch      guibg=NONE guifg=#569CD6
-"highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
-"highlight! CmpItemKindVariable   guibg=NONE guifg=#9CDCFE
-"highlight! CmpItemKindInterface  guibg=NONE guifg=#9CDCFE
-"highlight! CmpItemKindText       guibg=NONE guifg=#51A1EE
-"highlight! CmpItemKindFunction   guibg=NONE guifg=#C586C0
-"highlight! CmpItemKindMethod     guibg=NONE guifg=#C586C0
-"highlight! CmpItemKindKeyword    guibg=NONE guifg=#D4D4D4
-"highlight! CmpItemKindProperty   guibg=NONE guifg=#D4D4D4
-"highlight! CmpItemKindUnit       guibg=NONE guifg=#D4D4D4
 
 autocmd FileType json nnoremap <left>  :lua require("jvim").to_parent()   <CR>
 autocmd FileType json nnoremap <right> :lua require("jvim").descend()     <CR>

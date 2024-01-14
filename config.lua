@@ -388,3 +388,16 @@ vim.cmd('hi ModesVisual guibg=#9745be')
 local rt = require("rust-tools")
 rt.setup()
 rt.inlay_hints.enable()
+
+require("themery").setup({
+  themes = {{
+    name = "zephyr",
+    colorscheme = "zephyr",
+    before = [[ vim.opt.background = "dark" ]],
+  },
+  {
+    name = "solarized",
+    colorscheme = "solarized",
+    before = [[ vim.opt.background = "light" ]],
+  }}
+})
