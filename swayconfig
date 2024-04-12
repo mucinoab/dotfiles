@@ -2,7 +2,7 @@
 set $mod Mod4
 
 #---- Monitors ----
-output eDP-1 scale 1.2
+output eDP-1 scale 1
 
 #---- Startup Programs ----
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
@@ -11,14 +11,15 @@ exec "systemctl --user import-environment"
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 
+exec kanshi
+
 exec --no-startup-id lxpolkit
 exec mako --default-timeout 15000
 exec swaybg --color "#111111"
 
-exec swayidle -w \
-      timeout 650 'swaylock --clock --timestr '%H:%M' --datestr '%d/%m' -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7 --grace 5 --fade-in 8' \
-      timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-      before-sleep 'swaylock --clock --timestr "%H:%M" --datestr "%d/%m" -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7 --grace 3'
+#      timeout 650 'swaylock --clock --timestr '%H:%M' --datestr '%d/%m' -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7'\
+#      timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+exec swayidle -w before-sleep 'swaylock --clock --timestr "%H:%M" --datestr "%d/%m" -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7'
 
 #---- Bindings ----
 # Program selector
@@ -107,7 +108,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # https://github.com/sentriz/cliphist
-bindsym $mod+v exec cliphist list | wofi --normal-window --dmenu | cliphist decode | wl-copy
+bindsym $mod+v exec cliphist list | wofi --dmenu | cliphist decode | wl-copy
 
 # Set shut down, restart and locking features
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (r)eboot, (Shift+s)hutdown
@@ -150,10 +151,10 @@ mode "resize" {
         bindsym semicolon resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
 
         # exit resize mode: Enter or Escape
         bindsym Return mode "default"
@@ -168,7 +169,7 @@ input "2362:628:PIXA3854:00_093A:0274_Touchpad" {
 
 input * {
     xkb_layout "latam"
-    xkb_options "ctrl:nocaps"
+    xkb_options "ctrl:nocaps,altwin:swap_lalt_lwin"
 }
 
 #---- Looks ----
@@ -233,17 +234,19 @@ bindsym $mod+Shift+9 move container to workspace $ws8; workspace $ws9
 
 #---- Window Rules ----
 # Open applications on specific workspaces
-# assign [class="Thunderbird"] $ws1
+assign [class="Spotify"] $ws4
+assign [class="Signal"] $ws5
+assign [app_id="com/.https://ultimaker.UltiMaker-Cura"] $ws3
 
 # Open specific applications in floating mode
-for_window [app_id="blueman-manager"] floating enable
+for_window [app_id="blueman-manager"] floating enable, resize set width 550 height 300
+for_window [class="App"] floating enable, resize set width 550 height 300
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [title="File Transfer*"] floating enable
 for_window [class="Lightdm-settings"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
 for_window [class="Pavucontrol"] floating enable
-for_window [app_id="wdisplays"] floating enable
-for_window [app_id="wdisplays"] resize set width 55 ppt 
+for_window [app_id="wdisplays"] floating enable, resize set width 55 ppt
 
 # Avoid idling when in fullscreen
 for_window [class="^.*"] inhibit_idle fullscreen
