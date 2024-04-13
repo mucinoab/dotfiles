@@ -21,6 +21,9 @@ exec swaybg --color "#111111"
 #      timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
 exec swayidle -w before-sleep 'swaylock --clock --timestr "%H:%M" --datestr "%d/%m" -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7'
 
+exec powerprofilesctl set balanced
+exec systemctl --user enable opentabletdriver.service --now
+
 #---- Bindings ----
 # Program selector
 bindsym $mod+d exec wofi --show=drun
@@ -251,6 +254,13 @@ for_window [app_id="wdisplays"] floating enable, resize set width 55 ppt
 # Avoid idling when in fullscreen
 for_window [class="^.*"] inhibit_idle fullscreen
 for_window [app_id="^.*"] inhibit_idle fullscreen
+
+# start major apps
+workspace number 2
+exec kitty -e tmux
+
+workspace number 1
+exec firefox
 
 #---- Status Bar ----
 bar {
