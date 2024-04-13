@@ -33,7 +33,6 @@ Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'rmagatti/auto-session'
 Plug 'nvim-lualine/lualine.nvim'
 "Plug 'SmiteshP/nvim-gps' " TODO https://github.com/SmiteshP/nvim-navia
-Plug 'karb94/neoscroll.nvim'
 Plug 'phaazon/hop.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'mfussenegger/nvim-dap'
@@ -49,6 +48,7 @@ Plug 'lukas-reineke/lsp-format.nvim'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'zaldih/themery.nvim'
 "Plug 'nvim-treesitter/playground'
+Plug 'github/copilot.vim'
 call plug#end()
 
 
@@ -147,6 +147,7 @@ autocmd BufRead *.pacnew set readonly
 "cosas para editar texto simple, no código
 filetype plugin indent on
 autocmd BufRead *.tex,*.latex set filetype=tex
+autocmd BufRead *.typ set filetype=typst
 au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=79 wrapmargin=0 lbr fo=tro nonumber nornu
 
 let g:latex_indent_enabled = 1
