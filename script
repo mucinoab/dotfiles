@@ -39,3 +39,7 @@ ln -sf ~/Dotfiles/hyprland.conf ~/.config/hypr/hyprland.conf
 
 ln -sf ~/Dotfiles/waybar.json ~/.config/waybar/config
 ln -sf ~/Dotfiles/waybar.css ~/.config/waybar/style.css
+
+ln -sf ~/Dotfiles/kanshi ~/.config/kanshi/config
+
+ln -sf ~/Dotfiles/zellij.kdl ~/.config/zellij/config.kdl
