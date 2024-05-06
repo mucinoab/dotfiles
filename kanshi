@@ -1,8 +1,13 @@
 profile Monitor {
-  output HDMI-A-2 mode 1920x1080 position 0,0
-  output eDP-1 mode 1366x768 position 296,1080
+  output DP-2 mode 1920x1200 position 0,0
+  output eDP-1 disable
 }
 
 profile Laptop {
   output eDP-1 enable
+}
+
+profile Monitor3 {
+  output DP-3 mode 1920x1200 position 0,0
+  output eDP-1 disable
 }
