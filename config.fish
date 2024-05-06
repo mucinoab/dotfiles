@@ -42,6 +42,7 @@ export CARGO_TARGET_DIR='/home/mucinoab/cargo_target_dir'
 #export CARGO_PROFILE_DEV_CODEGEN_BACKEND="cranelift"
 export RUSTFLAGS="-C target-cpu=native"
 export EDITOR="nvim"
+export FLYCTL_INSTALL="/home/mucinoab/.fly"
 
 
 zoxide init --cmd j fish | source
@@ -52,6 +53,12 @@ zoxide init --cmd j fish | source
 # bind --erase --preset \cd # https://stackoverflow.com/questions/34216850/how-to-prevent-fish-shell-from-closing-when-typing-ctrl-d-eof 
 # funcsave fish_user_key_bindings
 
+# Avoid waiting for fish to search for packages
 function fish_command_not_found
   echo Did not find command $argv[1]
+end
+
+# Pretty csv
+function pcsv
+    cat $argv[1] | sed 's/,/ ,/g' | column -t -s, | less -S
 end
