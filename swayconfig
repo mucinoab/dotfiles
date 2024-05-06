@@ -257,7 +257,7 @@ for_window [app_id="^.*"] inhibit_idle fullscreen
 
 # start major apps
 workspace number 2
-exec kitty -e tmux
+exec kitty -e zellij
 
 workspace number 1
 exec firefox

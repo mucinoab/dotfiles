@@ -1,6 +1,5 @@
 "vim plug
 call plug#begin('~/.vim/plugged')
-Plug 'lewis6991/impatient.nvim'
 "Plug 'mhartington/oceanic-next'
 Plug 'glepnir/zephyr-nvim'
 "Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
@@ -48,7 +47,9 @@ Plug 'lukas-reineke/lsp-format.nvim'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'zaldih/themery.nvim'
 "Plug 'nvim-treesitter/playground'
-Plug 'github/copilot.vim'
+"Plug 'github/copilot.vim'
+Plug 'zbirenbaum/copilot.lua'
+Plug 'zbirenbaum/copilot-cmp'
 call plug#end()
 
 
@@ -148,7 +149,7 @@ autocmd BufRead *.pacnew set readonly
 filetype plugin indent on
 autocmd BufRead *.tex,*.latex set filetype=tex
 autocmd BufRead *.typ set filetype=typst
-au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md set wrap linebreak nolist tw=79 wrapmargin=0 lbr fo=tro nonumber nornu
+au BufRead,BufNewFile *.txt,*.tex,*.latex,*.md,*.typ set wrap linebreak nolist tw=79 wrapmargin=0 lbr fo=tro nonumber nornu
 
 let g:latex_indent_enabled = 1
 

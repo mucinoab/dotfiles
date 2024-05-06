@@ -1,4 +1,5 @@
-require('impatient')
+vim.loader.enable()
+
 require('lsp-format').setup {}
 
 --- completion stuff
@@ -56,7 +57,8 @@ local kind_icons = {
   Struct = "",
   Event = "",
   Operator = "",
-  TypeParameter = ""
+  TypeParameter = "",
+  Copilot = ""
 }
 
 local cmp = require('cmp')
@@ -76,14 +78,17 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'copilot' },
     { name = 'luasnip' },
     { name = 'buffer', options = { keyword_pattern = [[\k\+]] } },
     { name = 'path' },
     { name = 'treesitter' },
   },
   sorting = {
+    priority_weight = 2,
     comparators = {
       require("cmp-under-comparator").under,
+      require("copilot_cmp.comparators").prioritize,
       lspkind_comparator({
         kind_priority = {
           Field = 11,
@@ -127,7 +132,7 @@ cmp.setup {
 
 -- Treesitter
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "markdown", "json", "java", "c" , "svelte"},
+  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "markdown", "json", "java", "c", "typst", "kdl", "tsx"},
   highlight = { enable = true, additional_vim_regex_highlighting = false, disable = { "c_sharp" } },
   indent = { enable = true },
   refactor = {
@@ -155,7 +160,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 local on_attach = function(client)
   require("lsp-format").on_attach(client)
   -- Disable code highlight by the LSP server
-  client.server_capabilities.semanticTokensProvider = nil 
+  --client.server_capabilities.semanticTokensProvider = nil 
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -185,6 +190,9 @@ nvim_lsp.pyright.setup{capabilities = capabilities, on_attach=on_attach,}
 -- CSS
 nvim_lsp.cssls.setup {capabilities = capabilities, on_attach=on_attach,}
 
+-- Typst
+nvim_lsp.typst_lsp.setup {capabilities = capabilities, on_attach=on_attach,}
+
 -- Enable rust_analyzer
 -- https://sharksforarms.dev/posts/neovim-rust/
 nvim_lsp.rust_analyzer.setup({
@@ -193,8 +201,8 @@ nvim_lsp.rust_analyzer.setup({
       checkOnSave = {
         extraArgs={"--target-dir", "/tmp/rust-analyzer-check"}
       },
-      cargo = { loadOutDirsFromCheck = true },
-      procMacro = { enable = false },
+      cargo = { loadOutDirsFromCheck = true , allFeatures = true },
+      procMacro = { enable = true },
       diagnostics = {
         enable = true,
         disabled = {"unresolved-proc-macro"},
@@ -304,19 +312,6 @@ require('lualine').setup ({
   },
 })
 
-require('neoscroll').setup({
-  stop_eof = false,
-  use_local_scrolloff = false,
-  respect_scrolloff = false,
-  cursor_scrolls_alone = true,
-})
-
-local t = {}
-t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '100'}}
-t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '100'}}
-
-require('neoscroll.config').set_mappings(t)
-
 require("ibl").setup()
 require'hop'.setup()
 require('Comment').setup()
@@ -401,3 +396,23 @@ require("themery").setup({
     before = [[ vim.opt.background = "light" ]],
   }}
 })
+
+vim.diagnostic.config {
+  virtual_text = true,
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
+  float = {
+    focusable = true,
+    border = "rounded",
+    header = "",
+    prefix = "",
+  }
+}
+
+require('copilot').setup({
+  panel = { enabled = false },
+  suggestion = { enabled = false },
+  filetypes = { help = false, gitcommit = false, gitrebase = false }
+})
+require("copilot_cmp").setup()
