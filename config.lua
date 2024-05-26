@@ -132,7 +132,7 @@ cmp.setup {
 
 -- Treesitter
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "markdown", "json", "java", "c", "typst", "kdl", "tsx"},
+  ensure_installed = {"rust", "python", "javascript", "typescript", "cpp", "html", "latex", "go", "markdown", "json", "java", "c", "typst", "kdl", "tsx", "lua"},
   highlight = { enable = true, additional_vim_regex_highlighting = false, disable = { "c_sharp" } },
   indent = { enable = true },
   refactor = {
@@ -416,3 +416,15 @@ require('copilot').setup({
   filetypes = { help = false, gitcommit = false, gitrebase = false }
 })
 require("copilot_cmp").setup()
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+require("nvim-tree").setup({
+  view = {
+    width = 30,
+    side = "right",
+    debounce_delay = 150,
+  },
+  filters = { dotfiles = true }
+})

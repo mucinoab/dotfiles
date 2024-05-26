@@ -47,9 +47,10 @@ Plug 'lukas-reineke/lsp-format.nvim'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'zaldih/themery.nvim'
 "Plug 'nvim-treesitter/playground'
-"Plug 'github/copilot.vim'
+Plug 'github/copilot.vim'
 Plug 'zbirenbaum/copilot.lua'
 Plug 'zbirenbaum/copilot-cmp'
+Plug 'nvim-tree/nvim-tree.lua'
 call plug#end()
 
 
@@ -285,16 +286,7 @@ if has("autocmd")
         \| exe "normal! g`\"" | endif
 endif
 
-" nvim built in file viewer   
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
-
-" Toggle Vexplore with Ctrl-T
-map <silent> <C-T> :Lexplore!<CR>
-
+map <silent> <C-F> :NvimTreeToggle<CR>
 nmap <leader>m <cmd>HopChar1<cr>
 
 augroup HiglightTODO
