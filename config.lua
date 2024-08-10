@@ -78,7 +78,7 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'copilot' },
+    -- { name = 'copilot' },
     { name = 'luasnip' },
     { name = 'buffer', options = { keyword_pattern = [[\k\+]] } },
     { name = 'path' },
@@ -88,7 +88,7 @@ cmp.setup {
     priority_weight = 2,
     comparators = {
       require("cmp-under-comparator").under,
-      require("copilot_cmp.comparators").prioritize,
+      -- require("copilot_cmp.comparators").prioritize,
       lspkind_comparator({
         kind_priority = {
           Field = 11,
@@ -256,7 +256,7 @@ local actions = require('telescope.actions')
 require('telescope').setup{
   defaults = {
     layout_config = {
-      horizontal = { preview_width = 95 }
+      vertical = { width = 0.99 }
     },
     vimgrep_arguments = {
       'rg',
@@ -274,7 +274,9 @@ require('telescope').setup{
   },
 }
 
-require('telescope').load_extension('fzy_native')
+local telescope = require('telescope')
+telescope.load_extension('fzy_native')
+telescope.load_extension('frecency')
 
 -- Auto Session
 local opts = {
@@ -410,19 +412,19 @@ vim.diagnostic.config {
   }
 }
 
-require('copilot').setup({
-  panel = { enabled = false },
-  suggestion = { enabled = false },
-  filetypes = { help = false, gitcommit = false, gitrebase = false }
-})
-require("copilot_cmp").setup()
+-- require('copilot').setup({
+--   panel = { enabled = false },
+--   suggestion = { enabled = false },
+--   filetypes = { help = false, gitcommit = false, gitrebase = false }
+-- })
+-- require("copilot_cmp").setup()
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 require("nvim-tree").setup({
   view = {
-    width = 30,
+    width = 40,
     side = "right",
     debounce_delay = 150,
   },

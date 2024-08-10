@@ -27,6 +27,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'rmagatti/auto-session'
@@ -48,8 +49,8 @@ Plug 'simrat39/rust-tools.nvim'
 Plug 'zaldih/themery.nvim'
 "Plug 'nvim-treesitter/playground'
 Plug 'github/copilot.vim'
-Plug 'zbirenbaum/copilot.lua'
-Plug 'zbirenbaum/copilot-cmp'
+" Plug 'zbirenbaum/copilot.lua'
+"Plug 'zbirenbaum/copilot-cmp'
 Plug 'nvim-tree/nvim-tree.lua'
 call plug#end()
 
@@ -189,7 +190,9 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 nnoremap <silent>g{ <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <silent>g} <cmd>lua vim.diagnostic.goto_next()<CR>
 
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <leader>k <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>e <cmd>lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"}) <CR>
@@ -248,8 +251,8 @@ nmap <leader><leader> <c-^>
 tnoremap <leader><leader> <C-\><C-n><c-^>
 
 "telescope find f-ile, s-earch, b-uffer, g-it s-tatus, h-istory
-nmap <leader>f  <cmd>Telescope find_files<cr>
-nmap <leader>s  <cmd>Telescope live_grep<cr>
+nmap <leader>f  <cmd>lua require('telescope.builtin').find_files({ layout_strategy='vertical' }) <cr>
+nmap <leader>s  <cmd>lua require('telescope.builtin').live_grep({ layout_strategy='vertical' }) <cr>
 nmap <Leader>b  <cmd>lua require'telescope.builtin'.buffers(require('telescope.themes').get_dropdown({}))<cr>
 nmap <leader>ld <cmd>Telescope diagnostics<cr>
 nmap <leader>p  <cmd>Telescope session-lens search_session<cr>
