@@ -238,7 +238,8 @@ bindsym $mod+Shift+9 move container to workspace $ws8; workspace $ws9
 #---- Window Rules ----
 # Open applications on specific workspaces
 assign [class="Spotify"] $ws4
-assign [class="Signal"] $ws5
+assign [class="Signal"] $ws3
+assign [class="Discord"] $ws3
 assign [app_id="com/.https://ultimaker.UltiMaker-Cura"] $ws3
 
 # Open specific applications in floating mode
