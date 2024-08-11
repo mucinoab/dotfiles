@@ -1,7 +1,7 @@
 return {
   {
     "ojroques/nvim-bufdel",
-    lazy = false
+    event = "VeryLazy",
   },
   {
     "nvim-tree/nvim-tree.lua",
@@ -12,18 +12,21 @@ return {
         debounce_delay = 150,
       },
       filters = { dotfiles = true }
-    }
+    },
+    event = "VeryLazy",
   }, 
   {
     "lukas-reineke/lsp-format.nvim",
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    ft = { 'cpp', 'python', 'rust', 'go', 'javascript', 'typescript', 'cs', 'c', 'java', 'js' },
     main = "ibl",
+    opts = { enabled = true }
   },
   {
     "chaoren/vim-wordmotion",
-    lazy = false
+    event = "VeryLazy",
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -36,7 +39,8 @@ return {
     }
   },
   {
-    "tpope/vim-repeat"
+    "tpope/vim-repeat",
+    event = "VeryLazy",
   },
   {
     "petertriho/nvim-scrollbar",
@@ -77,7 +81,8 @@ return {
         search = false,
       },
     }
-  },{
+  },
+  {
     "nvim-lualine/lualine.nvim",
     opts = {
       options = { icons_enabled = false, theme = 'wombat', },
@@ -86,5 +91,33 @@ return {
         lualine_x = {'encoding', 'filetype'},
       },
     }
+  },
+  {
+    "rmagatti/auto-session",
+    opts = {
+      log_level = 'error',
+      auto_session_enable_last_session = false,
+      auto_session_root_dir = vim.fn.stdpath('data').."/sessions/",
+      auto_session_enabled = true,
+      auto_save_enabled = false,
+      auto_restore_enabled = false,
+      auto_session_suppress_dirs = nil
+    },
+    event = "VeryLazy",
+  },
+  {
+    "smoka7/hop.nvim",
+    opts = {
+        keys = 'etovxqpdygfblzhckisuran'
+    },
+    event = "VeryLazy",
+  },
+  {
+    "mvllow/modes.nvim",
+    opts = {
+      line_opacity = 0.1,
+      set_cursor = true,
+      focus_only = false
+    },
   }
 }

@@ -148,9 +148,8 @@ vim.keymap.set('n', '<Leader>r', function()
   require('telescope.builtin').lsp_references()
 end, { silent = true })
 
-
 vim.keymap.set('x', 'p', function()
-  return "'pgv\"" .. vim.fn.getregtype() .. "y"
+  return 'pgv"' .. vim.v.register .. 'y'
 end, { expr = true })
 
 vim.keymap.set('n', '<C-F>', ':NvimTreeToggle<CR>', { silent = true })
