@@ -166,3 +166,16 @@ vim.api.nvim_create_autocmd({ 'WinEnter', 'VimEnter' }, {
   end,
   desc = 'Highlight TODO comments'
 })
+
+local function search_visual_selection()
+  local mode = vim.fn.visualmode() -- Get the visual mode ('v', 'V', or '<C-v>')
+  vim.cmd('normal! ' .. mode)       -- Re-select the visual area
+  local selected_text = vim.fn.getreg('s') -- Store the selection in the 's' register
+  vim.cmd('normal! gv"sy')               -- Yank the selection to the 's' register
+  selected_text = vim.fn.getreg('s')     -- Get the text from the 's' register
+  selected_text = vim.fn.escape(selected_text, '\\/.*$^~[]') -- Escape special characters
+  vim.fn.setreg('/', selected_text)       -- Set the search register to the selected text
+  vim.cmd('normal! /' .. selected_text .. '<CR>') -- Perform the search
+end
+
+vim.keymap.set('x', '*', search_visual_selection, { silent = true })
