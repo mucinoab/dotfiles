@@ -19,12 +19,12 @@ abbr grep 'grep --color auto'
 abbr sptr 'systemctl restart  --user spotifyd.service && spt'
 abbr dr 'mold -run dotnet run -r linux-x64 --property:Configuration Debug'
 abbr db 'mold -run dotnet build'
-abbr cr 'mold -run cargo run -Zcodegen-backend'
+abbr cr 'mold -run cargo run'
 abbr crr 'mold -run cargo run --release'
-abbr ct 'mold -run cargo test -Zcodegen-backend'
+abbr ct 'mold -run cargo test'
 abbr gt 'go test'
 abbr cb 'mold -run cargo build -Zcodegen-backend'
-abbr ccc 'mold -run cargo check -Zcodegen-backend'
+abbr ccc 'mold -run cargo check'
 abbr tiempo 'curl http://wttr.in/ -s | head -n-2'
 abbr sss 'grim -g "$(slurp)" ~/screenshoots/$(date +%Y-%m-%d_%H-%m-%s).png'
 abbr foto 'ffmpeg -loglevel panic -i /dev/video1 -frames 1 -f image2 -| convert - -colorspace gray - > ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).jpeg'
@@ -40,7 +40,7 @@ abbr gl 'git log'
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export CARGO_TARGET_DIR='/home/mucinoab/cargo_target_dir'
 #export CARGO_PROFILE_DEV_CODEGEN_BACKEND="cranelift"
-export RUSTFLAGS="-C target-cpu=native"
+# export RUSTFLAGS="-C target-cpu=native"
 export EDITOR="nvim"
 export FLYCTL_INSTALL="/home/mucinoab/.fly"
 
