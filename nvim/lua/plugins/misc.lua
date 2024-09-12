@@ -119,5 +119,11 @@ return {
       set_cursor = true,
       focus_only = false
     },
+  },
+  {
+    "karb94/neoscroll.nvim",
+    config = function ()
+      require('neoscroll').setup({})
+    end
   }
 }

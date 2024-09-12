@@ -49,7 +49,7 @@ return {
       vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
       -- TypeScript
-      nvim_lsp.tsserver.setup {capabilities = capabilities, on_attach=on_attach,}
+      nvim_lsp.ts_ls.setup {capabilities = capabilities, on_attach=on_attach,}
 
       -- CPP
       nvim_lsp.clangd.setup {capabilities = capabilities, on_attach=on_attach,}
