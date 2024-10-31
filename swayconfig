@@ -133,9 +133,12 @@ mode "$mode_system" {
 set $mode_power_mode (1)performance, (2)balanced, (3)power-save
 bindsym $mod+p mode "$mode_power_mode"
 mode "$mode_power_mode" {
-    bindsym 1 exec powerprofilesctl set performance, mode "default"
-    bindsym 2 exec powerprofilesctl set balanced, mode "default"
-    bindsym 3 exec powerprofilesctl set power-saver, mode "default"
+    # Change profile commands
+    bindsym 1 exec tuned-adm profile throughput-performance, mode "default"
+    bindsym 2 exec tuned-adm profile balanced, mode "default"
+    bindsym 3 exec tuned-adm profile powersave, mode "default"
+
+    # Exit mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
