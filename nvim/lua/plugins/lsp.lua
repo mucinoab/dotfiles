@@ -1,7 +1,7 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    ft = {"rust", "python", "javascript", "typescript", "cpp", "html", "go", "typst", "tsx", "sql", "CSS" },
+    ft = {"rust", "python", "javascript", "typescript", "cpp", "html", "go", "typst", "tsx", "sql", "CSS", "typescriptreact"},
     dependencies = { 
       "nvim-lua/lsp_extensions.nvim",
       "ray-x/lsp_signature.nvim",
