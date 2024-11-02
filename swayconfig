@@ -19,9 +19,9 @@ exec swaybg --color "#111111"
 
 #      timeout 650 'swaylock --clock --timestr '%H:%M' --datestr '%d/%m' -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7'\
 #      timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-exec swayidle -w before-sleep 'swaylock --clock --timestr "%H:%M" --datestr "%d/%m" -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7'
+exec swayidle -w before-sleep 'swaylock -c 000000FF --indicator-radius 140 --indicator-thickness 7'
 
-exec powerprofilesctl set balanced
+exec tuned-adm profile balanced
 exec systemctl --user enable opentabletdriver.service --now
 
 #---- Bindings ----
@@ -76,18 +76,14 @@ floating_modifier $mod
 
 # Lock screen
 bindsym $mod+Ctrl+l exec swaylock \
-        --clock\
-        --timestr '%H:%M'\
-        --datestr '%d/%m'\
         -c 000000FF\
-        --indicator \
         --indicator-radius 140 \
         --indicator-thickness 7 \
         --ring-color bb00cc \
         --key-hl-color 880033 \
         --line-color 00000000 \
         --inside-color 00000088 \
-        --separator-color 00000000
+        --separator-color 00000000e
 
 #### audio and backlight buttons
 
