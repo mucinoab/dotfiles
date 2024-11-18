@@ -15,7 +15,7 @@ exec kanshi
 
 exec --no-startup-id lxpolkit
 exec mako --default-timeout 15000
-exec swaybg --color "#111111"
+exec swaybg --color "#000000"
 
 #      timeout 650 'swaylock --clock --timestr '%H:%M' --datestr '%d/%m' -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7'\
 #      timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
@@ -236,7 +236,7 @@ bindsym $mod+Shift+9 move container to workspace $ws8; workspace $ws9
 
 #---- Window Rules ----
 # Open applications on specific workspaces
-assign [class="Spotify"] $ws4
+assign [title="Spotify Premium"] $ws4
 assign [class="Signal"] $ws3
 assign [class="Discord"] $ws3
 assign [app_id="com/.https://ultimaker.UltiMaker-Cura"] $ws3
