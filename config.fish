@@ -42,10 +42,13 @@ export CARGO_TARGET_DIR='/home/mucinoab/cargo_target_dir'
 #export CARGO_PROFILE_DEV_CODEGEN_BACKEND="cranelift"
 # export RUSTFLAGS="-C target-cpu=native"
 export EDITOR="nvim"
+export VISUAL="nvim"
 export FLYCTL_INSTALL="/home/mucinoab/.fly"
 
 
 zoxide init --cmd j fish | source
+jj util completion fish | source
+zellij setup --generate-completion fish | source
 
 
 # Bindings 

@@ -1,0 +1,8 @@
+[user]
+email = "mucinoab@gmail.com"
+name = "Bruno A. Muciño"
+
+[ui]
+default-command = "log"
+diff.format = "git"
+diff.tool = [ "delta", "$left", "$right" ]
