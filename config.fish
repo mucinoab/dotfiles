@@ -65,3 +65,13 @@ end
 function pcsv
     cat $argv[1] | sed 's/,/ ,/g' | column -t -s, | less -S
 end
+
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
+# Binds for fish_vi_key_bindings, mimic some of my vimrc
+bind -M insert jk 'set fish_bind_mode default; commandline -f backward-char force-repaint'
+bind -M default H beginning-of-line # Map H to jump to start of line (like g^)
+bind -M default L end-of-line # Map L to jump to end of line (like g$)
