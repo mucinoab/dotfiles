@@ -1,0 +1,41 @@
+[[profile]]
+name = "laptop"
+
+[[profile.output]]
+enable = true
+search = ["m=0x0BCA", "s=", "v=BOE"]
+position = "0,0"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false
+
+
+[[profile]]
+name = "monitors"
+
+[[profile.output]]
+enable = false
+search = ["m=0x0BCA", "s=", "v=BOE"]
+mode = "640x480@59.999Hz"
+position = "0,0"
+scale = 1.0
+transform = "normal"
+adaptive_sync = true
+
+[[profile.output]]
+enable = true
+search = ["m=MG701", "s=0000000000000", "v=GGF"]
+mode = "2560x1440@120Hz"
+position = "4000,740"
+scale = 1.0
+transform = "270"
+adaptive_sync = false
+
+[[profile.output]]
+enable = true
+search = ["m=LS27D60xU", "s=HCNX900077", "v=Samsung Electric Company"]
+mode = "2560x1440@99.946Hz"
+position = "2560,740"
+scale = 1.0
+transform = "90"
+adaptive_sync = false
