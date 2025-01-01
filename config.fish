@@ -75,3 +75,32 @@ set --export PATH $BUN_INSTALL/bin $PATH
 bind -M insert jk 'set fish_bind_mode default; commandline -f backward-char force-repaint'
 bind -M default H beginning-of-line # Map H to jump to start of line (like g^)
 bind -M default L end-of-line # Map L to jump to end of line (like g$)
+
+
+# Function to handle cursor shape changes
+function fish_vi_cursor
+    # Block cursor for normal mode
+    set -l shape_normal "\e[2 q"
+    # Line cursor for insert mode
+    set -l shape_insert "\e[6 q"
+    
+    switch $fish_bind_mode
+        case default
+            echo -ne $shape_normal
+        case insert
+            echo -ne $shape_insert
+    end
+end
+
+# Save the original mode prompt function
+functions --copy fish_mode_prompt fish_mode_prompt_original
+
+# Create new function that does both cursor change and mode display
+function fish_mode_prompt
+    fish_vi_cursor
+    fish_mode_prompt_original
+end
+
+# Set initial cursor shape
+fish_vi_cursor
+
