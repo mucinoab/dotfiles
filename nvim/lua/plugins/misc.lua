@@ -14,7 +14,7 @@ return {
       filters = { dotfiles = true }
     },
     event = "VeryLazy",
-  }, 
+  },
   {
     "lukas-reineke/lsp-format.nvim",
   },
@@ -31,9 +31,9 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     opts = {
-      signcolumn = false,
-      numhl      = true,
-      watch_gitdir = { interval = 15000, follow_files = true },
+      signcolumn      = false,
+      numhl           = true,
+      watch_gitdir    = { interval = 15000, follow_files = true },
       update_debounce = 100,
       max_file_length = 4000,
     }
@@ -87,8 +87,8 @@ return {
     opts = {
       options = { icons_enabled = false, theme = 'wombat', },
       sections = {
-        lualine_b = {'filename'},
-        lualine_x = {'encoding', 'filetype'},
+        lualine_b = { 'filename' },
+        lualine_x = { 'encoding', 'filetype' },
       },
     }
   },
@@ -97,7 +97,7 @@ return {
     opts = {
       log_level = 'error',
       auto_session_enable_last_session = false,
-      auto_session_root_dir = vim.fn.stdpath('data').."/sessions/",
+      auto_session_root_dir = vim.fn.stdpath('data') .. "/sessions/",
       auto_session_enabled = true,
       auto_save_enabled = false,
       auto_restore_enabled = false,
@@ -108,7 +108,7 @@ return {
   {
     "smoka7/hop.nvim",
     opts = {
-        keys = 'etovxqpdygfblzhckisuran'
+      keys = 'etovxqpdygfblzhckisuran'
     },
     event = "VeryLazy",
   },
@@ -121,9 +121,24 @@ return {
     },
   },
   {
-    "karb94/neoscroll.nvim",
-    config = function ()
-      require('neoscroll').setup({})
-    end
+    "lambdalisue/vim-suda"
+  },
+  {
+    "epwalsh/obsidian.nvim",
+    lazy = false,
+    event = {
+      "BufReadPre /home/mucinoab/Documents/Obsidian Vault/*.md",
+      "BufNewFile /home/mucinoab/Documents/Obsidian Vault/*.md",
+    },
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      ui = { enable = false },
+      workspaces = {
+        {
+          name = "personal",
+          path = "~/Documents/Obsidian Vault/",
+        },
+      },
+    },
   }
 }
