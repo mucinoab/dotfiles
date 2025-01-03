@@ -11,7 +11,7 @@ exec "systemctl --user import-environment"
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 
-exec kanshi
+exec /home/mucinoab/.cargo/bin/shikane --config /home/mucinoab/Dotfiles/shikane.toml
 
 exec --no-startup-id lxpolkit
 exec mako --default-timeout 15000
@@ -53,8 +53,8 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # Move workspace between monitors
-bindsym $mod+Shift+greater move workspace to output down
-bindsym $mod+Shift+less move workspace to output up
+bindsym $mod+Ctrl+Left move workspace to output left
+bindsym $mod+Ctrl+Right move workspace to output right
 
 # Toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -250,6 +250,17 @@ for_window [class="Lightdm-settings"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
 for_window [class="Pavucontrol"] floating enable
 for_window [app_id="wdisplays"] floating enable, resize set width 55 ppt
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="dialog"] floating enable
+for_window [window_role="menu"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_type="menu"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable
+for_window [title="(?:Preferences|Settings)$"] floating enable
 
 # Avoid idling when in fullscreen
 for_window [class="^.*"] inhibit_idle fullscreen
