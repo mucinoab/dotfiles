@@ -149,6 +149,9 @@ return {
         nvim_cmp = true,
         min_chars = 2,
       },
+      templates = {
+        folder = "templates",
+      },
       note_id_func = function(title)
         local suffix = ""
         if title ~= nil then
