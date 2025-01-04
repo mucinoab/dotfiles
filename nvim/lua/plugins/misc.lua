@@ -125,6 +125,9 @@ return {
   },
   {
     "epwalsh/obsidian.nvim",
+    init = function()
+      vim.opt.conceallevel = 2
+    end,
     lazy = false,
     event = {
       "BufReadPre /home/mucinoab/Documents/Obsidian Vault/*.md",
@@ -132,13 +135,33 @@ return {
     },
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
-      ui = { enable = false },
+      ui = {
+        checkboxes = {},
+        bullets = {},
+      },
       workspaces = {
         {
           name = "personal",
           path = "~/Documents/Obsidian Vault/",
         },
       },
+      completion = {
+        nvim_cmp = true,
+        min_chars = 2,
+      },
+      note_id_func = function(title)
+        local suffix = ""
+        if title ~= nil then
+          -- If title is given, transform it into valid file name.
+          suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+        else
+          -- If title is nil, just add 4 random uppercase letters to the suffix.
+          for _ = 1, 4 do
+            suffix = suffix .. string.char(math.random(65, 90))
+          end
+        end
+        return suffix .. "-" .. tostring(os.date("%d-%m-%y"))
+      end,
     },
   }
 }
