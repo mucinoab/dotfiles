@@ -43,14 +43,16 @@ vim.opt.gdefault = true
 vim.opt.spell = true
 vim.opt.spelllang = { 'es', 'en' }
 
+vim.opt.wildmode = "longest,full"
+
 vim.opt.shortmess:append('c')
 
 -- Set format options
-vim.opt.formatoptions = 'tc'         -- wrap text and comments using textwidth
-vim.opt.formatoptions:append('r')    -- continue comments when pressing ENTER in Insert mode
-vim.opt.formatoptions:append('q')    -- enable formatting of comments with gq
-vim.opt.formatoptions:append('n')    -- detect lists for formatting
-vim.opt.formatoptions:append('b')    -- auto-wrap in insert mode, and do not wrap old long lines
+vim.opt.formatoptions = 'tc'      -- wrap text and comments using textwidth
+vim.opt.formatoptions:append('r') -- continue comments when pressing ENTER in Insert mode
+vim.opt.formatoptions:append('q') -- enable formatting of comments with gq
+vim.opt.formatoptions:append('n') -- detect lists for formatting
+vim.opt.formatoptions:append('b') -- auto-wrap in insert mode, and do not wrap old long lines
 
 -- Set complete options
 vim.opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
@@ -72,7 +74,7 @@ vim.api.nvim_create_autocmd("BufRead", { pattern = "*.tex,*.latex", command = "s
 vim.api.nvim_create_autocmd("BufRead", { pattern = "*.typ", command = "set filetype=typst" })
 
 -- Settings for plain text editing (not code)
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.txt,*.tex,*.latex,*.md,*.typ",
   command = "set wrap linebreak nolist tw=79 wrapmargin=0 lbr fo=tro nonumber nornu"
 })
@@ -88,7 +90,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight text on yank'
 })
 
-
 local no_spell_group = vim.api.nvim_create_augroup('NoSpellCheck', {})
 vim.api.nvim_create_autocmd('FileType', {
   group = no_spell_group,
@@ -100,12 +101,12 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('BufReadPost', {
-	callback = function()
-		if vim.fn.line("'\"") > 0 and vim.fn.line("'\"") <= vim.fn.line('$') then
-			vim.cmd('normal! g`\"')
-		end
-	end,
-	desc = 'Jump to last edit position on opening file'
+  callback = function()
+    if vim.fn.line("'\"") > 0 and vim.fn.line("'\"") <= vim.fn.line('$') then
+      vim.cmd('normal! g`\"')
+    end
+  end,
+  desc = 'Jump to last edit position on opening file'
 })
 
 -- Clear existing SpellBad highlight group
