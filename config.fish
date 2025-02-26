@@ -49,7 +49,7 @@ export FLYCTL_INSTALL="/home/mucinoab/.fly"
 zoxide init --cmd j fish | source
 jj util completion fish | source
 zellij setup --generate-completion fish | source
-
+fzf --fish | source
 
 # Bindings 
 # funced fish_user_key_bindings
