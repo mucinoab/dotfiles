@@ -62,6 +62,8 @@ bindsym $mod+f fullscreen toggle
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
+bindsym $mod+Shift+s sticky toggle
+
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
@@ -261,6 +263,8 @@ for_window [window_type="menu"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable
 for_window [title="(?:Preferences|Settings)$"] floating enable
+for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, sticky enable
+
 
 # Avoid idling when in fullscreen
 for_window [class="^.*"] inhibit_idle fullscreen
