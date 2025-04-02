@@ -62,7 +62,12 @@ bindsym $mod+f fullscreen toggle
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
+# toggle tiling / sticky
 bindsym $mod+Shift+s sticky toggle
+
+# Move windows to scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -250,7 +255,7 @@ for_window [title="alsamixer"] floating enable border pixel 1
 for_window [title="File Transfer*"] floating enable
 for_window [class="Lightdm-settings"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="Pavucontrol"] floating enable
+for_window [app_id="pavucontrol"] border none, floating enable
 for_window [app_id="wdisplays"] floating enable, resize set width 55 ppt
 
 for_window [window_role="pop-up"] floating enable
