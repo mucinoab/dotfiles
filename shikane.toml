@@ -11,7 +11,7 @@ adaptive_sync = false
 
 
 [[profile]]
-name = "monitors"
+name = "monitor"
 
 [[profile.output]]
 enable = false
@@ -25,17 +25,28 @@ adaptive_sync = true
 [[profile.output]]
 enable = true
 search = ["m=MG701", "s=0000000000000", "v=GGF"]
-mode = "2560x1440@120Hz"
-position = "4000,740"
+mode = "2560x1440@165.007Hz"
+position = "0,0"
 scale = 1.0
-transform = "270"
+transform = "normal"
+adaptive_sync = true
+
+[[profile]]
+name = "big tv"
+
+[[profile.output]]
+enable = false
+search = ["m=0x0BCA", "s=", "v=BOE"]
+mode = "2256x1504@59.999Hz"
+scale = 1.0
+transform = "normal"
 adaptive_sync = false
 
 [[profile.output]]
 enable = true
-search = ["m=LS27D60xU", "s=HCNX900077", "v=Samsung Electric Company"]
-mode = "2560x1440@99.946Hz"
-position = "2560,740"
-scale = 1.0
-transform = "90"
-adaptive_sync = false
+search = ["m=LG TV SSCR2", "s=0x01010101", "v=LG Electronics"]
+mode = "3840x2160@60Hz"
+position = "0,0"
+scale = 2.0
+transform = "normal"
+adaptive_sync = true
