@@ -130,8 +130,8 @@ return {
     end,
     lazy = false,
     event = {
-      "BufReadPre /home/mucinoab/Documents/Obsidian Vault/*.md",
-      "BufNewFile /home/mucinoab/Documents/Obsidian Vault/*.md",
+      "BufReadPre /home/mucinoab/Documents/second-brain/*.md",
+      "BufNewFile /home/mucinoab/Documents/second-braint/*.md",
     },
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
@@ -142,7 +142,7 @@ return {
       workspaces = {
         {
           name = "personal",
-          path = "~/Documents/Obsidian Vault/",
+          path = "~/Documents/second-brain/",
         },
       },
       completion = {
