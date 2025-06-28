@@ -27,7 +27,7 @@ abbr cb 'mold -run cargo build -Zcodegen-backend'
 abbr ccc 'mold -run cargo check'
 abbr tiempo 'curl http://wttr.in/ -s | head -n-2'
 abbr sss 'grim -g "$(slurp)" ~/screenshoots/$(date +%Y-%m-%d_%H-%m-%s).png'
-abbr foto 'ffmpeg -loglevel panic -i /dev/video1 -frames 1 -f image2 -| convert - -colorspace gray - > ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).jpeg'
+abbr ssc 'grim -g "$(slurp)" - | wl-copy --type image/png'
 abbr sf 'rg --files | sk --preview "bat {} --color always"'
 abbr rg 'rg -S'
 abbr gr 'go run .'
@@ -36,6 +36,9 @@ abbr ddd 'makoctl set-mode default'
 abbr gd 'git diff'
 abbr gs 'git status'
 abbr gl 'git log'
+abbr ga 'git add'
+abbr gf 'git fetch'
+abbr gp 'git push'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export CARGO_TARGET_DIR='/home/mucinoab/cargo_target_dir'
@@ -101,6 +104,57 @@ function fish_mode_prompt
     fish_mode_prompt_original
 end
 
+# Search for text with ripgrep, select files with fzf, and open in nvim at the first match
+function rgv
+    set search_args $argv
+    set files (rg -l $search_args)
+    
+    if test (count $files) -eq 0
+        echo "No files found matching: $search_args"
+        return
+    else if test (count $files) -eq 1
+        # Only one file found, open it directly
+        set selected $files
+    else
+        # Multiple files, use fzf for selection
+        set selected (printf '%s\n' $files | fzf --multi --preview "
+            echo '=== Matches ==='
+            rg --color=always --context=3 --line-number -- (string escape -- $search_args) {} 2>/dev/null
+            echo
+            echo '=== Full file preview ==='
+            bat --theme=GitHub --color=always --line-range=1:50 {}
+        ")
+    end
+    
+    if test -n "$selected"
+        # Get the first match line number from the first selected file
+        set first_file $selected[1]
+        set first_line (rg --line-number --no-heading -- $search_args $first_file 2>/dev/null | head -1 | cut -d: -f1)
+        
+        if test -n "$first_line" -a "$first_line" -gt 0 2>/dev/null
+            # Build the nvim command
+            if test (count $selected) -eq 1
+                set nvim_cmd "nvim +$first_line $selected"
+            else
+                set nvim_cmd "nvim +$first_line $first_file $selected[2..]"
+            end
+        else
+            # Fallback if no line number found
+            set nvim_cmd "nvim $selected"
+        end
+        
+        # Add to history and execute
+        history append $nvim_cmd
+        eval $nvim_cmd
+    end
+end
+
+# pnpm
+set -gx PNPM_HOME "/home/mucinoab/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+
 # Set initial cursor shape
 fish_vi_cursor
-
