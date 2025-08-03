@@ -47,3 +47,6 @@ ln -sf ~/Dotfiles/zellij.kdl ~/.config/zellij/config.kdl
 ln -sf ~/Dotfiles/jj.toml ~/.config/jj/config.toml
 
 ln -sf ~/Dotfiles/zathurarc ~/.config/zathura/zathurarc
+
+mkdir ~/.config/glide/
+ln -sf ~/Dotfiles/glide.ts ~/.config/glide/glide.ts
