@@ -121,9 +121,9 @@ return {
         nvim_lsp.rust_analyzer.setup({
           settings = {
             ["rust-analyzer"] = {
-              checkOnSave = {
-                extraArgs = { "--target-dir", "/tmp/rust-analyzer-check" }
-              },
+              -- checkOnSave = {
+              --   extraArgs = { "--target-dir", "/tmp/rust-analyzer-check" }
+              -- },
               cargo = { loadOutDirsFromCheck = true, allFeatures = true },
               procMacro = { enable = true },
               diagnostics = {

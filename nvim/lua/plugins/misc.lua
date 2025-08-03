@@ -124,7 +124,7 @@ return {
     "lambdalisue/vim-suda"
   },
   {
-    "epwalsh/obsidian.nvim",
+    "obsidian-nvim/obsidian.nvim",
     init = function()
       vim.opt.conceallevel = 2
     end,
@@ -135,8 +135,8 @@ return {
     },
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
+      legacy_commands = false,
       ui = {
-        checkboxes = {},
         bullets = {},
       },
       workspaces = {
@@ -166,5 +166,18 @@ return {
         return suffix .. "-" .. tostring(os.date("%d-%m-%y"))
       end,
     },
+  },
+  {
+    "dmtrKovalenko/fff.nvim",
+    build = "cargo build --release",
+    keys = {
+      {
+        "<leader>f",
+        function()
+          require("fff").find_files()
+        end,
+      },
+    },
   }
+
 }

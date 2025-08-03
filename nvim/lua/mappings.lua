@@ -129,11 +129,6 @@ vim.keymap.set('n', '<leader><leader>', '<C-^>', { silent = true })
 -- Terminal mode mappings
 vim.keymap.set('t', '<leader><leader>', '<C-\\><C-n><C-^>', { silent = true })
 
-
-vim.keymap.set('n', '<leader>f', function()
-  require('telescope.builtin').find_files({ layout_strategy = 'vertical' })
-end, { silent = true })
-
 vim.keymap.set('n', '<leader>s', function()
   require('telescope.builtin').live_grep({ layout_strategy = 'vertical' })
 end, { silent = true })
