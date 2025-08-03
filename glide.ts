@@ -93,6 +93,15 @@ glide.keymaps.set("normal", "<C-n>", () => glide.excmds.execute("tab_next"), {
 	description: "crl + n to cycle tabs",
 });
 
+glide.keymaps.set("insert", "<C-n>", () => glide.excmds.execute("tab_next"), {
+	description: "crl + n to cycle tabs",
+});
+
+glide.keymaps.set("normal", "<Space>t", () => glide.excmds.execute("commandline_show tab "), {
+	description: "tab picker",
+});
+
+
 // =============== TABS ===============
 
 async function go_to_tab(url: string) {

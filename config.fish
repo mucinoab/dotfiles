@@ -42,9 +42,9 @@ abbr gp 'git push'
 abbr jra "jj rebase -b 'all:bookmarks()' -d master"
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-export CARGO_TARGET_DIR='/home/mucinoab/cargo_target_dir'
+export CARGO_TARGET_DIR='/home/bmucino/cargo_target_dir'
 #export CARGO_PROFILE_DEV_CODEGEN_BACKEND="cranelift"
-# export RUSTFLAGS="-C target-cpu=native"
+export RUSTFLAGS="-C target-cpu=native"
 export EDITOR="nvim"
 export VISUAL="nvim"
 export FLYCTL_INSTALL="/home/mucinoab/.fly"

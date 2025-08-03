@@ -114,7 +114,6 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # https://github.com/sentriz/cliphist
-(??)bindsym $mod+v exec cliphist list > /tmp/clipboard_list && kitty --class="clipboard-selector" --title="Clipboard History" -e bash -c "cat /tmp/clipboard_list | fzf --no-sort > /tmp/selected_item" && cat /tmp/selected_item | cliphist decode | wl-copy && rm -f /tmp/clipboard_list /tmp/selected_item
 
 # Set shut down, restart and locking features
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (r)eboot, (Shift+s)hutdown
@@ -137,9 +136,9 @@ set $mode_power_mode (1)performance, (2)balanced, (3)power-save
 bindsym $mod+p mode "$mode_power_mode"
 mode "$mode_power_mode" {
     # Change profile commands
-    bindsym 1 exec tuned-adm profile throughput-performance, mode "default"
-    bindsym 2 exec tuned-adm profile balanced, mode "default"
-    bindsym 3 exec tuned-adm profile powersave, mode "default"
+    bindsym 1 exec powerprofilesctl set performance, mode "default"
+    bindsym 2 exec powerprofilesctl set balanced, mode "default"
+    bindsym 3 exec powerprofilesctl set power-saver, mode "default"
 
     # Exit mode
     bindsym Return mode "default"
@@ -185,7 +184,7 @@ input * {
 default_border pixel 1
 default_floating_border pixel 2
 hide_edge_borders none # Hide borders
-font xft:Fira Code Retina 10
+font xft: FiraCode Nerd Font 12
 
 # class                   border  backgr. text    indic.   child_border
 client.focused          #556064 #01cdfe #80FFF9 #01cdfe
@@ -275,7 +274,7 @@ for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, sticky
 for_window [class="^.*"] inhibit_idle fullscreen
 for_window [app_id="^.*"] inhibit_idle fullscreen
 
-for_window [app_id="second-brain-42"] floating enable, resize set width 865 height 900, move scratchpad
+for_window [app_id="second-brain-42"] floating enable, resize set width 400 height 300, move scratchpad
 
 # start major apps
 workspace number 2
@@ -283,7 +282,7 @@ exec kitty -e zellij
 
 workspace number 1
 exec kitty --directory ~/Documents/second-brain --class "second-brain-42"
-exec firefox
+exec glide-bin
 
 #---- Status Bar ----
 bar {
