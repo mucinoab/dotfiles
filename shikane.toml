@@ -45,8 +45,8 @@ adaptive_sync = false
 [[profile.output]]
 enable = true
 search = ["m=LG TV SSCR2", "s=0x01010101", "v=LG Electronics"]
-mode = "3840x2160@60Hz"
+mode = "1920x1080@60Hz"
 position = "0,0"
-scale = 2.0
+scale = 1.0
 transform = "normal"
 adaptive_sync = true

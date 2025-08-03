@@ -133,7 +133,10 @@ return {
       "BufReadPre /home/mucinoab/Documents/second-brain/*.md",
       "BufNewFile /home/mucinoab/Documents/second-braint/*.md",
     },
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = { 
+      "nvim-lua/plenary.nvim",
+      "ethersync/ethersync-nvim"
+    },
     opts = {
       legacy_commands = false,
       ui = {

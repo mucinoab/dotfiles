@@ -7,14 +7,10 @@ return {
     "ray-x/lsp_signature.nvim",
     ft = { "rust", "python", "javascript", "typescript", "cpp", "html", "go", "tsx", "sql", "CSS", "java", "jsx" },
   },
-  {
-    "j-hui/fidget.nvim",
-    ft = { "rust", "python", "javascript", "typescript", "cpp", "html", "go", "tsx", "sql", "CSS", "java", "jsx" },
-  },
-  {
-    "simrat39/rust-tools.nvim",
-    ft = { "rust" },
-  },
+  -- {
+  --   "j-hui/fidget.nvim",
+  --   ft = { "rust", "python", "javascript", "typescript", "cpp", "html", "go", "tsx", "sql", "CSS", "java", "jsx" },
+  -- },
   {
     "lukas-reineke/lsp-format.nvim",
     ft = { "rust", "python", "javascript", "typescript", "cpp", "html", "go", "tsx", "sql", "CSS", "java", "jsx" },
@@ -24,7 +20,7 @@ return {
     ft = { "java" },
   },
   {
-    "mfussenegger/nvim-dap",
+    "j-hui/fidget.nvim",
     ft = { "rust", "python", "javascript", "typescript", "cpp", "html", "go", "tsx", "sql", "CSS", "java", "jsx" },
     event = "VeryLazy",
     config = function()
@@ -89,8 +85,7 @@ return {
 
       vim.lsp.config('pyright', {
         cmd = { 'pyright-langserver', '--stdio' },
-        filetypes = { 'python' },
-        root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile', 'pyrightconfig.json', '.git' },
+        filetypes = { 'python', 'py' },
         capabilities = capabilities,
         on_attach = on_attach,
       })
@@ -129,9 +124,9 @@ return {
           root_markers = { 'Cargo.toml', 'rust-project.json', '.git' },
           settings = {
             ["rust-analyzer"] = {
-              checkOnSave = {
-                extraArgs = { "--target-dir", "/tmp/rust-analyzer-check" }
-              },
+              -- checkOnSave = {
+              --   extraArgs = { "--target-dir", "/tmp/rust-analyzer-check" }
+              -- },
               cargo = { loadOutDirsFromCheck = true, allFeatures = true },
               procMacro = { enable = true },
               diagnostics = {
@@ -145,9 +140,6 @@ return {
           on_attach = on_attach,
         })
 
-        local rt = require("rust-tools")
-        rt.setup()
-        rt.inlay_hints.enable()
       end
 
       -- Enable all configured LSP servers

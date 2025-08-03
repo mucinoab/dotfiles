@@ -1,12 +1,13 @@
 general {
   output_format = "i3bar"
   colors = true
-  interval = 20
+  interval = 2
   separator = "  |  "
 }
 
-order += "wireless wlp1s0"
-order += "ethernet enp193s0f3u2"
+order += "cpu_temperature 0"
+order += "wireless wlan0"
+order += "ethernet eth0"
 order += "battery 0"
 order += "tztime local"
 order += "tztime time"
@@ -26,12 +27,16 @@ battery 0 {
   low_threshold = 15
 }
 
-wireless wlp1s0 {
+wireless wlan0 {
   format_up = "%essid %quality "
   format_down = ""
 }
 
-ethernet enp193s0f3u2 {
+ethernet eth0 {
   format_up = "E"
-  format_down = ""
+  format_down = "D"
+}
+
+cpu_temperature 0 {
+  format = "T: %degrees°C"
 }

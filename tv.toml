@@ -1,0 +1,21 @@
+[[profile]]
+name = "monitors"
+
+[[profile.output]]
+enable = false
+search = ["m=0x0BCA", "s=", "v=BOE"]
+mode = "2256x1504@59.999Hz"
+position = "3840,0"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false
+
+[[profile.output]]
+enable = true
+search = ["m=LG TV SSCR2", "s=0x01010101", "v=LG Electronics"]
+mode = "3840x2160@60Hz"
+position = "0,0"
+scale = 2.0
+transform = "normal"
+adaptive_sync = false
+
