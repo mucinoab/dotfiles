@@ -1,20 +1,36 @@
 return {
   {
-    "neovim/nvim-lspconfig",
-    ft = { "rust", "python", "javascript", "typescript", "cpp", "html", "go", "typst", "tsx", "sql", "CSS", "typescriptreact", "lua" },
-    dependencies = {
-      "nvim-lua/lsp_extensions.nvim",
-      "ray-x/lsp_signature.nvim",
-      "j-hui/fidget.nvim",
-      "lukas-reineke/lsp-format.nvim"
-    },
+    "nvim-lua/lsp_extensions.nvim",
+    ft = { "rust", "python", "javascript", "typescript", "cpp", "html", "go", "tsx", "sql", "CSS", "java", "jsx" },
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    ft = { "rust", "python", "javascript", "typescript", "cpp", "html", "go", "tsx", "sql", "CSS", "java", "jsx" },
+  },
+  {
+    "j-hui/fidget.nvim",
+    ft = { "rust", "python", "javascript", "typescript", "cpp", "html", "go", "tsx", "sql", "CSS", "java", "jsx" },
+  },
+  {
+    "simrat39/rust-tools.nvim",
+    ft = { "rust" },
+  },
+  {
+    "lukas-reineke/lsp-format.nvim",
+    ft = { "rust", "python", "javascript", "typescript", "cpp", "html", "go", "tsx", "sql", "CSS", "java", "jsx" },
+  },
+  {
+    "mfussenegger/nvim-jdtls",
+    ft = { "java" },
+  },
+  {
+    "mfussenegger/nvim-dap",
+    ft = { "rust", "python", "javascript", "typescript", "cpp", "html", "go", "tsx", "sql", "CSS", "java", "jsx" },
     event = "VeryLazy",
     config = function()
       require("fidget").setup {}
       require("lsp_signature").setup()
-      require('lsp-format').setup {}
-
-      local nvim_lsp = require('lspconfig')
+      -- require('lsp-format').setup {}
 
       for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
         vim.api.nvim_set_hl(0, group, {})
@@ -23,9 +39,10 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
       capabilities.textDocument.completion.completionItem.snippetSupport = true
+      capabilities.semanticTokensProvider = nil
 
       local on_attach = function(client)
-        require("lsp-format").on_attach(client)
+        -- require("lsp-format").on_attach(client)
         -- Disable code highlight by the LSP server
         client.server_capabilities.semanticTokensProvider = nil
       end
@@ -37,7 +54,6 @@ return {
           update_in_insert = false,
         })
 
-
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
           local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -45,29 +61,52 @@ return {
         end,
       });
 
-      vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+      -- vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]] -- No auto fromat on save
 
-      -- TypeScript
-      nvim_lsp.ts_ls.setup { capabilities = capabilities, on_attach = on_attach, }
+      -- Configure LSP servers
+      vim.lsp.config('ts_ls', {
+        cmd = { 'typescript-language-server', '--stdio' },
+        filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+        root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
 
-      -- CPP
-      nvim_lsp.clangd.setup { capabilities = capabilities, on_attach = on_attach, }
+      vim.lsp.config('clangd', {
+        cmd = { 'clangd' },
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
+        root_markers = { '.clangd', '.clang-tidy', '.clang-format', 'compile_commands.json', 'compile_flags.txt', '.git' },
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
 
-      -- HTML
-      nvim_lsp.html.setup { capabilities = capabilities } --, on_attach=on_attach,}
+      vim.lsp.config('html', {
+        cmd = { 'vscode-html-language-server', '--stdio' },
+        filetypes = { 'html' },
+        root_markers = { 'package.json', '.git' },
+        capabilities = capabilities,
+      })
 
-      -- Python
-      nvim_lsp.pyright.setup { capabilities = capabilities, on_attach = on_attach, }
+      vim.lsp.config('pyright', {
+        cmd = { 'pyright-langserver', '--stdio' },
+        filetypes = { 'python' },
+        root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile', 'pyrightconfig.json', '.git' },
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
 
-      -- CSS
-      nvim_lsp.cssls.setup { capabilities = capabilities, on_attach = on_attach, }
+      vim.lsp.config('cssls', {
+        cmd = { 'vscode-css-language-server', '--stdio' },
+        filetypes = { 'css', 'scss', 'less' },
+        root_markers = { 'package.json', '.git' },
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
 
-      -- Typst
-      nvim_lsp.tinymist.setup { capabilities = capabilities, on_attach = on_attach, }
-
-      -- golang
-      nvim_lsp.gopls.setup {
+      vim.lsp.config('gopls', {
         cmd = { "gopls", "serve" },
+        filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+        root_markers = { 'go.work', 'go.mod', '.git' },
         settings = {
           gopls = {
             analyses = {
@@ -81,49 +120,18 @@ return {
         },
         capabilities = capabilities,
         on_attach = on_attach,
-      }
-
-      nvim_lsp.lua_ls.setup {
-        on_init = function(client)
-          if client.workspace_folders then
-            local path = client.workspace_folders[1].name
-            if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-              return
-            end
-          end
-
-          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-            runtime = {
-              -- Tell the language server which version of Lua you're using
-              -- (most likely LuaJIT in the case of Neovim)
-              version = 'LuaJIT'
-            },
-            -- Make the server aware of Neovim runtime files
-            workspace = {
-              telemetry = { enable = false },
-              checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
-                "/home/mucinoab/Downloads/lua-language-server-3.10.3-linux-x64/meta/3rd/love2d/library/",
-              }
-            }
-          })
-        end,
-        settings = {
-          Lua = {}
-        },
-        capabilities = capabilities, on_attach = on_attach,
-      }
+      })
 
       if vim.bo.filetype == "rust" then
-        -- Enable rust_analyzer
-        -- https://sharksforarms.dev/posts/neovim-rust/
-        nvim_lsp.rust_analyzer.setup({
+        vim.lsp.config('rust_analyzer', {
+          cmd = { 'rust-analyzer' },
+          filetypes = { 'rust' },
+          root_markers = { 'Cargo.toml', 'rust-project.json', '.git' },
           settings = {
             ["rust-analyzer"] = {
-              -- checkOnSave = {
-              --   extraArgs = { "--target-dir", "/tmp/rust-analyzer-check" }
-              -- },
+              checkOnSave = {
+                extraArgs = { "--target-dir", "/tmp/rust-analyzer-check" }
+              },
               cargo = { loadOutDirsFromCheck = true, allFeatures = true },
               procMacro = { enable = true },
               diagnostics = {
@@ -136,6 +144,17 @@ return {
           capabilities = capabilities,
           on_attach = on_attach,
         })
+
+        local rt = require("rust-tools")
+        rt.setup()
+        rt.inlay_hints.enable()
+      end
+
+      -- Enable all configured LSP servers
+      vim.lsp.enable({ 'ts_ls', 'clangd', 'html', 'pyright', 'cssls', 'gopls' })
+
+      if vim.bo.filetype == "rust" then
+        vim.lsp.enable('rust_analyzer')
       end
     end
   },

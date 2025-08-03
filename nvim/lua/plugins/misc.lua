@@ -170,14 +170,23 @@ return {
   {
     "dmtrKovalenko/fff.nvim",
     build = "cargo build --release",
+    opts = {
+      prompt = '> ',
+      max_results = 32,
+      max_threads = 4,
+      -- keymaps = {
+      --   move_up = { '<Up>', '<C-p>', 'j' },
+      --   move_down = { '<Down>', '<C-n>', 'k'},
+      -- },
+    },
     keys = {
       {
         "<leader>f",
         function()
           require("fff").find_files()
         end,
+        desc = "Open file picker",
       },
     },
   }
-
 }
