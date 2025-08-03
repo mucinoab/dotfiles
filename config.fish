@@ -39,6 +39,7 @@ abbr gl 'git log'
 abbr ga 'git add'
 abbr gf 'git fetch'
 abbr gp 'git push'
+abbr jra "jj rebase -b 'all:bookmarks()' -d master"
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export CARGO_TARGET_DIR='/home/mucinoab/cargo_target_dir'
@@ -75,7 +76,7 @@ set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
 # Binds for fish_vi_key_bindings, mimic some of my vimrc
-bind -M insert jk 'set fish_bind_mode default; commandline -f backward-char force-repaint'
+bind -M insert kj 'set fish_bind_mode default; commandline -f backward-char force-repaint'
 bind -M default H beginning-of-line # Map H to jump to start of line (like g^)
 bind -M default L end-of-line # Map L to jump to end of line (like g$)
 

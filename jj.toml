@@ -6,3 +6,9 @@ name = "Bruno A. Muciño"
 default-command = "log"
 diff.format = "git"
 diff.tool = [ "delta", "$left", "$right" ]
+
+[aliases]
+s = ["status"]
+e = ["edit"]
+d = ["diff"]
+f = ["git", "fetch"]

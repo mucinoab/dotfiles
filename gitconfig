@@ -4,11 +4,12 @@
 	mail = mucinoab@gmail.com
 [alias]
   conflicts = diff --name-only --diff-filter=U
+  a = add
+  p = push
   s = status
   d = diff
 	add-commit = !git add -A && git commit
   tree =  !git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''     %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
 [core]
   pager = delta
 	editor = nvim
@@ -16,7 +17,8 @@
   diffFilter = delta --color-only
 [delta]
     line-numbers = true
-    dark = true
+    dark = false
+    light = true
 [merge]
   conflictstyle = diff3
 [diff]
