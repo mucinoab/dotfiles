@@ -3,6 +3,7 @@
 ln -s ~/Dotfiles/tealdeer.toml ~/.config/tealdeer/config.toml
 
 ln -s ~/Dotfiles/vimrc ~/.config/nvim/init.vim
+ln -sf ~/Dotfiles/nvim/ ~/.config/nvim
 
 ln -sf ~/Dotfiles/tmux.conf ~/.tmux.conf
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

@@ -8,26 +8,25 @@ output eDP-1 scale 1
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec "systemctl --user import-environment"
 
-exec sleep 15 && wl-paste --type text --watch /home/mucinoab/go/bin/cliphist store
-exec sleep 15 && wl-paste --type image --watch /home/mucinoab/go/bin/cliphist store
+exec sleep 15 && wl-paste --type text --watch cliphist store
+exec sleep 15 && wl-paste --type image --watch cliphist store
+#exec sleep 35 && rm /home/mucinoab/Documents/second-brain/.ethersync/socket & /home/mucinoab/.cargo/bin/ethersync join --directory "/home/mucinoab/Documents/second-brain/" > /tmp/ethersync.log
 
-exec /home/mucinoab/.cargo/bin/shikane --config /home/mucinoab/Dotfiles/shikane.toml
+# exec /home/mucinoab/.cargo/bin/shikane --config /home/mucinoab/Dotfiles/shikane.toml
 
-exec --no-startup-id lxpolkit
 exec mako --default-timeout 15000
 exec swaybg --color "#000000"
-exec sleep 5 && /home/mucinoab/Dotfiles/battery-monitor.sh
 
-#      timeout 650 'swaylock --clock --timestr '%H:%M' --datestr '%d/%m' -c 000000FF --indicator --indicator-radius 140 --indicator-thickness 7'\
-#      timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+exec sleep 40 && /home/mucinoab/Dotfiles/battery-monitor.sh
+
 exec swayidle -w before-sleep 'swaylock -c 000000FF --indicator-radius 140 --indicator-thickness 7'
 
-exec tuned-adm profile balanced
-exec sleep 120 && systemctl --user enable opentabletdriver.service --now
+#exec sleep 120 && systemctl --user enable opentabletdriver.service --now
 
 #---- Bindings ----
 # Program selector
-bindsym $mod+d exec wofi --show=drun
+bindsym $mod+d exec wmenu-run -f "FiraCode Nerd Font 12" -N "#F9FAF9" -n "#222D31" -S "#16a085" -s "#F9FAF9" -l 5
+
 # Terminal
 bindsym $mod+Return exec kitty
 # Kill focused window
@@ -100,9 +99,9 @@ set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 exec mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
 
 # Volume buttons
-bindsym XF86AudioRaiseVolume exec amixer -D pipewire sset Master 2%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
-bindsym XF86AudioLowerVolume exec amixer -D pipewire sset Master 2%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
-bindsym XF86AudioMute exec amixer -D pipewire sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $WOBSOCK
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}' > $WOBSOCK
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}' > $WOBSOCK
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 || wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}') > $WOBSOCK
 
 # Backlight buttons
 bindsym XF86MonBrightnessDown exec brightnessctl set 3%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
@@ -115,7 +114,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # https://github.com/sentriz/cliphist
-bindsym $mod+v exec /home/mucinoab/go/bin/cliphist list > /tmp/clipboard_list && kitty --class="clipboard-selector" --title="Clipboard History" -e bash -c "cat /tmp/clipboard_list | fzf --no-sort > /tmp/selected_item" && cat /tmp/selected_item | /home/mucinoab/go/bin/cliphist decode | wl-copy && rm -f /tmp/clipboard_list /tmp/selected_item
+(??)bindsym $mod+v exec cliphist list > /tmp/clipboard_list && kitty --class="clipboard-selector" --title="Clipboard History" -e bash -c "cat /tmp/clipboard_list | fzf --no-sort > /tmp/selected_item" && cat /tmp/selected_item | cliphist decode | wl-copy && rm -f /tmp/clipboard_list /tmp/selected_item
 
 # Set shut down, restart and locking features
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (r)eboot, (Shift+s)hutdown
@@ -206,7 +205,7 @@ set $ws5 5
 set $ws6 6
 set $ws7 7
 set $ws8 8
-set $ws8 9
+set $ws9 9
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -276,7 +275,6 @@ for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, sticky
 for_window [class="^.*"] inhibit_idle fullscreen
 for_window [app_id="^.*"] inhibit_idle fullscreen
 
-for_window [app_id="clipboard-selector"] floating enable, resize set width 1200 height 400
 for_window [app_id="second-brain-42"] floating enable, resize set width 865 height 900, move scratchpad
 
 # start major apps
