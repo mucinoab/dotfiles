@@ -138,3 +138,14 @@ glide.keymaps.set(
 		description: "switch to latest tab",
 	},
 );
+
+// =============== Sites ===============
+
+glide.autocmds.create("UrlEnter", {
+  hostname: "youtube.com",
+}, () => {
+  glide.buf.keymaps.del("normal", "<Space>");
+  glide.buf.keymaps.del("normal", "j");
+  glide.buf.keymaps.del("normal", "k");
+  glide.buf.keymaps.del("normal", "f");
+});

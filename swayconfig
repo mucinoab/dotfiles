@@ -17,7 +17,7 @@ exec sleep 15 && wl-paste --type image --watch cliphist store
 exec mako --default-timeout 15000
 exec swaybg --color "#000000"
 
-exec sleep 40 && /home/mucinoab/Dotfiles/battery-monitor.sh
+exec sleep 40 && /home/bmucino/Dotfiles/battery-monitor.sh
 
 exec swayidle -w before-sleep 'swaylock -c 000000FF --indicator-radius 140 --indicator-thickness 7'
 
@@ -114,6 +114,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # https://github.com/sentriz/cliphist
+bindsym $mod+v exec cliphist list | wmenu -f "FiraCode Nerd Font 12" -N "#F9FAF9" -n "#222D31" -S "#16a085" -s "#F9FAF9" -l 10 | cliphist decode | wl-copy
 
 # Set shut down, restart and locking features
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (r)eboot, (Shift+s)hutdown
