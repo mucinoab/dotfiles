@@ -1,0 +1,45 @@
+[theme]
+theme = "modern"
+
+[icons]
+icons = "none"
+
+[[block]]
+block = "temperature"
+format = " T: $average "
+interval = 10
+
+[[block]]
+block = "net"
+device = "^wlan0$"
+format = " $ssid $signal_strength "
+inactive_format = ""
+interval = 15
+
+[[block]]
+block = "net"
+device = "^eth0$"
+format = " E "
+inactive_format = " D "
+interval = 15
+
+[[block]]
+block = "battery"
+device = "BAT1"
+format = " $percentage ($time_remaining $power) "
+full_format = " $percentage "
+charging_format = " ⚡ $percentage ($time_remaining $power) "
+empty_format = " $percentage ($time_remaining $power) "
+missing_format = " $percentage ($time_remaining $power) "
+critical = 15
+interval = 5
+
+[[block]]
+block = "time"
+format = " $timestamp.datetime(f:'%H:%M ') "
+interval = 2
+
+[[block]]
+block = "time"
+format = " $timestamp.datetime(f:' %A %d/%m/%Y ') "
+interval = 30

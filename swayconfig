@@ -287,7 +287,7 @@ exec glide-bin
 
 #---- Status Bar ----
 bar {
-  status_command i3status -c ~/Dotfiles/i3status
+  status_command i3status-rs ~/Dotfiles/i3status.toml
   mode hide
 	position bottom
 
