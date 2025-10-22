@@ -1,5 +1,5 @@
 [theme]
-theme = "modern"
+theme = "slick"
 
 [icons]
 icons = "none"
@@ -43,3 +43,15 @@ interval = 2
 block = "time"
 format = " $timestamp.datetime(f:' %A %d/%m/%Y ') "
 interval = 30
+
+[[block]]
+block = "custom"
+# https://github.com/mucinoab/tailscale-toggler
+command = "/home/bmucino/cargo_target_dir/release/tailscale-indicator"
+interval = 30
+json = true
+shell="bash"
+
+[[block.click]]
+button = "left"
+cmd = "/usr/local/bin/tailscale-indicator toggle"
