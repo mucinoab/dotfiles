@@ -159,3 +159,6 @@ end
 
 # Set initial cursor shape
 fish_vi_cursor
+
+# Created by `pipx` on 2026-01-01 06:46:33
+set PATH $PATH /home/bmucino/.local/bin

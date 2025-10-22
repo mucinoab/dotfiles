@@ -54,4 +54,4 @@ shell="bash"
 
 [[block.click]]
 button = "left"
-cmd = "/usr/local/bin/tailscale-indicator toggle"
+cmd = "/home/bmucino/cargo_target_dir/release/tailscale-indicator toggle"

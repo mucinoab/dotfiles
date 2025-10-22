@@ -12,8 +12,6 @@ exec sleep 15 && wl-paste --type text --watch cliphist store
 exec sleep 15 && wl-paste --type image --watch cliphist store
 #exec sleep 35 && rm /home/mucinoab/Documents/second-brain/.ethersync/socket & /home/mucinoab/.cargo/bin/ethersync join --directory "/home/mucinoab/Documents/second-brain/" > /tmp/ethersync.log
 
-# exec /home/mucinoab/.cargo/bin/shikane --config /home/mucinoab/Dotfiles/shikane.toml
-
 exec mako --default-timeout 15000
 exec swaybg --color "#000000"
 
@@ -268,7 +266,7 @@ for_window [window_type="menu"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable
 for_window [title="(?:Preferences|Settings)$"] floating enable
-for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, sticky enable
+for_window [app_id="glide" title="Picture-in-Picture"] floating enable, sticky enable
 
 
 # Avoid idling when in fullscreen
@@ -284,6 +282,7 @@ exec kitty -e zellij
 workspace number 1
 exec kitty --directory ~/Documents/second-brain --class "second-brain-42"
 exec glide-bin
+exec sleep 10 && /home/bmucino/.cargo/bin/shikane --config /home/bmucino/Dotfiles/shikane.toml
 
 #---- Status Bar ----
 bar {
@@ -304,3 +303,6 @@ bar {
         urgent_workspace   #16a085 #FDF6E3 #E5201D
     }
 }
+
+# exec_always swaymsg create_output
+# output HEADLESS-1 disable

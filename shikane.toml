@@ -16,11 +16,11 @@ name = "monitor"
 [[profile.output]]
 enable = false
 search = ["m=0x0BCA", "s=", "v=BOE"]
-mode = "640x480@59.999Hz"
+mode = "2256x1504@59.999Hz"
 position = "0,0"
 scale = 1.0
 transform = "normal"
-adaptive_sync = true
+adaptive_sync = false
 
 [[profile.output]]
 enable = true
@@ -29,24 +29,4 @@ mode = "2560x1440@165.007Hz"
 position = "0,0"
 scale = 1.0
 transform = "normal"
-adaptive_sync = true
-
-[[profile]]
-name = "big tv"
-
-[[profile.output]]
-enable = false
-search = ["m=0x0BCA", "s=", "v=BOE"]
-mode = "2256x1504@59.999Hz"
-scale = 1.0
-transform = "normal"
 adaptive_sync = false
-
-[[profile.output]]
-enable = true
-search = ["m=LG TV SSCR2", "s=0x01010101", "v=LG Electronics"]
-mode = "1920x1080@60Hz"
-position = "0,0"
-scale = 1.0
-transform = "normal"
-adaptive_sync = true

@@ -83,8 +83,8 @@ return {
         capabilities = capabilities,
       })
 
-      vim.lsp.config('pyright', {
-        cmd = { 'pyright-langserver', '--stdio' },
+      vim.lsp.config('ty', {
+        cmd = { 'ty', 'server' },
         filetypes = { 'python', 'py' },
         capabilities = capabilities,
         on_attach = on_attach,
@@ -143,10 +143,11 @@ return {
       end
 
       -- Enable all configured LSP servers
-      vim.lsp.enable({ 'ts_ls', 'clangd', 'html', 'pyright', 'cssls', 'gopls' })
+      vim.lsp.enable({ 'ts_ls', 'clangd', 'html', 'ty', 'cssls', 'gopls' })
 
       if vim.bo.filetype == "rust" then
         vim.lsp.enable('rust_analyzer')
+        vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]] -- No auto fromat on save
       end
     end
   },

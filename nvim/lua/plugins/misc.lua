@@ -135,7 +135,7 @@ return {
     },
     dependencies = { 
       "nvim-lua/plenary.nvim",
-      "ethersync/ethersync-nvim"
+      -- "ethersync/ethersync-nvim"
     },
     opts = {
       legacy_commands = false,

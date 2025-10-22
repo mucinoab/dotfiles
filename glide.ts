@@ -113,19 +113,6 @@ async function go_to_tab(url: string) {
 
 glide.keymaps.set(
 	"normal",
-	"gcc",
-	() => go_to_tab("https://outlook.office.com/*"),
-	{
-		description: "[g]o to [c]alendar",
-	},
-);
-
-glide.keymaps.set("normal", "gss", () => go_to_tab("https://app.slack.com/*"), {
-	description: "[g]o to [s]lack",
-});
-
-glide.keymaps.set(
-	"normal",
 	"<Space><Space>",
 	async () => {
 		const tab = tabTracker.getLatest();
