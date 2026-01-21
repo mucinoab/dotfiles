@@ -5,7 +5,11 @@ return {
   },
   {
     "ray-x/lsp_signature.nvim",
+    event = "InsertEnter",
     ft = { "rust", "python", "javascript", "typescript", "cpp", "html", "go", "tsx", "sql", "CSS", "java", "jsx" },
+    opts = {
+      hint_prefix = " ",
+    }
   },
   -- {
   --   "j-hui/fidget.nvim",
@@ -32,8 +36,7 @@ return {
         vim.api.nvim_set_hl(0, group, {})
       end
 
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
       capabilities.textDocument.completion.completionItem.snippetSupport = true
       capabilities.semanticTokensProvider = nil
 

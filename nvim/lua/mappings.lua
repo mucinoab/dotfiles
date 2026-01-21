@@ -43,17 +43,6 @@ vim.keymap.set('n', 'F', ':<C-u>call repeat#set("\\<lt>Plug>NextMatch")<CR>F', {
 -- Mapping for `f` that allows repeating with `.`
 vim.keymap.set('n', 'f', ':<C-u>call repeat#set("\\<lt>Plug>NextMatch")<CR>f', { silent = true })
 
--- Use <Tab> to navigate down the popup menu or insert a tab if no popup is visible
-vim.keymap.set('i', '<Tab>', function()
-  return vim.fn.pumvisible() == 1 and '<C-n>' or '<Tab>'
-end, { expr = true, silent = true })
-
--- Use <S-Tab> to navigate up the popup menu or insert a Shift+Tab if no popup is visible
-vim.keymap.set('i', '<S-Tab>', function()
-  return vim.fn.pumvisible() == 1 and '<C-p>' or '<S-Tab>'
-end, { expr = true, silent = true })
-
-
 vim.keymap.set('n', 'g{', vim.diagnostic.goto_prev, { silent = true })
 vim.keymap.set('n', 'g}', vim.diagnostic.goto_next, { silent = true })
 
