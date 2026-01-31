@@ -191,5 +191,33 @@ return {
         desc = "Open file picker",
       },
     },
+  },
+  {
+    "hedyhli/outline.nvim",
+    dependencies = { 'epheien/outline-treesitter-provider.nvim' },
+    ft = "markdown",
+    opts = {
+      outline_window = { position = "right", width = 25, },
+      preview_window = { auto_preview = false, },
+      symbol_folding = { autofold_depth = 5, },
+      providers = { priority = { 'treesitter' } },
+    },
+    config = function(_, opts)
+      require("outline").setup(opts)
+
+      -- Auto-open outline when entering a markdown buffer
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "markdown",
+        callback = function()
+          local outline = require("outline")
+
+          if not outline.is_open() then
+            outline.open()
+            outline.focus_code()
+          end
+
+        end,
+      })
+    end,
   }
 }
