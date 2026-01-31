@@ -136,3 +136,62 @@ glide.autocmds.create("UrlEnter", {
   glide.buf.keymaps.del("normal", "k");
   glide.buf.keymaps.del("normal", "f");
 });
+
+
+// =============== Looks ===============
+
+function applyTabStyles(): void {
+  const STYLE_ID = "custom-tab-styles";
+
+  const existingStyle = document.getElementById(STYLE_ID);
+  if (existingStyle) {
+    return;
+  }
+
+  const style = document.createElement("style");
+  style.id = STYLE_ID;
+  style.textContent = `
+    /* Move close button from left to right on vertical tabs  and smaller */
+    #tabbrowser-tabs[orient="vertical"] .tab-close-button {
+      inset-inline-start: unset !important;
+      inset-inline-end: 2px !important;
+      width: 10px !important;
+      height: 10px !important;
+    }
+
+    /* Larger favicon with less padding on vertical tabs */
+    #tabbrowser-tabs[orient="vertical"] .tab-icon-image {
+      width: 20px !important;
+      height: 20px !important;
+    }
+
+    #tabbrowser-tabs[orient="vertical"] .tab-icon-stack {
+      min-width: 20px !important;
+      min-height: 20px !important;
+    }
+
+    /* Move playing icon out of the way*/
+    #tab-icon-overlay {
+      inset-inline-end: -18px !important;
+      top: 13px !important;
+      background: pink !important;
+    }
+  `;
+
+  const head = document.head;
+  if (head) {
+    head.appendChild(style);
+  } else {
+    const docEl = document.documentElement;
+    if (docEl) {
+      docEl.appendChild(style);
+    } else {
+      console.error("Could not inject custom tab styles: no suitable parent element");
+    }
+  }
+}
+
+
+glide.autocmds.create("WindowLoaded", () => {
+  applyTabStyles();
+});
