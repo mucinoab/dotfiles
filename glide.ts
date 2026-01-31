@@ -126,6 +126,16 @@ glide.keymaps.set(
 	},
 );
 
+glide.keymaps.set("normal","me",
+  async () => {
+    const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+    if (tab?.id) {
+      await browser.tabs.move(tab.id, { index: -1 });
+    }
+  },
+  { description: "[m]ove tab to [e]nd" },
+);
+
 // =============== Sites ===============
 
 glide.autocmds.create("UrlEnter", {
