@@ -51,3 +51,6 @@ ln -sf ~/Dotfiles/zathurarc ~/.config/zathura/zathurarc
 
 mkdir ~/.config/glide/
 ln -sf ~/Dotfiles/glide.ts ~/.config/glide/glide.ts
+
+mkdir ~/.config/ghostty/
+ln -sf ~/Dotfiles/ghostty ~/.config/ghostty/config
