@@ -3,6 +3,10 @@ vim.keymap.set('v', 'k', 'gk')
 vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 
+-- Remap macro recording to Q instead of q
+vim.keymap.set('n', 'Q', 'q', { noremap = true })
+vim.keymap.set('n', 'q', '<Nop>', { noremap = true })
+
 vim.keymap.set('', 'q:', ':q')
 vim.keymap.set('', 'Q', '<nop>')
 vim.api.nvim_create_user_command('Q', 'q', {})
