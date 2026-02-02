@@ -140,7 +140,7 @@ glide.keymaps.set("normal","me",
 
 glide.autocmds.create("UrlEnter", {
   hostname: "youtube.com",
-}, () => {
+}, async () => {
   glide.buf.keymaps.del("normal", "<Space>");
   glide.buf.keymaps.del("normal", "j");
   glide.buf.keymaps.del("normal", "k");

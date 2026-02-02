@@ -81,8 +81,11 @@ vim.keymap.set('i', '<right>', '<nop>', { noremap = true, silent = true })
 
 -- Define the CloseIfEmpty function in Lua
 local function close_if_empty()
-  -- Save the current buffer
-  vim.cmd('write')
+  -- Save the current buffer only if it has a file and is modified
+  local buf = vim.api.nvim_get_current_buf()
+  if vim.api.nvim_buf_get_name(buf) ~= '' and vim.bo[buf].modified then
+    vim.cmd('write')
+  end
 
   -- Get the list of buffers
   local buffers = vim.api.nvim_list_bufs()
@@ -90,7 +93,7 @@ local function close_if_empty()
   -- Count the number of listed buffers
   local listed_buffers = 0
   for _, buf in ipairs(buffers) do
-    if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_option(buf, 'buflisted') then
+    if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
       listed_buffers = listed_buffers + 1
     end
   end

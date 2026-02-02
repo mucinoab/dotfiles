@@ -183,13 +183,13 @@ input * {
 }
 
 #---- Looks ----
-default_border pixel 1
-default_floating_border pixel 2
-hide_edge_borders none # Hide borders
+default_border pixel 2
+default_floating_border pixel 4
+hide_edge_borders smart
 font xft: FiraCode Nerd Font 12
 
 # class                   border  backgr. text    indic.   child_border
-client.focused          #556064 #01cdfe #80FFF9 #01cdfe
+client.focused          #556064 #E67E22 #80FFF9 #E67E22
 client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
 client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
 client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
@@ -252,11 +252,6 @@ assign [app_id="com/.https://ultimaker.UltiMaker-Cura"] $ws3
 # Open specific applications in floating mode
 for_window [app_id="blueman-manager"] floating enable, resize set width 550 height 300
 for_window [class="App"] floating enable, resize set width 550 height 300
-for_window [title="alsamixer"] floating enable border pixel 1
-for_window [title="File Transfer*"] floating enable
-for_window [class="Lightdm-settings"] floating enable
-for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [app_id="pavucontrol"] border none, floating enable
 for_window [app_id="wdisplays"] floating enable, resize set width 55 ppt
 
 for_window [window_role="pop-up"] floating enable
