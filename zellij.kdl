@@ -260,20 +260,20 @@ themes {
             emphasis_3 177 98 134
         }
         ribbon_selected {
-            base 235 219 178
-            background 121 116 14
+            base 0 0 0
+            background 214 93 14
             emphasis_0 255 93 14
             emphasis_1 152 0 5
             emphasis_2 177 98 134
             emphasis_3 69 133 136
         }
         ribbon_unselected {
-            base 235 219 178
+            base 0 0 0
             background 213 196 161
-            emphasis_0 214 93 14
-            emphasis_1 214 93 14
-            emphasis_2 214 93 14
-            emphasis_3 214 93 14
+            emphasis_0 213 196 161
+            emphasis_1 213 196 161
+            emphasis_2 213 196 161
+            emphasis_3 1 1 1
         }
         table_title {
             base 121 116 14
@@ -442,7 +442,7 @@ default_layout "compact"
 //   - true (default, enabled)
 //   - false
 // 
-pane_frames false
+pane_frames true
  
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
