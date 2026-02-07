@@ -5,5 +5,6 @@ return {
   config = function()
     require('github-theme').setup()
     vim.cmd('colorscheme github_light')
+    vim.cmd('highlight Whitespace guifg=#e0a0a0')
   end
 }

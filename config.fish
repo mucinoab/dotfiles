@@ -28,7 +28,10 @@ abbr ccc 'mold -run cargo check'
 abbr tiempo 'curl http://wttr.in/ -s | head -n-2'
 abbr sss 'grim -g "$(slurp)" ~/screenshoots/$(date +%Y-%m-%d_%H-%m-%s).png'
 abbr ssc 'grim -g "$(slurp)" - | wl-copy --type image/png'
+
 abbr sf 'rg --files | sk --preview "bat {} --color always"'
+abbr sk 'sk --color=light'
+
 abbr rg 'rg -S'
 abbr gr 'go run .'
 abbr dnd 'makoctl set-mode do-not-disturb'
@@ -40,6 +43,7 @@ abbr ga 'git add'
 abbr gf 'git fetch'
 abbr gp 'git push'
 abbr jra "jj rebase -b 'all:bookmarks()' -d master"
+abbr jram 'jj rebase -A main -r @'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export CARGO_TARGET_DIR='/home/bmucino/cargo_target_dir'

@@ -29,10 +29,13 @@ vim.opt.showmatch = true
 vim.opt.autoread = true
 vim.opt.expandtab = true
 vim.opt.shiftround = true
-vim.opt.lazyredraw = true
 vim.opt.termguicolors = true
 vim.opt.showtabline = 2
 vim.opt.colorcolumn = '99999'
+
+-- Visual indicators for whitespace characters
+vim.opt.list = true
+vim.opt.listchars = { trail = '•' }
 
 -- Proper search settings
 vim.opt.incsearch = true
@@ -76,7 +79,7 @@ vim.api.nvim_create_autocmd("BufRead", { pattern = "*.typ", command = "set filet
 -- Settings for plain text editing (not code)
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.txt,*.tex,*.latex,*.md,*.typ",
-  command = "set wrap linebreak nolist tw=79 wrapmargin=0 lbr fo=tro nonumber nornu"
+  command = "set wrap linebreak tw=79 wrapmargin=0 lbr fo=tro nonumber nornu"
 })
 
 
