@@ -275,7 +275,7 @@ for_window [app_id="second-brain-42"] floating enable, resize set width 30 ppt h
 
 # start major apps
 workspace number 2
-exec kitty -e zellij
+exec ghostty -e /home/bmucino/.cargo/bin/zellij
 
 workspace number 1
 exec kitty --directory ~/Documents/second-brain --class "second-brain-42"

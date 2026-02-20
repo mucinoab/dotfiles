@@ -45,11 +45,17 @@ abbr gp 'git push'
 abbr jra "jj rebase -b 'all:bookmarks()' -d master"
 abbr jram 'jj rebase -A main -r @'
 
+abbr rclone-copy 'rclone copy --progress --transfers=32 --checkers=32 --checksum --partial-suffix=.part'
+abbr claude 'claude --allow-dangerously-skip-permissions'
+
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export CARGO_TARGET_DIR='/home/bmucino/cargo_target_dir'
 #export CARGO_PROFILE_DEV_CODEGEN_BACKEND="cranelift"
-export RUSTFLAGS="-C target-cpu=native"
+# RUSTFLAGS is set per-target in ~/.cargo/config.toml instead of globally,
+# so cross-compilation to Android targets doesn't inherit -C target-cpu=native.
+set -e RUSTFLAGS
 export EDITOR="nvim"
+set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.socket"
 export VISUAL="nvim"
 export FLYCTL_INSTALL="/home/mucinoab/.fly"
 
@@ -166,3 +172,11 @@ fish_vi_cursor
 
 # Created by `pipx` on 2026-01-01 06:46:33
 set PATH $PATH /home/bmucino/.local/bin
+
+# Android stuff
+set -x ANDROID_HOME $HOME/Android/Sdk
+set -x ANDROID_SDK_ROOT $HOME/Android/Sdk
+fish_add_path $ANDROID_HOME/cmdline-tools/latest/bin
+fish_add_path $ANDROID_HOME/platform-tools
+# Use Java 21 for Android/Gradle builds (system default is Java 26 which breaks Kotlin 1.9)
+set -x JAVA_HOME /usr/lib/jvm/java-21-openjdk

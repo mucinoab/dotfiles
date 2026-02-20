@@ -62,6 +62,14 @@ return {
 
       -- vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]] -- No auto fromat on save
 
+      -- vim.api.nvim_create_autocmd("BufWrite", {
+      --   pattern = "*.beancount",
+      --   callback = function()
+      --     vim.fn.system("rledger format -i " .. vim.fn.expand("%"))
+      --     vim.cmd("edit!")
+      --   end,
+      -- })
+
       -- Configure LSP servers
       vim.lsp.config('ts_ls', {
         cmd = { 'typescript-language-server', '--stdio' },
@@ -145,8 +153,16 @@ return {
 
       end
 
+      vim.lsp.config('rledger', {
+        cmd = { 'rledger-lsp' },
+        filetypes = { 'beancount' },
+        root_markers = { '.git'},
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
       -- Enable all configured LSP servers
-      vim.lsp.enable({ 'ts_ls', 'clangd', 'html', 'ty', 'cssls', 'gopls' })
+      vim.lsp.enable({ 'ts_ls', 'clangd', 'html', 'ty', 'cssls', 'gopls', 'rledger' })
 
       if vim.bo.filetype == "rust" then
         vim.lsp.enable('rust_analyzer')

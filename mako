@@ -9,6 +9,7 @@ width=300
 height=120
 margin=5
 padding=0,5,10
+font=FiraCode Nerd Font 12
 border-size=2
 border-color=#88c0d099
 border-radius=8
