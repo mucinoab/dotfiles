@@ -198,7 +198,10 @@ return {
   },
   {
     "dmtrKovalenko/fff.nvim",
-    build = "cargo build --release",
+    build = function()
+      -- downloads a prebuilt binary or falls back to cargo build
+      require("fff.download").download_or_build_binary()
+    end,
     opts = {
       prompt = '> ',
       max_results = 32,

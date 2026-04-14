@@ -24,6 +24,9 @@ pager = "delta"
 [git]
 write-change-id-header = true
 
+[remotes.origin]
+auto-track-bookmarks = "*"
+
 [aliases]
 s = ["status"]
 e = ["edit"]
