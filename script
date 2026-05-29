@@ -68,3 +68,7 @@ ln -sf ~/Dotfiles/zellij-default.kdl ~/.config/zellij/layouts/default.kdl
 # Claude Code activity hooks that feed zjstatus (zjstatus::pipe::pipe_status)
 claude plugin marketplace add https://github.com/thoo/claude-code-zellij-status.git || true
 claude plugin install cc-zjstatus || true
+
+# Order the Claude status by live Zellij tab order (patched hook, re-applied each run)
+find ~/.claude/plugins -name claude-activity-hook.sh \
+  -exec cp ~/Dotfiles/claude-activity-hook.sh {} \;
