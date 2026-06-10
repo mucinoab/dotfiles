@@ -129,8 +129,8 @@ return {
       vim.opt.conceallevel = 2
     end,
     event = {
-      "BufReadPre /home/mucinoab/Documents/second-brain/*.md",
-      "BufNewFile /home/mucinoab/Documents/second-braint/*.md",
+      "BufReadPre /home/bmucino/Documents/second-brain/*.md",
+      "BufNewFile /home/bmucino/Documents/second-braint/*.md",
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
