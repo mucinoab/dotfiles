@@ -17,14 +17,10 @@
   diffFilter = delta --color-only
 [delta]
     line-numbers = true
-    dark = false
-    light = true
 [merge]
   conflictstyle = diff3
 [diff]
     colorMoved = default
-[interactive]
-  diffFilter = delta --color-only
 [push]
   default = current
 [credential]
