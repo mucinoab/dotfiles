@@ -46,12 +46,11 @@ return {
         client.server_capabilities.semanticTokensProvider = nil
       end
       -- Enable diagnostics
-      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-          virtual_text = true,
-          signs = false,
-          update_in_insert = false,
-        })
+      vim.diagnostic.config({
+        virtual_text = true,
+        signs = false,
+        update_in_insert = false,
+      })
 
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
