@@ -7,7 +7,14 @@ tool = "delta"
 
 [ui]
 default-command = ["log", "--limit",  "5"]
-diff-formatter = ":git" # required by `delta`
+# Git-format diff (what `delta` expects), routed through a wrapper so that
+# ~/.config/jj/attributes applies: `*.pdf -diff` keeps PDFs from being diffed
+# as text in show / diff / log -p. jj has no native equivalent yet --
+# https://github.com/jj-vcs/jj/issues/53 (.gitattributes),
+# https://github.com/jj-vcs/jj/issues/2915 and
+# https://github.com/jj-vcs/jj/issues/4548 (hide a file's diff).
+# Escape hatch: `jj diff --git` uses the builtin formatter and shows the raw diff.
+diff-formatter = ["/home/bmucino/.config/jj/diff-formatter.sh", "$left", "$right"]
 pager=["delta", "--pager", "less -FRX"] # Keeps output from the terminal after closing the pager
 merge-editor = "meld"
 

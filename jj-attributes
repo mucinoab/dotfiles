@@ -1,0 +1,9 @@
+# gitattributes-style rules for jj, applied by jj-diff-formatter.sh.
+#
+# jj ignores .gitattributes (https://github.com/jj-vcs/jj/issues/53) and has no
+# way to hide a file's diff (https://github.com/jj-vcs/jj/issues/2915,
+# https://github.com/jj-vcs/jj/issues/4548), so this file is handed to
+# `git diff` as core.attributesfile instead. `-diff` means "treat as binary":
+# jj show / diff / log -p print "Binary files ... differ" for these.
+
+*.pdf -diff
