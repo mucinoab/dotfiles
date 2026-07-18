@@ -2,3 +2,4 @@
 
 theme = light:Alabaster,dark:GitHub Dark Default
 font-family = "FiraCode Nerd Font Mono"
+font-size = 11

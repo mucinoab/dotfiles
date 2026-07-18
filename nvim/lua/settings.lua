@@ -79,7 +79,7 @@ vim.api.nvim_create_autocmd("BufRead", { pattern = "*.typ", command = "set filet
 -- Settings for plain text editing (not code)
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.txt,*.tex,*.latex,*.md,*.typ",
-  command = "set wrap linebreak tw=79 wrapmargin=0 lbr fo=tro nonumber nornu"
+  command = "set wrap linebreak tw=79 wrapmargin=0 lbr fo=tro"
 })
 
 
