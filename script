@@ -57,20 +57,17 @@ ln -sf ~/Dotfiles/glide.ts ~/.config/glide/glide.ts
 mkdir ~/.config/ghostty/
 ln -sf ~/Dotfiles/ghostty ~/.config/ghostty/config
 
-# --- Zellij: zjstatus statusbar + Claude Code activity status ---
+# --- Zellij: zellaude status bar (Claude Code activity) ---
 mkdir -p ~/.config/zellij/plugins ~/.config/zellij/layouts
 
-# zjstatus wasm (manual install — avoids the multi-tab download-corruption bug)
-curl -fsSL -o ~/.config/zellij/plugins/zjstatus.wasm \
-  https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm
+# zellaude wasm: a Claude-aware tab bar (activity symbols, elapsed time,
+# permission flash, click-to-focus). Manual install, like zjstatus was.
+curl -fsSL -o ~/.config/zellij/plugins/zellaude.wasm \
+  https://github.com/ishefi/zellaude/releases/latest/download/zellaude.wasm
 
-# Layout that loads zjstatus + the Claude activity pipe (symlinked like the rest)
+# Layout that loads zellaude as the tab bar (symlinked like the rest)
 ln -sf ~/Dotfiles/zellij-default.kdl ~/.config/zellij/layouts/default.kdl
 
-# Claude Code activity hooks that feed zjstatus (zjstatus::pipe::pipe_status)
-claude plugin marketplace add https://github.com/thoo/claude-code-zellij-status.git || true
-claude plugin install cc-zjstatus || true
-
-# Order the Claude status by live Zellij tab order (patched hook, re-applied each run)
-find ~/.claude/plugins -name claude-activity-hook.sh \
-  -exec cp ~/Dotfiles/claude-activity-hook.sh {} \;
+# Nothing else to do here: on its first load the plugin writes its own hook
+# bridge to ~/.config/zellij/plugins/zellaude-hook.sh and registers it in
+# ~/.claude/settings.json. Zellij will ask to grant it permissions once.

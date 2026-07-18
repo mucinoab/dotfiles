@@ -5,7 +5,7 @@
 #
 # Timings live here rather than in the sending app: ignore-timeout=1 makes mako
 # the single source of truth, so nothing can pin a popup on screen but the rules
-# below. Only Claude's "needs an answer" categories get an infinite duration.
+# below.
 #
 # Reload after editing:  makoctl reload
 
@@ -52,44 +52,9 @@ border-color=#0074d9
 border-color=#ff4136
 default-timeout=20000
 
-# --- Claude Code ------------------------------------------------------------
-# Colours mirror claude-activity-hook.sh, so a red border here means the same
-# thing as a red glyph in the zjstatus bar. Each session rewrites its own card
-# (x-canonical-private-synchronous), and the cards of different sessions group
-# by state.
-
-[app-name=claude]
-group-by=app-name,category
-border-size=2
-icons=0
-
-# Waiting on a permission decision or an MCP dialog.
-[app-name=claude category=x-claude.input]
-border-color=#ff4136
-background-color=#241a1aff
-default-timeout=0
-
-# Idle -- Claude is waiting on a prompt.
-[app-name=claude category=x-claude.idle]
-border-color=#ffdc00
-background-color=#241f16ff
-default-timeout=0
-
-# A subagent needs an answer.
-[app-name=claude category=x-claude.agent]
-border-color=#b10dc9
-background-color=#211826ff
-default-timeout=0
-
-# Turn finished. Informational, so it expires.
-[app-name=claude category=x-claude.done]
-border-color=#2ecc40
-background-color=#17231aff
-default-timeout=8000
-
 # --- Grouping ---------------------------------------------------------------
 # mako hides every group member but the first by default; show three so a stack
-# of sessions stays readable, with the count on the card at the top.
+# of related cards stays readable, with the count on the card at the top.
 
 [grouped]
 format=<b>%s</b>\n%b

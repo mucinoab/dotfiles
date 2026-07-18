@@ -2,42 +2,7 @@ layout {
     default_tab_template {
         children
         pane size=1 borderless=true {
-            plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
-                format_left   "{mode} {tabs}"
-                format_center ""
-                format_right  "{command_jj} {pipe_status} {notifications} {datetime} #[fg=#89B4FA,bold]{session} "
-                format_space  ""
-
-                border_enabled  "false"
-                border_char     "─"
-                border_format   "#[fg=#6C7086]{char}"
-                border_position "top"
-
-                hide_frame_for_single_pane "false"
-
-                mode_normal  "#[bg=blue] "
-                mode_tmux    "#[bg=#ffc387] "
-
-                tab_normal   "#[fg=#6C7086] {name} "
-                tab_active   "#[fg=#098f3e,bold] {name} "
-
-                command_jj_command     "bash -c \"echo $(jj log -r 'heads(::@ & bookmarks())' --no-graph --ignore-working-copy --color never -T bookmarks 2>/dev/null) $(jj log -r @ --no-graph --ignore-working-copy --color never -T 'change_id.shortest(6)' 2>/dev/null)\""
-                command_jj_format      "#[fg=blue] {stdout} "
-                command_jj_interval    "10"
-                command_jj_rendermode  "static"
-
-                datetime        "#[fg=#6C7086,bold] {format} "
-                datetime_format "%H:%M"
-                datetime_timezone "America/Mexico_City"
-
-                notifications_format_unread "#[fg=#89B4FA,bg=#181825] {message} "
-                notifications_format_no_notifications ""
-                notifications_show_interval "10"
-
-                // Claude activity + context status (driven by cc-zjstatus hook)
-                pipe_status_format "#[fg=#6C7086]│ {output}"
-                pipe_status_rendermode "dynamic"
-            }
+            plugin location="file:~/.config/zellij/plugins/zellaude.wasm"
         }
     }
 }
