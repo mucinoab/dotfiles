@@ -29,6 +29,25 @@ abbr tiempo 'curl http://wttr.in/ -s | head -n-2'
 abbr sss 'grim -g "$(slurp)" ~/screenshoots/$(date +%Y-%m-%d_%H-%m-%s).png'
 abbr ssc 'grim -g "$(slurp)" - | wl-copy --type image/png'
 
+# ssv: toggle screen recording of a slurp-selected region (wf-recorder), like sss/ssc but video
+function ssv
+    set -l state ~/.cache/ssv-recording
+
+    if pgrep -x wf-recorder >/dev/null
+        pkill -INT -x wf-recorder
+        if test -f $state
+            notify-send "Recording saved" (cat $state)
+            rm -f $state
+        end
+    else
+        set -l out ~/screenshoots/(date +%Y-%m-%d_%H-%M-%S).mp4
+        echo $out >$state
+        wf-recorder -g "$(slurp)" -f $out >/dev/null 2>&1 &
+        disown
+        notify-send "Recording started" $out
+    end
+end
+
 abbr sf 'rg --files | sk --preview "bat {} --color always"'
 abbr sk 'sk --color=light'
 
