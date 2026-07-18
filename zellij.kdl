@@ -123,6 +123,13 @@ keybinds clear-defaults=true {
             }
             SwitchToMode "normal"
         }
+        bind "s" {
+            LaunchOrFocusPlugin "zellij:share" {
+                floating true
+                move_to_focused_tab true
+            }
+            SwitchToMode "normal"
+        }
         bind "w" {
             LaunchOrFocusPlugin "session-manager" {
                 floating true
@@ -582,3 +589,25 @@ show_startup_tips false
 // Whether to enable mouse hover effects and pane grouping functionality
 // default is true
 // advanced_mouse_actions false
+
+// Start the web server on Zellij startup
+// Default: false
+web_server true
+
+// Whether new sessions are shared through the local web server.
+// "on" = every new session is reachable in the browser while the server is up,
+// "off" = sessions must opt in via the share plugin (Ctrl o + s),
+// "disabled" = cannot opt in at all.
+// Default: "off"
+web_sharing "on"
+
+// IP the web server listens on. Kept on loopback: remote access goes through
+// `tailscale serve`, which terminates TLS and proxies to 127.0.0.1:8082.
+// Binding to any non-loopback IP (including the tailnet IP) makes Zellij
+// demand web_server_cert/web_server_key, which Tailscale handles for us.
+// Default: "127.0.0.1"
+web_server_ip "127.0.0.1"
+
+// Port the web server listens on
+// Default: 8082
+// web_server_port 8082
