@@ -48,7 +48,7 @@ exec sleep 15 && wl-paste --type text --watch cliphist store
 exec sleep 15 && wl-paste --type image --watch cliphist store
 #exec sleep 35 && rm /home/mucinoab/Documents/second-brain/.ethersync/socket & /home/mucinoab/.cargo/bin/ethersync join --directory "/home/mucinoab/Documents/second-brain/" > /tmp/ethersync.log
 
-exec mako --default-timeout 15000
+exec mako
 exec swaybg --color "#000000"
 
 exec sleep 40 && /home/bmucino/Dotfiles/battery-monitor.sh
