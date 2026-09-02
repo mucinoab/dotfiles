@@ -141,30 +141,27 @@ return {
         on_attach = on_attach,
       })
 
-      if vim.bo.filetype == "rust" then
-        vim.lsp.config('rust_analyzer', {
-          cmd = { 'rust-analyzer' },
-          filetypes = { 'rust' },
-          root_markers = { 'Cargo.toml', 'rust-project.json', '.git' },
-          settings = {
-            ["rust-analyzer"] = {
-              -- checkOnSave = {
-              --   extraArgs = { "--target-dir", "/tmp/rust-analyzer-check" }
-              -- },
-              cargo = { loadOutDirsFromCheck = true, allFeatures = true },
-              procMacro = { enable = true },
-              diagnostics = {
-                enable = true,
-                disabled = { "unresolved-proc-macro" },
-                enableExperimental = true,
-              },
-            }
-          },
-          capabilities = capabilities,
-          on_attach = on_attach,
-        })
-
-      end
+      vim.lsp.config('rust_analyzer', {
+        cmd = { 'rust-analyzer' },
+        filetypes = { 'rust' },
+        root_markers = { 'Cargo.toml', 'rust-project.json', '.git' },
+        settings = {
+          ["rust-analyzer"] = {
+            -- checkOnSave = {
+            --   extraArgs = { "--target-dir", "/tmp/rust-analyzer-check" }
+            -- },
+            cargo = { loadOutDirsFromCheck = true, allFeatures = true },
+            procMacro = { enable = true },
+            diagnostics = {
+              enable = true,
+              disabled = { "unresolved-proc-macro" },
+              enableExperimental = true,
+            },
+          }
+        },
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
 
       vim.lsp.config('rledger', {
         cmd = { 'rledger-lsp' },
@@ -175,12 +172,14 @@ return {
       })
 
       -- Enable all configured LSP servers
-      vim.lsp.enable({ 'ts_ls', 'clangd', 'html', 'ty', 'cssls', 'gopls', 'rledger' })
+      vim.lsp.enable({ 'ts_ls', 'clangd', 'html', 'ty', 'cssls', 'gopls', 'rledger', 'rust_analyzer' })
 
-      if vim.bo.filetype == "rust" then
-        vim.lsp.enable('rust_analyzer')
-        vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]] -- No auto fromat on save
-      end
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "*.rs",
+        callback = function()
+          vim.lsp.buf.format()
+        end,
+      })
     end
   },
 }
