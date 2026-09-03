@@ -187,6 +187,33 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
+# Create a random readable dir in /tmp and open opencode there
+# Usage: optmp [name] — with no args, generates e.g. /tmp/brave-fox-42
+function optmp --description 'Create random readable dir in /tmp and open opencode there'
+    set -l dir
+    if test (count $argv) -gt 0
+        set dir "/tmp/$argv[1]"
+    else
+        set -l adjectives brave calm clever cozy eager funky gentle happy jolly kind lively lucky mellow nimble playful quick quiet silly swift tidy witty zany bold bright chilly dusty frosty golden misty rusty sunny crisp
+        set -l nouns fox panda otter badger heron wren moose lynx quokka koala finch gecko raven trout bison falcon newt crab mole shrew dingo egret kite orca puma tapir vole wombat yak zebra
+        # Retry until we get a non-existent path (handles collisions)
+        while true
+            set -l adj (random choice $adjectives)
+            set -l noun (random choice $nouns)
+            set -l num (random 10 99)
+            set dir "/tmp/$adj-$noun-$num"
+            if not test -e $dir
+                break
+            end
+        end
+    end
+
+    mkdir -p $dir; or return 1
+    builtin cd $dir; or return 1
+    echo $dir
+    opencode .
+end
+
 # Set initial cursor shape
 fish_vi_cursor
 
