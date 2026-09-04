@@ -115,7 +115,23 @@ return {
   {
     "mvllow/modes.nvim",
     opts = {
-      line_opacity = 0.1,
+      -- While in visual mode modes.nvim remaps Visual -> ModesVisualVisual via
+      -- winhighlight, so THIS is what a selection renders as, not the
+      -- colorscheme's Visual. Its default is #9745be blended at line_opacity
+      -- against the bg, which at 0.1 came out a near-invisible dark purple.
+      colors = { visual = '#3d76b8' },
+      line_opacity = {
+        copy = 0.1,
+        delete = 0.1,
+        change = 0.1,
+        format = 0.1,
+        insert = 0.1,
+        replace = 0.1,
+        -- For visual/select the cursorline tint is hardcoded to 'none', so this
+        -- opacity only affects the selection: 1 = use the color as-is.
+        select = 1,
+        visual = 1,
+      },
       set_cursor = true,
       focus_only = false
     },
