@@ -46,7 +46,6 @@ exec sleep 5 && /usr/lib/xdg-desktop-portal -r
 
 exec sleep 15 && wl-paste --type text --watch cliphist store
 exec sleep 15 && wl-paste --type image --watch cliphist store
-#exec sleep 35 && rm /home/mucinoab/Documents/second-brain/.ethersync/socket & /home/mucinoab/.cargo/bin/ethersync join --directory "/home/mucinoab/Documents/second-brain/" > /tmp/ethersync.log
 
 exec mako
 exec swaybg --color "#000000"
@@ -299,14 +298,14 @@ for_window [app_id="glide" title="Picture-in-Picture"] floating enable, sticky e
 for_window [class="^.*"] inhibit_idle fullscreen
 for_window [app_id="^.*"] inhibit_idle fullscreen
 
-for_window [app_id="second-brain-42"] floating enable, resize set width 30 ppt height 40 ppt, sticky enable, move position center, move scratchpad
+# for_window [app_id="second-brain-42"] floating enable, resize set width 30 ppt height 40 ppt, sticky enable, move position center, move scratchpad
 
 # start major apps
 workspace number 2
 exec ghostty -e /home/bmucino/.cargo/bin/zellij
 
 workspace number 1
-exec kitty --directory ~/Documents/second-brain --class "second-brain-42"
+# exec kitty --directory ~/Documents/second-brain --class "second-brain-42"
 exec glide-bin
 exec sleep 3 && /home/bmucino/.cargo/bin/shikane --config /home/bmucino/Dotfiles/shikane.toml
 
