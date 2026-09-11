@@ -70,4 +70,4 @@ ln -sf ~/Dotfiles/zellij-default.kdl ~/.config/zellij/layouts/default.kdl
 # in ~/.config/zellij/plugins, the hook bridge in ~/.config/zj-agent-mob, and
 # merges its hooks into ~/.claude/settings.json and ~/.codex/hooks.json.
 # Open it with Ctrl+s then m (see the scroll keybinds in zellij.kdl).
-curl -fsSL https://github.com/mohseenrm/zj-agent-mob/releases/download/v0.10.1/init.sh | sh
+curl -fsSL https://github.com/mohseenrm/zj-agent-mob/releases/download/v0.12.0/init.sh | sh
