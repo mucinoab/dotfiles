@@ -63,9 +63,9 @@ abbr gf 'git fetch'
 abbr gp 'git push'
 abbr jra "jj rebase -b 'all:bookmarks()' -d master"
 abbr jram 'jj rebase -A main -r @'
-abbr jfn 'jj git fetch && jj new main'
+abbr jfn 'jj new main && jj git fetch && jj new main'
+abbr jpp 'jj git fetch && jj b s prod -r "main" -B && jj git push -b prod'
 
-abbr rclone-copy 'rclone copy --progress --transfers=32 --checkers=32 --checksum --partial-suffix=.part'
 abbr cli 'claude --allow-dangerously-skip-permissions'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
