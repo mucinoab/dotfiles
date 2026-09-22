@@ -1,0 +1,29 @@
+# ~/Dotfiles/herdr.toml -> ~/.config/herdr/config.toml (only non-default values)
+onboarding = false
+
+[theme]
+auto_switch = true
+light_name = "catppuccin-latte"
+dark_name = "catppuccin"
+
+[terminal]
+default_shell = "/usr/bin/fish"
+
+[keys]
+prefix = "ctrl+a"
+rename_tab = ["prefix+shift+t", "prefix+comma"]
+# previous_workspace = ["alt+{", "ctrl+p"]
+next_workspace = ["ctrl+n"]
+# zellij: r splits right, d splits down
+split_vertical = ["prefix+v", "prefix+|", "prefix+r"]
+split_horizontal = ["prefix+minus", "prefix+d"]
+# unbound: prefix+r splits now; resize by dragging borders
+resize_mode = ""
+
+[ui]
+pane_borders = "always"
+prompt_new_tab_name = false
+
+[advanced]
+# ~100k lines
+scrollback_limit_bytes = 20000000

@@ -45,6 +45,9 @@ ln -sf ~/Dotfiles/kanshi ~/.config/kanshi/config
 
 ln -sf ~/Dotfiles/zellij.kdl ~/.config/zellij/config.kdl
 
+mkdir -p ~/.config/herdr
+ln -sf ~/Dotfiles/herdr.toml ~/.config/herdr/config.toml
+
 ln -sf ~/Dotfiles/jj.toml ~/.config/jj/config.toml
 ln -sf ~/Dotfiles/jj-attributes ~/.config/jj/attributes
 ln -sf ~/Dotfiles/jj-diff-formatter.sh ~/.config/jj/diff-formatter.sh
