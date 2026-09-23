@@ -42,3 +42,6 @@ gf = ["git", "fetch"]
 gp = ["git", "push"]
 n = ["new"]
 w = ["workspace"]
+
+[revsets]
+bookmark-advance-to = "heads(::@ ~ empty())"
