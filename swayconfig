@@ -40,6 +40,7 @@ output eDP-1 scale 1
 #---- Startup Programs ----
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec "systemctl --user import-environment"
+exec dbus-update-activation-environment --all
 
 exec sleep 5 && /usr/lib/xdg-desktop-portal-wlr
 exec sleep 5 && /usr/lib/xdg-desktop-portal -r
