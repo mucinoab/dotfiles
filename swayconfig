@@ -281,6 +281,7 @@ assign [app_id="com/.https://ultimaker.UltiMaker-Cura"] $ws3
 for_window [app_id="blueman-manager"] floating enable, resize set width 550 height 400
 for_window [class="App"] floating enable, resize set width 550 height 300
 for_window [app_id="wdisplays"] floating enable, resize set width 55 ppt
+for_window [app_id="signal"] floating enable, resize set width 575 height 566, move position center, move scratchpad
 
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
@@ -308,7 +309,8 @@ exec ~/Dotfiles/herdr-start.fish
 workspace number 1
 # exec kitty --directory ~/Documents/second-brain --class "second-brain-42"
 exec glide-bin
-exec sleep 3 && /home/bmucino/.cargo/bin/shikane --config /home/bmucino/Dotfiles/shikane.toml
+exec sleep 30 && /usr/bin/signal-desktop
+exec sleep 1 && /home/bmucino/.cargo/bin/shikane --config /home/bmucino/Dotfiles/shikane.toml
 
 #---- Status Bar ----
 bar {
