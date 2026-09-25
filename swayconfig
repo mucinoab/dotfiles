@@ -53,6 +53,7 @@ exec swaybg --color "#000000"
 
 exec sleep 40 && /home/bmucino/Dotfiles/battery-monitor.sh
 exec /home/bmucino/Dotfiles/bluetooth-idle.sh
+exec /home/bmucino/Dotfiles/refresh-rate.sh
 
 exec swayidle -w before-sleep '$lock'
 

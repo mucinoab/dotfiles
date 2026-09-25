@@ -15,14 +15,15 @@ rename_tab = ["prefix+shift+t", "prefix+comma"]
 # previous_workspace = ["alt+{", "ctrl+p"]
 next_workspace = ["ctrl+n"]
 # zellij: r splits right, d splits down
-split_vertical = ["prefix+v", "prefix+|", "prefix+r"]
-split_horizontal = ["prefix+minus", "prefix+d"]
+# split_vertical = ["prefix+v", "prefix+|", "prefix+r"]
+# split_horizontal = ["prefix+minus", "prefix+d"]
 # unbound: prefix+r splits now; resize by dragging borders
 resize_mode = ""
 
 [ui]
 pane_borders = "always"
 prompt_new_tab_name = false
+sidebar_max_width = 20
 
 [advanced]
 # ~100k lines

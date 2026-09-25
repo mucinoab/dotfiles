@@ -403,3 +403,5 @@ function write_focused_text(text: string): void {
     }
   }
 }
+
+glide.prefs.set("browser.sessionstore.interval", 60000);
