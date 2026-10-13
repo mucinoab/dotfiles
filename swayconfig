@@ -305,7 +305,7 @@ for_window [app_id="^.*"] inhibit_idle fullscreen
 
 # start major apps
 workspace number 2
-exec ~/Dotfiles/herdr-start.fish
+exec /usr/bin/ghostty -e /home/bmucino/.local/bin/herdr
 
 workspace number 1
 # exec kitty --directory ~/Documents/second-brain --class "second-brain-42"
