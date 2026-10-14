@@ -208,92 +208,27 @@ glide.autocmds.create("WindowLoaded", () => {
 
 // =============== Tab Jump ===============
 
-class TabJump {
-  private readonly STYLE_ID = "tab-jump-styles";
-  private readonly LABEL_CLASS = "tab-jump-label";
-  private readonly KEYS = "asdfghjklqwertyuiopzxcvbnm";
+const TAB_KEYS = "asdfghjklqwertyuiopzxcvbnm";
 
-  async show(): Promise<void> {
-    const tabs = await browser.tabs.query({ currentWindow: true });
-    if (tabs.length === 0) return;
-
-    this.injectStyles();
-    this.addLabels(tabs);
-
-    try {
-      const key = await glide.keys.next_str();
-      const keyIndex = this.KEYS.indexOf(key.toLowerCase());
-      const tabIndex = tabs.length - 1 - keyIndex;
-
-      if (keyIndex >= 0 && tabIndex >= 0 && tabIndex < tabs.length) {
-        const tab = tabs[tabIndex];
-        if (tab.id) {
-          await browser.tabs.update(tab.id, { active: true });
-        }
-      }
-    } finally {
-      this.hide();
+// Hint the real tab strip (the config's `document` is a best-effort mirror whose
+// tab order can drift after pinning/grouping) and resolve the picked element to
+// its tab by its position among all tabs, which is the WebExtension `tab.index`.
+glide.keymaps.set("normal", "gt", () => glide.hints.show({
+  location: "browser-ui",
+  selector: "tab.tabbrowser-tab:not([hidden])",
+  // Last visible tab gets 'a', second-to-last gets 's', etc.
+  label_generator: (ctx) => ctx.hints.length <= TAB_KEYS.length
+    ? ctx.hints.map((_, i) => TAB_KEYS[ctx.hints.length - 1 - i])
+    : glide.hints.label_generators.prefix_free(ctx),
+  action: async ({ content }) => {
+    const index = await content.execute((el) =>
+      [...el.ownerDocument.querySelectorAll("tab.tabbrowser-tab")].indexOf(el));
+    const tab = await glide.tabs.get_first({ currentWindow: true, index });
+    if (tab?.id) {
+      await browser.tabs.update(tab.id, { active: true });
     }
-  }
-
-  private injectStyles(): void {
-    if (document.getElementById(this.STYLE_ID)) {
-      return;
-    }
-
-    const style = document.createElement("style");
-    style.id = this.STYLE_ID;
-    style.textContent = `
-      .${this.LABEL_CLASS} {
-        position: absolute;
-        bottom: 2px;
-        left: 2px;
-        background: #fffacd;
-        color: #000;
-        font-size: 15px !important;
-        font-weight: bold;
-        padding: 1px 3px;
-        border-radius: 2px;
-        z-index: 1000;
-        pointer-events: none;
-      }
-    `;
-
-    const head = document.head;
-    if (head) {
-      head.appendChild(style);
-    } else {
-      document.documentElement?.appendChild(style);
-    }
-  }
-
-  private addLabels(tabs: Browser.Tabs.Tab[]): void {
-    const tabElements = document.querySelectorAll(".tabbrowser-tab");
-    const numTabs = Math.min(tabElements.length, tabs.length, this.KEYS.length);
-
-    tabElements.forEach((tabEl, i) => {
-      if (i >= numTabs) return;
-
-      const label = document.createElement("span");
-      label.className = this.LABEL_CLASS;
-      // Last tab gets 'a', second-to-last gets 's', etc.
-      label.textContent = this.KEYS[numTabs - 1 - i];
-
-      const container = tabEl as HTMLElement;
-      container.style.position = "relative";
-      container.appendChild(label);
-    });
-  }
-
-  private hide(): void {
-    const labels = document.querySelectorAll(`.${this.LABEL_CLASS}`);
-    labels.forEach((label) => label.remove());
-  }
-}
-
-const tabJump = new TabJump();
-
-glide.keymaps.set("normal", "gt", () => tabJump.show(), {
+  },
+}), {
   description: "[g]o to [t]ab by letter",
 });
 
