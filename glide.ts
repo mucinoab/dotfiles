@@ -17,33 +17,27 @@
 // Try typing `glide.` and see what you can do!
 //
 
-// =============== AUTOCMDS ===============
+// =============== MODE COLORS ===============
 
-glide.autocmds.create("ModeChanged", "*", ({ new_mode }) => {
-	let color = null;
+// Glide sets `--glide-current-mode-color` to `--glide-mode-<mode>`. Painting the
+// toolbox with it (what a theme's `frame` color does) keeps the system light/dark
+// theme instead of replacing it with a light custom theme.
+browser.theme.reset();
 
-	switch (new_mode) {
-		case "insert":
-			color = "#d8b9e7";
-			break;
+glide.styles.add(css`
+  :root {
+    --glide-mode-normal: light-dark(#f2f3f4, #2b2a33);
+    --glide-mode-insert: light-dark(#d8b9e7, #4a3a57);
+    --glide-mode-command: light-dark(#b9c8e7, #34405a);
+    --glide-mode-hint: light-dark(#fffacd, #4d4a2e);
+    --glide-mode-visual: var(--glide-mode-normal);
+    --glide-mode-op-pending: var(--glide-mode-normal);
+    --glide-mode-ignore: var(--glide-mode-normal);
 
-		case "normal":
-			color = "#f2f3f4";
-			break;
-
-		case "command":
-			color = "#b9c8e7";
-			break;
-
-		case "hint":
-			color = "#fffacd";
-			break;
-	}
-
-	if (color) {
-		browser.theme.update({ colors: { frame: color } });
-	}
-});
+    --toolbox-background-color: var(--glide-current-mode-color) !important;
+    --toolbox-background-color-inactive: var(--glide-current-mode-color) !important;
+  }
+`, { id: "mode-colors", overwrite: true });
 
 // Firefox reports the previously active tab, or undefined if it was closed.
 let previousTabId: number | undefined;
