@@ -45,40 +45,12 @@ glide.autocmds.create("ModeChanged", "*", ({ new_mode }) => {
 	}
 });
 
-interface TabInfo {
-	tabId: number;
-	url: string;
-}
+// Firefox reports the previously active tab, or undefined if it was closed.
+let previousTabId: number | undefined;
 
-class TabTracker {
-	private currentTab: TabInfo | null = null;
-	private latestTab: TabInfo | null = null;
-
-	constructor() {
-		glide.autocmds.create("UrlEnter", /.+/, (event) => {
-			this.update(event.tab_id, event.url);
-		});
-	}
-
-	public update(tabId: number, url: string): void {
-		if (this.currentTab && this.currentTab.tabId === tabId) {
-			this.currentTab.url = url;
-			return;
-		}
-
-		if (this.currentTab) {
-			this.latestTab = this.currentTab;
-		}
-
-		this.currentTab = { tabId, url };
-	}
-
-	public getLatest(): TabInfo | null {
-		return this.latestTab;
-	}
-}
-
-const tabTracker = new TabTracker();
+browser.tabs.onActivated.addListener((info) => {
+	previousTabId = info.previousTabId;
+});
 
 // =============== KEYMAPS ===============
 
@@ -115,10 +87,9 @@ glide.keymaps.set(
 	"normal",
 	"<Space><Space>",
 	async () => {
-		const tab = tabTracker.getLatest();
-
-		if (tab) {
-			await browser.tabs.update(tab.tabId, { active: true });
+		if (previousTabId !== undefined) {
+			// The tab may have been closed since it was last active.
+			await browser.tabs.update(previousTabId, { active: true }).catch(() => {});
 		}
 	},
 	{
@@ -139,7 +110,7 @@ glide.keymaps.set("normal","me",
 // =============== Sites ===============
 
 glide.autocmds.create("UrlEnter", {
-  hostname: "youtube.com",
+  hostname: "www.youtube.com",
 }, async () => {
   glide.buf.keymaps.del("normal", "<Space>");
   glide.buf.keymaps.del("normal", "j");
